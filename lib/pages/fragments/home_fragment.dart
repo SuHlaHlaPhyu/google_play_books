@@ -2,9 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 import 'package:google_play_books/pages/view_all_ebooks_page.dart';
+import 'package:google_play_books/pages/viewitems/icon_view.dart';
 
 import '../../dummy/dummy_data.dart';
 import '../viewitems/ebook_view.dart';
+import '../viewitems/horizontal_ebooks_listview.dart';
+import '../viewitems/tabbar_section_view.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({Key? key}) : super(key: key);
@@ -33,7 +36,7 @@ class _HomeFragmentState extends State<HomeFragment>
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: MediaQuery.of(context).size.height,
+        height: 1000,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -51,6 +54,8 @@ class _HomeFragmentState extends State<HomeFragment>
             ),
             TabBarSectionView(
               tabController: _tabController,
+              tabBarOneName: "Ebooks",
+              tabBarTwoName: "Audio Books",
             ),
             Expanded(
               child: TabBarView(
@@ -69,7 +74,7 @@ class _HomeFragmentState extends State<HomeFragment>
                       ),
                       EbooksListSectionView(
                         "Best Sellers",
-                        ebookList: ebookList,
+                        ebookList: ebookList.reversed.toList(),
                         onTapEbook: () {},
                       ),
                     ],
@@ -150,85 +155,6 @@ class EbooksListSectionView extends StatelessWidget {
           onTapEbook: (movieId) => onTapEbook(movieId),
         ),
       ],
-    );
-  }
-}
-
-class HorizontalEbookListView extends StatelessWidget {
-  final List<Ebooks>? ebooksList;
-  final Function(int?) onTapEbook;
-  HorizontalEbookListView({
-    required this.ebooksList,
-    required this.onTapEbook,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      height: 280,
-      child: ListView.builder(
-        padding: const EdgeInsets.only(
-          left: 8,
-        ),
-        scrollDirection: Axis.horizontal,
-        itemCount: ebooksList?.length,
-        itemBuilder: (context, index) {
-          return EbookView(
-            ebook: ebooksList?[index],
-            onTapEbook: () {
-              onTapEbook(1);
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-
-class TabBarSectionView extends StatelessWidget {
-  const TabBarSectionView({
-    Key? key,
-    required TabController? tabController,
-  })  : _tabController = tabController,
-        super(key: key);
-
-  final TabController? _tabController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50.0,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
-      child: TabBar(
-        indicatorSize: TabBarIndicatorSize.label,
-        indicatorColor: Colors.blue,
-        controller: _tabController,
-        labelColor: Colors.blue,
-        labelStyle: const TextStyle(
-          color: Colors.blue,
-        ),
-        unselectedLabelColor: Colors.black,
-        tabs: const [
-          Tab(
-            child: Text(
-              "Ebooks",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Tab(
-            child: Text(
-              "Audio Books",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -321,30 +247,7 @@ class CarouselSectionView extends StatelessWidget {
   }
 }
 
-class IconView extends StatelessWidget {
-  IconData iconData;
-  Function onTap;
-  IconView({required this.iconData, required this.onTap});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(2.5),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(
-          3.0,
-        ),
-        shape: BoxShape.rectangle,
-      ),
-      child: Icon(
-        iconData,
-        color: Colors.white,
-        size: 18.0,
-      ),
-    );
-  }
-}
 
 /// fvm flutter build appbundle --release
 /// play console ==> open testing
