@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
+import 'package:google_play_books/pages/view_all_ebooks_page.dart';
 
 import '../../dummy/dummy_data.dart';
+import '../viewitems/ebook_view.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({Key? key}) : super(key: key);
@@ -29,50 +31,60 @@ class _HomeFragmentState extends State<HomeFragment>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(
-          height: 20.0,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 50.0,
-          ),
-          child: CarouselSilderListSectionView(),
-        ),
-        const SizedBox(
-          height: 20.0,
-        ),
-        TabBarSectionView(
-          tabController: _tabController,
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 50.0,
+              ),
+              child: CarouselSilderListSectionView(),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TabBarSectionView(
+              tabController: _tabController,
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
                 children: [
-                  const SizedBox(
-                    height: 20.0,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      EbooksListSectionView(
+                        "Recent price drops",
+                        ebookList: ebookList,
+                        onTapEbook: () {},
+                      ),
+                      EbooksListSectionView(
+                        "Best Sellers",
+                        ebookList: ebookList,
+                        onTapEbook: () {},
+                      ),
+                    ],
                   ),
-                  EbooksListSectionView(
-                    "Recent price drops",
-                    ebookList: ebookList,
-                    onTapEbook: () {},
+                  const Center(
+                    child: Text(
+                      "Audiobooks",
+                    ),
                   ),
                 ],
               ),
-              const Center(
-                child: Text(
-                  "Audiobooks",
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -106,12 +118,26 @@ class EbooksListSectionView extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Icons.arrow_forward_ios_sharp,
-                size: 18.0,
-                color: Colors.blue,
+            GestureDetector(
+              onTap: () {
+                ///
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewAllEbooksPage(
+                      ebooksList: ebookList,
+                      title: title,
+                    ),
+                  ),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.arrow_forward_ios_sharp,
+                  size: 18.0,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ],
@@ -155,81 +181,6 @@ class HorizontalEbookListView extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class EbookView extends StatelessWidget {
-  final Ebooks? ebook;
-  final Function onTapEbook;
-  EbookView({
-    required this.ebook,
-    required this.onTapEbook,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () => onTapEbook(),
-          child: Container(
-            margin: const EdgeInsets.only(
-              right: 8,
-            ),
-            height: 220,
-            width: 160,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                8,
-              ),
-              image: DecorationImage(
-                image: NetworkImage(
-                  ebook?.image ?? "",
-                ),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: const Align(
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.more_horiz,
-                color: Colors.white,
-                size: 32,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 8.0,
-        ),
-        SizedBox(
-          width: 160,
-          child: GestureDetector(
-            onTap: () {
-              onTapEbook();
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  ebook?.bookName ?? "",
-                  style: const TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                Text(
-                  ebook?.author ?? "",
-                  style: const TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
@@ -287,9 +238,9 @@ class CarouselSilderListSectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        aspectRatio: 3 / 2,
-        enlargeCenterPage: true,
-      ),
+          // aspectRatio: 3 / 2,
+          // enlargeCenterPage: true,
+          ),
       items: [
         CarouselSectionView(),
       ],
@@ -301,6 +252,8 @@ class CarouselSectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 150,
+      width: 220,
       decoration: BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.circular(
