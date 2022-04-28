@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
-import 'package:google_play_books/pages/viewitems/ebook_view.dart';
+import 'package:google_play_books/viewitems/ebook_view.dart';
 
 class ViewAllEbooksPage extends StatefulWidget {
   final List<Ebooks>? ebooksList;

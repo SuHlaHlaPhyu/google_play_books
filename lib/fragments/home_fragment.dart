@@ -2,12 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 import 'package:google_play_books/pages/view_all_ebooks_page.dart';
-import 'package:google_play_books/pages/viewitems/icon_view.dart';
+import 'package:google_play_books/viewitems/horizontal_ebooks_listview.dart';
+import 'package:google_play_books/viewitems/menu_item_view.dart';
+import 'package:google_play_books/viewitems/tabbar_section_view.dart';
 
 import '../../dummy/dummy_data.dart';
-import '../viewitems/horizontal_ebooks_listview.dart';
-import '../viewitems/menu_item_view.dart';
-import '../viewitems/tabbar_section_view.dart';
+import '../viewitems/icon_view.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({Key? key}) : super(key: key);

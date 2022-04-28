@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/dummy_data.dart';
 import 'package:google_play_books/pages/shelves_page.dart';
-import 'package:google_play_books/pages/viewitems/custom_ebooks_listview.dart';
-import 'package:google_play_books/pages/viewitems/layout_view.dart';
-import 'package:google_play_books/pages/viewitems/sortby_view.dart';
+import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
+import 'package:google_play_books/viewitems/layout_view.dart';
+import 'package:google_play_books/viewitems/sortby_view.dart';
 
 import '../../dummy/ebooks.dart';
 import '../viewitems/shelves_listitem_view.dart';
@@ -100,7 +100,7 @@ class _LibraryFragmentState extends State<LibraryFragment>
                           isGrid: isGridView,
                           ebooksList: ebookList,
                           onTapEbook: (index) {
-                            ///
+                            /// ebook details
                           },
                         ),
                       ],

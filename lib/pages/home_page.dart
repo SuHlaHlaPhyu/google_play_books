@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_play_books/pages/fragments/home_fragment.dart';
-import 'package:google_play_books/pages/fragments/library_fragment.dart';
+import 'package:google_play_books/fragments/home_fragment.dart';
+import 'package:google_play_books/fragments/library_fragment.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
