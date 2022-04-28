@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 import 'package:google_play_books/viewitems/ebook_view.dart';
 
+import 'ebooks_detail_page.dart';
+
 class ViewAllEbooksPage extends StatefulWidget {
   final List<Ebooks>? ebooksList;
   final String title;
@@ -50,9 +52,21 @@ class _ViewAllEbooksPageState extends State<ViewAllEbooksPage> {
             ebook: widget.ebooksList?[index],
             onTapEbook: () {
               // book details
+              _navigateToEbooksDetailpage(context);
             },
           );
         },
+      ),
+    );
+  }
+
+  void _navigateToEbooksDetailpage(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EbooksDetailPage(),
       ),
     );
   }

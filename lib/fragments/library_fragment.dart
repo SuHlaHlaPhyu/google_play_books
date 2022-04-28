@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/dummy_data.dart';
+import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/pages/shelves_page.dart';
 import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/layout_view.dart';
@@ -38,6 +39,17 @@ class _LibraryFragmentState extends State<LibraryFragment>
       context,
       MaterialPageRoute(
         builder: (context) => const ShelvesPage(),
+      ),
+    );
+  }
+
+  void _navigateToEbooksDetailpage(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EbooksDetailPage(),
       ),
     );
   }
@@ -101,6 +113,7 @@ class _LibraryFragmentState extends State<LibraryFragment>
                           ebooksList: ebookList,
                           onTapEbook: (index) {
                             /// ebook details
+                            _navigateToEbooksDetailpage(context);
                           },
                         ),
                       ],

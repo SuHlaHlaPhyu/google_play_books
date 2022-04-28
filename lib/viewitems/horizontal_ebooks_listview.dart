@@ -12,23 +12,29 @@ class HorizontalEbookListView extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      height: 280,
-      child: ListView.builder(
-        padding: const EdgeInsets.only(
-          left: 8,
+    return GestureDetector(
+      onTap: () {
+        onTapEbook(1);
+        print("===============> ontap");
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        height: 280,
+        child: ListView.builder(
+          padding: const EdgeInsets.only(
+            left: 8,
+          ),
+          scrollDirection: Axis.horizontal,
+          itemCount: ebooksList?.length,
+          itemBuilder: (context, index) {
+            return EbookView(
+              ebook: ebooksList?[index],
+              onTapEbook: () {
+                onTapEbook(1);
+              },
+            );
+          },
         ),
-        scrollDirection: Axis.horizontal,
-        itemCount: ebooksList?.length,
-        itemBuilder: (context, index) {
-          return EbookView(
-            ebook: ebooksList?[index],
-            onTapEbook: () {
-              onTapEbook(1);
-            },
-          );
-        },
       ),
     );
   }

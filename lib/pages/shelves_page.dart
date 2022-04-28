@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/layout_view.dart';
 import 'package:google_play_books/viewitems/menu_item_view.dart';
@@ -16,6 +17,17 @@ class ShelvesPage extends StatefulWidget {
 
 class _ShelvesPageState extends State<ShelvesPage> {
   bool isGridView = false;
+  void _navigateToEbooksDetailpage(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EbooksDetailPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +107,7 @@ class _ShelvesPageState extends State<ShelvesPage> {
               ebooksList: ebookList,
               onTapEbook: (index) {
                 ///
+                _navigateToEbooksDetailpage(context);
               },
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
+import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/pages/view_all_ebooks_page.dart';
 import 'package:google_play_books/viewitems/horizontal_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/menu_item_view.dart';
@@ -34,101 +35,93 @@ class _HomeFragmentState extends State<HomeFragment>
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: 1000,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 50.0,
-              ),
-              child: CarouselSilderListSectionView(
-                onTapDownload: () {
-                  // download
-                },
-                onTapListen: () {
-                  // listen
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            TabBarSectionView(
-              tabController: _tabController,
-              tabBarOneName: "Ebooks",
-              tabBarTwoName: "Audio Books",
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      EbooksListSectionView(
-                        "Recent price drops",
-                        ebookList: ebookList,
-                        onTapEbook: () {
-                          /// ebook details
-                        },
-                        onTapViewAll: () {
-                          _navigateToViewAllpage(context, "Recent price drops");
-                        },
-                      ),
-                      EbooksListSectionView(
-                        "Best Sellers",
-                        ebookList: ebookList.reversed.toList(),
-                        onTapEbook: () {
-                          /// ebook details
-                        },
-                        onTapViewAll: () {
-                          _navigateToViewAllpage(context, "Best Sellers");
-                        },
-                      ),
-                    ],
+    return NestedScrollView(
+      headerSliverBuilder: (context, value) {
+        return [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 50.0,
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      EbooksListSectionView(
-                        "Best Sellers",
-                        ebookList: ebookList.reversed.toList(),
-                        onTapEbook: () {
-                          /// ebook details
-                        },
-                        onTapViewAll: () {
-                          _navigateToViewAllpage(context, "Best Sellers");
-                        },
-                      ),
-                      EbooksListSectionView(
-                        "Recent price drops",
-                        ebookList: ebookList,
-                        onTapEbook: () {
-                          /// ebook details
-                        },
-                        onTapViewAll: () {
-                          _navigateToViewAllpage(context, "Recent price drops");
-                        },
-                      ),
-                    ],
+                  child: CarouselSilderListSectionView(
+                    onTapDownload: () {
+                      // download
+                    },
+                    onTapListen: () {
+                      // listen
+                    },
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                TabBarSectionView(
+                  tabController: _tabController,
+                  tabBarOneName: "Ebooks",
+                  tabBarTwoName: "Audio Books",
+                ),
+              ],
             ),
-          ],
-        ),
+          )
+        ];
+      },
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          ListView(
+            children: [
+              const SizedBox(
+                height: 20.0,
+              ),
+              EbooksListSectionView(
+                "Recent price drops",
+                ebookList: ebookList,
+                onTapEbook: (index) {
+                  /// ebook details
+                  _navigateToEbooksDetailpage(context);
+                },
+                onTapViewAll: () {
+                  _navigateToViewAllpage(context, "Recent price drops");
+                },
+              ),
+              EbooksListSectionView(
+                "Best Sellers",
+                ebookList: ebookList.reversed.toList(),
+                onTapEbook: (index) {
+                  /// ebook details
+                  _navigateToEbooksDetailpage(context);
+                },
+                onTapViewAll: () {
+                  _navigateToViewAllpage(context, "Best Sellers");
+                },
+              ),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 20.0,
+              ),
+              EbooksListSectionView(
+                "Best Sellers",
+                ebookList: ebookList.reversed.toList(),
+                onTapEbook: (index) {
+                  /// ebook details
+                  _navigateToEbooksDetailpage(context);
+                },
+                onTapViewAll: () {
+                  _navigateToViewAllpage(context, "Best Sellers");
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -144,12 +137,23 @@ class _HomeFragmentState extends State<HomeFragment>
       ),
     );
   }
+
+  void _navigateToEbooksDetailpage(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EbooksDetailPage(),
+      ),
+    );
+  }
 }
 
 class EbooksListSectionView extends StatelessWidget {
   final String title;
   final List<Ebooks>? ebookList;
-  final Function onTapEbook;
+  final Function(int?) onTapEbook;
   final Function onTapViewAll;
   EbooksListSectionView(
     this.title, {

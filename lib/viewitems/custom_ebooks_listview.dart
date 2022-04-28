@@ -31,6 +31,7 @@ class CustomEbookListView extends StatelessWidget {
                 ebook: ebooksList?[index],
                 onTapEbook: () {
                   // book details
+                  onTapEbook(1);
                 },
               );
             },
