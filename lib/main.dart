@@ -18,3 +18,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+/// fvm flutter build appbundle --release
+/// play console ==> open testing
+// fvm flutter packages run build_runner build
+// fvm flutter packages run build_runner build --delete-conflicting-outputs

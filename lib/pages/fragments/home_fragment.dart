@@ -258,5 +258,4 @@ class CarouselSectionView extends StatelessWidget {
 
 
 
-/// fvm flutter build appbundle --release
-/// play console ==> open testing
+

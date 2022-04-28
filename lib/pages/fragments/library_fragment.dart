@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/dummy_data.dart';
+import 'package:google_play_books/pages/shelves_page.dart';
 import 'package:google_play_books/pages/viewitems/custom_ebooks_listview.dart';
 
 import '../../dummy/ebooks.dart';
-import '../viewitems/ebook_listitem_view.dart';
 import '../viewitems/shelves_listitem_view.dart';
 import '../viewitems/tabbar_section_view.dart';
 
@@ -121,6 +121,12 @@ class _LibraryFragmentState extends State<LibraryFragment>
                   ebooksList: ebookList,
                   onTapEbook: (index) {
                     ///
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ShelvesPage(),
+                      ),
+                    );
                   },
                 )
               ],
@@ -234,7 +240,7 @@ class ShelvesEbookListView extends StatelessWidget {
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return Divider(
+        return const Divider(
           thickness: 1.0,
         );
       },

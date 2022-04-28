@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../dummy/ebooks.dart';
+import 'shelve_title_section_view.dart';
 
 class ShelvesListitemView extends StatelessWidget {
   final Ebooks? ebook;
@@ -44,24 +45,9 @@ class ShelvesListitemView extends StatelessWidget {
             onTap: () {
               onTapEbook();
             },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "10 Integration Design book to read",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "3 Books",
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ],
+            child: ShelveTitleSectionView(
+              title: "10 Integration Design book to read",
+              subTitle: "3 Books",
             ),
           ),
           const Spacer(),
