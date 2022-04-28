@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/dummy_data.dart';
 import 'package:google_play_books/pages/shelves_page.dart';
 import 'package:google_play_books/pages/viewitems/custom_ebooks_listview.dart';
+import 'package:google_play_books/pages/viewitems/layout_view.dart';
+import 'package:google_play_books/pages/viewitems/sortby_view.dart';
 
 import '../../dummy/ebooks.dart';
 import '../viewitems/shelves_listitem_view.dart';
@@ -57,43 +59,43 @@ class _LibraryFragmentState extends State<LibraryFragment>
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SortByView(
-                            filterName: "Recent",
-                            onTap: () {
-                              showModalBottomSheetView(context);
-                            },
-                          ),
-                          const Spacer(),
-                          LayoutView(
-                            onTap: () {
-                              setState(
-                                () {
-                                  if (isGridView) {
-                                    isGridView = false;
-                                  } else {
-                                    isGridView = true;
-                                  }
-                                },
-                              );
-                            },
-                            isGridView: isGridView,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Expanded(
-                        child: CustomEbookListView(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SortByView(
+                              filterName: "Recent",
+                              onTap: () {
+                                showModalBottomSheetView(context);
+                              },
+                            ),
+                            const Spacer(),
+                            LayoutView(
+                              onTap: () {
+                                setState(
+                                  () {
+                                    if (isGridView) {
+                                      isGridView = false;
+                                    } else {
+                                      isGridView = true;
+                                    }
+                                  },
+                                );
+                              },
+                              isGridView: isGridView,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        CustomEbookListView(
                           fromLibrary: true,
                           isGrid: isGridView,
                           ebooksList: ebookList,
@@ -101,8 +103,8 @@ class _LibraryFragmentState extends State<LibraryFragment>
                             ///
                           },
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 ShelvesEbookListView(
@@ -196,64 +198,6 @@ class _LibraryFragmentState extends State<LibraryFragment>
           ),
         );
       },
-    );
-  }
-}
-
-class SortByView extends StatelessWidget {
-  final Function onTap;
-  final String filterName;
-  SortByView({required this.onTap, required this.filterName});
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            onTap();
-          },
-          child: const Padding(
-            padding: EdgeInsets.only(
-              left: 10.0,
-            ),
-            child: Icon(Icons.sort),
-          ),
-        ),
-        const SizedBox(
-          width: 5.0,
-        ),
-        Text("Sort by : $filterName"),
-      ],
-    );
-  }
-}
-
-class LayoutView extends StatelessWidget {
-  final bool isGridView;
-  final Function onTap;
-  LayoutView({
-    required this.isGridView,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onTap();
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: 10.0,
-        ),
-        child: isGridView
-            ? const Icon(
-                Icons.list,
-              )
-            : const Icon(
-                Icons.grid_3x3_outlined,
-              ),
-      ),
     );
   }
 }

@@ -9,16 +9,16 @@ class CustomEbookListView extends StatelessWidget {
   final Function(int?) onTapEbook;
   final bool isGrid;
   final bool fromLibrary;
-  CustomEbookListView({
-    required this.ebooksList,
-    required this.onTapEbook,
-    this.isGrid = false,
-    this.fromLibrary = false
-  });
+  CustomEbookListView(
+      {required this.ebooksList,
+      required this.onTapEbook,
+      this.isGrid = false,
+      this.fromLibrary = false});
   @override
   Widget build(BuildContext context) {
     return isGrid
         ? GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -36,6 +36,8 @@ class CustomEbookListView extends StatelessWidget {
             },
           )
         : ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             padding: const EdgeInsets.only(
               left: 8,
             ),
