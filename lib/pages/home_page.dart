@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
       ),
       BottomNavigationBarItem(
         label: "Library",
-        icon: Icon(Icons.file_copy),
+        icon: Icon(Icons.file_copy_outlined),
       ),
     ];
   }

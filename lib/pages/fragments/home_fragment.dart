@@ -5,8 +5,8 @@ import 'package:google_play_books/pages/view_all_ebooks_page.dart';
 import 'package:google_play_books/pages/viewitems/icon_view.dart';
 
 import '../../dummy/dummy_data.dart';
-import '../viewitems/ebook_view.dart';
 import '../viewitems/horizontal_ebooks_listview.dart';
+import '../viewitems/menu_item_view.dart';
 import '../viewitems/tabbar_section_view.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -35,7 +35,7 @@ class _HomeFragmentState extends State<HomeFragment>
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         height: 1000,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -79,10 +79,23 @@ class _HomeFragmentState extends State<HomeFragment>
                       ),
                     ],
                   ),
-                  const Center(
-                    child: Text(
-                      "Audiobooks",
-                    ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      EbooksListSectionView(
+                        "Best Sellers",
+                        ebookList: ebookList.reversed.toList(),
+                        onTapEbook: () {},
+                      ),
+                      EbooksListSectionView(
+                        "Recent price drops",
+                        ebookList: ebookList,
+                        onTapEbook: () {},
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -187,28 +200,24 @@ class CarouselSectionView extends StatelessWidget {
         ),
         image: const DecorationImage(
           image: NetworkImage(
-            "https://mir-s3-cdn-cf.behance.net/project_modules/1400/36849671126939.60bf362943f3a.jpg",
+            "https://images.template.net/wp-content/uploads/2018/04/Free-Non-fiction-Book-Cover.jpg",
           ),
           fit: BoxFit.fill,
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                SizedBox(),
-                Icon(
-                  Icons.more_horiz,
-                  color: Colors.white,
-                  size: 32,
-                ),
-              ],
-            ),
-            const Spacer(),
-            Column(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(),
+              MenuItemView(),
+            ],
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,8 +249,8 @@ class CarouselSectionView extends StatelessWidget {
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

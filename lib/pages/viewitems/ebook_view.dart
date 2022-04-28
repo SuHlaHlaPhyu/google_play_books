@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../dummy/ebooks.dart';
 import 'icon_view.dart';
+import 'menu_item_view.dart';
 
 class EbookView extends StatelessWidget {
   final Ebooks? ebook;
@@ -37,7 +38,7 @@ class EbookView extends StatelessWidget {
             ),
             child: fromLibrary
                 ? Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: Column(
                       children: [
                         Row(
@@ -61,11 +62,7 @@ class EbookView extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            const Icon(
-                              Icons.more_horiz,
-                              color: Colors.white,
-                              size: 32,
-                            ),
+                            MenuItemView(),
                           ],
                         ),
                         const Spacer(),
@@ -74,24 +71,26 @@ class EbookView extends StatelessWidget {
                           children: [
                             const SizedBox(),
                             const Spacer(),
-                            IconView(
-                              iconData: Icons.download_done,
-                              onTap: () {
-                                //
-                              },
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                right: 8.0,
+                                bottom: 8.0,
+                              ),
+                              child: IconView(
+                                iconData: Icons.download_done,
+                                onTap: () {
+                                  //
+                                },
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   )
-                : const Align(
+                : Align(
                     alignment: Alignment.topRight,
-                    child: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                      size: 32,
-                    ),
+                    child: MenuItemView(),
                   ),
           ),
         ),

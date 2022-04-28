@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_play_books/dummy/dummy_data.dart';
 import 'package:google_play_books/pages/viewitems/custom_ebooks_listview.dart';
 
+import '../../dummy/ebooks.dart';
+import '../viewitems/ebook_listitem_view.dart';
+import '../viewitems/shelves_listitem_view.dart';
 import '../viewitems/tabbar_section_view.dart';
 
 class LibraryFragment extends StatefulWidget {
@@ -72,13 +75,15 @@ class _LibraryFragmentState extends State<LibraryFragment>
                           const Spacer(),
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                if (isGridView) {
-                                  isGridView = false;
-                                } else {
-                                  isGridView = true;
-                                }
-                              });
+                              setState(
+                                () {
+                                  if (isGridView) {
+                                    isGridView = false;
+                                  } else {
+                                    isGridView = true;
+                                  }
+                                },
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -111,7 +116,13 @@ class _LibraryFragmentState extends State<LibraryFragment>
                     ],
                   ),
                 ),
-                const Text("Your shelves")
+                ShelvesEbookListView(
+                  isShelves: true,
+                  ebooksList: ebookList,
+                  onTapEbook: (index) {
+                    ///
+                  },
+                )
               ],
             ),
           ),
@@ -191,6 +202,40 @@ class _LibraryFragmentState extends State<LibraryFragment>
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+}
+
+class ShelvesEbookListView extends StatelessWidget {
+  final List<Ebooks>? ebooksList;
+  final Function(int?) onTapEbook;
+  final bool isShelves;
+  final bool fromLibrary;
+  ShelvesEbookListView(
+      {required this.ebooksList,
+      required this.onTapEbook,
+      this.isShelves = false,
+      this.fromLibrary = false});
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      padding: const EdgeInsets.only(
+        left: 8,
+      ),
+      itemCount: 2,
+      itemBuilder: (context, index) {
+        return ShelvesListitemView(
+          ebook: ebooksList?[index],
+          onTapEbook: () {
+            onTapEbook(1);
+          },
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider(
+          thickness: 1.0,
         );
       },
     );

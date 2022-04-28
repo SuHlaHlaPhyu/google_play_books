@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../dummy/ebooks.dart';
-import 'menu_item_view.dart';
 
-class EbookListitemView extends StatelessWidget {
+class ShelvesListitemView extends StatelessWidget {
   final Ebooks? ebook;
   final Function onTapEbook;
-  EbookListitemView({
+  ShelvesListitemView({
     required this.ebook,
     required this.onTapEbook,
   });
@@ -15,7 +14,7 @@ class EbookListitemView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () => onTapEbook(),
@@ -47,17 +46,17 @@ class EbookListitemView extends StatelessWidget {
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Text(
-                  ebook?.bookName ?? "",
-                  style: const TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
+                  "10 Integration Design book to read",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  ebook?.author ?? "",
-                  style: const TextStyle(
+                  "3 Books",
+                  style: TextStyle(
                     fontSize: 13.0,
                     fontWeight: FontWeight.w300,
                   ),
@@ -66,20 +65,13 @@ class EbookListitemView extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Row(
-            children: [
-              const Icon(
-                Icons.download_done,
-                color: Colors.black54,
-                size: 18,
-              ),
-              const SizedBox(
-                width: 35.0,
-              ),
-              MenuItemView(
-                iconColor: Colors.black54,
-              ),
-            ],
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(
+              Icons.arrow_forward_ios_sharp,
+              color: Colors.black54,
+              size: 18,
+            ),
           ),
         ],
       ),
