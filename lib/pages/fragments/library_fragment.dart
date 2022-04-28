@@ -31,6 +31,15 @@ class _LibraryFragmentState extends State<LibraryFragment>
     _tabController!.dispose();
   }
 
+  void _navigateToShelvesPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ShelvesPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,23 +66,14 @@ class _LibraryFragmentState extends State<LibraryFragment>
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          GestureDetector(
+                          SortByView(
+                            filterName: "Recent",
                             onTap: () {
                               showModalBottomSheetView(context);
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.only(
-                                left: 10.0,
-                              ),
-                              child: Icon(Icons.sort),
-                            ),
                           ),
-                          const SizedBox(
-                            width: 5.0,
-                          ),
-                          const Text("Sort by : Recent"),
                           const Spacer(),
-                          GestureDetector(
+                          LayoutView(
                             onTap: () {
                               setState(
                                 () {
@@ -85,19 +85,8 @@ class _LibraryFragmentState extends State<LibraryFragment>
                                 },
                               );
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                right: 10.0,
-                              ),
-                              child: isGridView
-                                  ? const Icon(
-                                      Icons.list,
-                                    )
-                                  : const Icon(
-                                      Icons.grid_3x3_outlined,
-                                    ),
-                            ),
-                          )
+                            isGridView: isGridView,
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -112,7 +101,7 @@ class _LibraryFragmentState extends State<LibraryFragment>
                             ///
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -120,13 +109,10 @@ class _LibraryFragmentState extends State<LibraryFragment>
                   isShelves: true,
                   ebooksList: ebookList,
                   onTapEbook: (index) {
-                    ///
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ShelvesPage(),
-                      ),
-                    );
+                    _navigateToShelvesPage(context);
+                  },
+                  onTapViewAll: () {
+                    _navigateToShelvesPage(context);
                   },
                 )
               ],
@@ -214,14 +200,74 @@ class _LibraryFragmentState extends State<LibraryFragment>
   }
 }
 
+class SortByView extends StatelessWidget {
+  final Function onTap;
+  final String filterName;
+  SortByView({required this.onTap, required this.filterName});
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            onTap();
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(
+              left: 10.0,
+            ),
+            child: Icon(Icons.sort),
+          ),
+        ),
+        const SizedBox(
+          width: 5.0,
+        ),
+        Text("Sort by : $filterName"),
+      ],
+    );
+  }
+}
+
+class LayoutView extends StatelessWidget {
+  final bool isGridView;
+  final Function onTap;
+  LayoutView({
+    required this.isGridView,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 10.0,
+        ),
+        child: isGridView
+            ? const Icon(
+                Icons.list,
+              )
+            : const Icon(
+                Icons.grid_3x3_outlined,
+              ),
+      ),
+    );
+  }
+}
+
 class ShelvesEbookListView extends StatelessWidget {
   final List<Ebooks>? ebooksList;
   final Function(int?) onTapEbook;
   final bool isShelves;
   final bool fromLibrary;
+  final Function onTapViewAll;
   ShelvesEbookListView(
       {required this.ebooksList,
       required this.onTapEbook,
+      required this.onTapViewAll,
       this.isShelves = false,
       this.fromLibrary = false});
   @override
@@ -236,6 +282,9 @@ class ShelvesEbookListView extends StatelessWidget {
           ebook: ebooksList?[index],
           onTapEbook: () {
             onTapEbook(1);
+          },
+          onTapViewAll: () {
+            onTapViewAll();
           },
         );
       },

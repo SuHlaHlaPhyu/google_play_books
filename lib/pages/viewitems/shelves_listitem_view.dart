@@ -6,9 +6,11 @@ import 'shelve_title_section_view.dart';
 class ShelvesListitemView extends StatelessWidget {
   final Ebooks? ebook;
   final Function onTapEbook;
+  final Function onTapViewAll;
   ShelvesListitemView({
     required this.ebook,
     required this.onTapEbook,
+    required this.onTapViewAll,
   });
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class ShelvesListitemView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              onTapEbook();
+              onTapViewAll();
             },
             child: ShelveTitleSectionView(
               title: "10 Integration Design book to read",
@@ -51,12 +53,17 @@ class ShelvesListitemView extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          const Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: Icon(
-              Icons.arrow_forward_ios_sharp,
-              color: Colors.black54,
-              size: 18,
+          GestureDetector(
+            onTap: () {
+              onTapViewAll();
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: Colors.black54,
+                size: 18,
+              ),
             ),
           ),
         ],

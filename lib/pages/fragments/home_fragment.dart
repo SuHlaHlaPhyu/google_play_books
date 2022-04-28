@@ -47,7 +47,14 @@ class _HomeFragmentState extends State<HomeFragment>
               padding: const EdgeInsets.only(
                 left: 50.0,
               ),
-              child: CarouselSilderListSectionView(),
+              child: CarouselSilderListSectionView(
+                onTapDownload: () {
+                  // download
+                },
+                onTapListen: () {
+                  // listen
+                },
+              ),
             ),
             const SizedBox(
               height: 20.0,
@@ -70,12 +77,22 @@ class _HomeFragmentState extends State<HomeFragment>
                       EbooksListSectionView(
                         "Recent price drops",
                         ebookList: ebookList,
-                        onTapEbook: () {},
+                        onTapEbook: () {
+                          /// ebook details
+                        },
+                        onTapViewAll: () {
+                          _navigateToViewAllpage(context, "Recent price drops");
+                        },
                       ),
                       EbooksListSectionView(
                         "Best Sellers",
                         ebookList: ebookList.reversed.toList(),
-                        onTapEbook: () {},
+                        onTapEbook: () {
+                          /// ebook details
+                        },
+                        onTapViewAll: () {
+                          _navigateToViewAllpage(context, "Best Sellers");
+                        },
                       ),
                     ],
                   ),
@@ -88,12 +105,22 @@ class _HomeFragmentState extends State<HomeFragment>
                       EbooksListSectionView(
                         "Best Sellers",
                         ebookList: ebookList.reversed.toList(),
-                        onTapEbook: () {},
+                        onTapEbook: () {
+                          /// ebook details
+                        },
+                        onTapViewAll: () {
+                          _navigateToViewAllpage(context, "Best Sellers");
+                        },
                       ),
                       EbooksListSectionView(
                         "Recent price drops",
                         ebookList: ebookList,
-                        onTapEbook: () {},
+                        onTapEbook: () {
+                          /// ebook details
+                        },
+                        onTapViewAll: () {
+                          _navigateToViewAllpage(context, "Recent price drops");
+                        },
                       ),
                     ],
                   ),
@@ -105,16 +132,30 @@ class _HomeFragmentState extends State<HomeFragment>
       ),
     );
   }
+
+  void _navigateToViewAllpage(BuildContext context, String title) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ViewAllEbooksPage(
+          ebooksList: ebookList,
+          title: title,
+        ),
+      ),
+    );
+  }
 }
 
 class EbooksListSectionView extends StatelessWidget {
   final String title;
   final List<Ebooks>? ebookList;
   final Function onTapEbook;
+  final Function onTapViewAll;
   EbooksListSectionView(
     this.title, {
     required this.ebookList,
     required this.onTapEbook,
+    required this.onTapViewAll,
   });
   @override
   Widget build(BuildContext context) {
@@ -138,16 +179,7 @@ class EbooksListSectionView extends StatelessWidget {
             const Spacer(),
             GestureDetector(
               onTap: () {
-                ///
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ViewAllEbooksPage(
-                      ebooksList: ebookList,
-                      title: title,
-                    ),
-                  ),
-                );
+                onTapViewAll();
               },
               child: const Padding(
                 padding: EdgeInsets.only(right: 8.0),
@@ -173,21 +205,32 @@ class EbooksListSectionView extends StatelessWidget {
 }
 
 class CarouselSilderListSectionView extends StatelessWidget {
+  final Function onTapDownload;
+  final Function onTapListen;
+  CarouselSilderListSectionView(
+      {required this.onTapListen, required this.onTapDownload});
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(
-          // aspectRatio: 3 / 2,
-          // enlargeCenterPage: true,
-          ),
+      options: CarouselOptions(),
       items: [
-        CarouselSectionView(),
+        CarouselSectionView(
+          onTapDownload: () {
+            onTapDownload();
+          },
+          onTapListen: () {
+            onTapListen();
+          },
+        ),
       ],
     );
   }
 }
 
 class CarouselSectionView extends StatelessWidget {
+  final Function onTapDownload;
+  final Function onTapListen;
+  CarouselSectionView({required this.onTapListen, required this.onTapDownload});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -226,12 +269,14 @@ class CarouselSectionView extends StatelessWidget {
                       iconData: Icons.play_circle,
                       onTap: () {
                         //
+                        onTapListen();
                       },
                     ),
                     IconView(
                       iconData: Icons.download_done,
                       onTap: () {
                         //
+                        onTapDownload();
                       },
                     ),
                   ],
@@ -255,7 +300,3 @@ class CarouselSectionView extends StatelessWidget {
     );
   }
 }
-
-
-
-
