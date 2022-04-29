@@ -106,18 +106,23 @@ class EbookView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  ebook?.bookName ?? "",
-                  style: const TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
+                SizedBox(
+                  width: 160,
+                  child: Text(
+                    ebook?.bookName ?? "",
+                    overflow: TextOverflow.clip,
+                    softWrap: true,
+                    style: const TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
                 Text(
                   ebook?.author ?? "",
                   style: const TextStyle(
                     fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

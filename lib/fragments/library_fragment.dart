@@ -7,6 +7,7 @@ import 'package:google_play_books/viewitems/layout_view.dart';
 import 'package:google_play_books/viewitems/sortby_view.dart';
 
 import '../../dummy/ebooks.dart';
+import '../viewitems/horizontal_chips_listview.dart';
 import '../viewitems/shelves_listitem_view.dart';
 import '../viewitems/tabbar_section_view.dart';
 
@@ -25,13 +26,19 @@ class _LibraryFragmentState extends State<LibraryFragment>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    _tabController?.addListener(_handleTabIndex);
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+    _tabController?.removeListener(_handleTabIndex);
     _tabController!.dispose();
+  }
+
+  void _handleTabIndex() {
+    setState(() {});
   }
 
   void _navigateToShelvesPage(BuildContext context) {
@@ -76,7 +83,16 @@ class _LibraryFragmentState extends State<LibraryFragment>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const SizedBox(
-                          height: 20.0,
+                          height: 15.0,
+                        ),
+                        HorizontalChipsListview(
+                          chipsList: const [],
+                          onTapEbook: (int? index) {
+                            //
+                          },
+                        ),
+                        const SizedBox(
+                          height: 15.0,
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.min,
@@ -135,7 +151,41 @@ class _LibraryFragmentState extends State<LibraryFragment>
           ),
         ],
       ),
+      floatingActionButton: _createShelve(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  Widget _createShelve() {
+    return _tabController?.index == 0
+        ? const SizedBox()
+        : SizedBox(
+            width: 150.0,
+            child: FloatingActionButton(
+              isExtended: true,
+              onPressed: null,
+              backgroundColor: Colors.blue,
+              child: SizedBox(
+                width: 150.0,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    SizedBox(
+                      width: 15.0,
+                    ),
+                    Icon(
+                      Icons.edit,
+                      size: 20.0,
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text("create new")
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 
   showModalBottomSheetView(BuildContext context) {

@@ -11,11 +11,16 @@ class ShelveTitleSectionView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.bold,
+        SizedBox(
+          width: 16 * 16,
+          child: Text(
+            title,
+            overflow: TextOverflow.clip,
+            softWrap: true,
+            style: const TextStyle(
+              fontSize: 17.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         Text(

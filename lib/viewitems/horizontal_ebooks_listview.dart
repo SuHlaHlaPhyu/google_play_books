@@ -15,7 +15,6 @@ class HorizontalEbookListView extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         onTapEbook(1);
-        print("===============> ontap");
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
