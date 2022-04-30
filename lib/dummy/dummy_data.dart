@@ -2,7 +2,7 @@ import 'ebooks.dart';
 
 List<Ebooks> ebookList = [
   Ebooks("Mechella Sagara", "Cast in Eternity",
-      "https://www.skipprichard.com/wp-content/uploads/2018/12/9781449495084.jpg"),
+      "https://static01.nyt.com/images/2014/02/05/books/05before-and-after-slide-T6H2/05before-and-after-slide-T6H2-superJumbo.jpg?quality=75&auto=webp&disable=upscale"),
   Ebooks("David Adams", "Imperfect",
       "https://edit.org/photos/img/blog/t9i-edit-book-covers-online.jpg-840.jpg"),
   Ebooks("Sith", "Star wars",

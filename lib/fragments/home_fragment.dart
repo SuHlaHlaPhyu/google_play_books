@@ -1,13 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_play_books/dummy/ebooks.dart';
-import 'package:google_play_books/pages/ebooks_detail_page.dart';
-import 'package:google_play_books/pages/view_all_ebooks_page.dart';
-import 'package:google_play_books/viewitems/horizontal_ebooks_listview.dart';
-import 'package:google_play_books/viewitems/menu_item_view.dart';
+import 'package:google_play_books/tabbar_viewitems/ebook_tabbar_view.dart';
+import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/tabbar_section_view.dart';
 
-import '../../dummy/dummy_data.dart';
+import '../tabbar_viewitems/audiobooks_tabbar_view.dart';
 import '../viewitems/icon_view.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -72,138 +69,11 @@ class _HomeFragmentState extends State<HomeFragment>
       },
       body: TabBarView(
         controller: _tabController,
-        children: [
-          ListView(
-            children: [
-              const SizedBox(
-                height: 20.0,
-              ),
-              EbooksListSectionView(
-                "Recent price drops",
-                ebookList: ebookList,
-                onTapEbook: (index) {
-                  /// ebook details
-                  _navigateToEbooksDetailpage(context);
-                },
-                onTapViewAll: () {
-                  _navigateToViewAllpage(context, "Recent price drops");
-                },
-              ),
-              EbooksListSectionView(
-                "Best Sellers",
-                ebookList: ebookList.reversed.toList(),
-                onTapEbook: (index) {
-                  /// ebook details
-                  _navigateToEbooksDetailpage(context);
-                },
-                onTapViewAll: () {
-                  _navigateToViewAllpage(context, "Best Sellers");
-                },
-              ),
-            ],
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 20.0,
-              ),
-              EbooksListSectionView(
-                "Best Sellers",
-                ebookList: ebookList.reversed.toList(),
-                onTapEbook: (index) {
-                  /// ebook details
-                  _navigateToEbooksDetailpage(context);
-                },
-                onTapViewAll: () {
-                  _navigateToViewAllpage(context, "Best Sellers");
-                },
-              ),
-            ],
-          ),
+        children: const [
+          EbookTabbarView(),
+          AudioBookTabbarView(),
         ],
       ),
-    );
-  }
-
-  void _navigateToViewAllpage(BuildContext context, String title) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ViewAllEbooksPage(
-          ebooksList: ebookList,
-          title: title,
-        ),
-      ),
-    );
-  }
-
-  void _navigateToEbooksDetailpage(
-    BuildContext context,
-  ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(),
-      ),
-    );
-  }
-}
-
-class EbooksListSectionView extends StatelessWidget {
-  final String title;
-  final List<Ebooks>? ebookList;
-  final Function(int?) onTapEbook;
-  final Function onTapViewAll;
-  EbooksListSectionView(
-    this.title, {
-    required this.ebookList,
-    required this.onTapEbook,
-    required this.onTapViewAll,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(
-                left: 15,
-              ),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            const Spacer(),
-            GestureDetector(
-              onTap: () {
-                onTapViewAll();
-              },
-              child: const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  size: 18.0,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        HorizontalEbookListView(
-          ebooksList: ebookList,
-          onTapEbook: (movieId) => onTapEbook(movieId),
-        ),
-      ],
     );
   }
 }

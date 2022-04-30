@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_play_books/dummy/dummy_data.dart';
-import 'package:google_play_books/pages/ebooks_detail_page.dart';
-import 'package:google_play_books/pages/shelves_page.dart';
-import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
-import 'package:google_play_books/viewitems/layout_view.dart';
-import 'package:google_play_books/viewitems/sortby_view.dart';
+import 'package:google_play_books/tabbar_viewitems/your_books_tabbar_view.dart';
+import 'package:google_play_books/tabbar_viewitems/your_shelves_tabbar_view.dart';
 
 import '../../dummy/ebooks.dart';
-import '../viewitems/horizontal_chips_listview.dart';
 import '../viewitems/shelves_listitem_view.dart';
 import '../viewitems/tabbar_section_view.dart';
 
@@ -21,8 +16,7 @@ class LibraryFragment extends StatefulWidget {
 class _LibraryFragmentState extends State<LibraryFragment>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  bool isGridView = false;
-  var val;
+
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
@@ -41,26 +35,6 @@ class _LibraryFragmentState extends State<LibraryFragment>
     setState(() {});
   }
 
-  void _navigateToShelvesPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ShelvesPage(),
-      ),
-    );
-  }
-
-  void _navigateToEbooksDetailpage(
-    BuildContext context,
-  ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,88 +49,17 @@ class _LibraryFragmentState extends State<LibraryFragment>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        HorizontalChipsListview(
-                          chipsList: const [],
-                          onTapEbook: (int? index) {
-                            //
-                          },
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SortByView(
-                              filterName: "Recent",
-                              onTap: () {
-                                showModalBottomSheetView(context);
-                              },
-                            ),
-                            const Spacer(),
-                            LayoutView(
-                              onTap: () {
-                                setState(
-                                  () {
-                                    if (isGridView) {
-                                      isGridView = false;
-                                    } else {
-                                      isGridView = true;
-                                    }
-                                  },
-                                );
-                              },
-                              isGridView: isGridView,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        CustomEbookListView(
-                          fromLibrary: true,
-                          isGrid: isGridView,
-                          ebooksList: ebookList,
-                          onTapEbook: (index) {
-                            /// ebook details
-                            _navigateToEbooksDetailpage(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                ShelvesEbookListView(
-                  isShelves: true,
-                  ebooksList: ebookList,
-                  onTapEbook: (index) {
-                    _navigateToShelvesPage(context);
-                  },
-                  onTapViewAll: () {
-                    _navigateToShelvesPage(context);
-                  },
-                )
-              ],
+              children: const [YourBookTabbarView(), YourShelvesTabbarView()],
             ),
           ),
         ],
       ),
-      floatingActionButton: _createShelve(),
+      floatingActionButton: _createShelf(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget _createShelve() {
+  Widget _createShelf() {
     return _tabController?.index == 0
         ? const SizedBox()
         : SizedBox(
@@ -186,82 +89,6 @@ class _LibraryFragmentState extends State<LibraryFragment>
               ),
             ),
           );
-  }
-
-  showModalBottomSheetView(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Sort by",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ),
-              const Divider(),
-              ListTile(
-                title: const Text(
-                  "Recently opened",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                leading: Radio(
-                  value: 1,
-                  groupValue: val,
-                  onChanged: (value) {
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                  activeColor: Colors.blue,
-                ),
-              ),
-              ListTile(
-                title: const Text(
-                  "Title",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                leading: Radio(
-                  value: 2,
-                  groupValue: val,
-                  onChanged: (value) {
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                  activeColor: Colors.blue,
-                ),
-              ),
-              ListTile(
-                title: const Text(
-                  "Author",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                leading: Radio(
-                  value: 3,
-                  groupValue: val,
-                  onChanged: (value) {
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                  activeColor: Colors.blue,
-                ),
-              ),
-              const SizedBox(
-                height: 50.0,
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 }
 

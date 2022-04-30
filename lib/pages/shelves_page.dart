@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/layout_view.dart';
-import 'package:google_play_books/viewitems/menu_item_view.dart';
+import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/shelve_title_section_view.dart';
 import 'package:google_play_books/viewitems/sortby_view.dart';
 

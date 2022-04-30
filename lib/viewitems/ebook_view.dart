@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../dummy/ebooks.dart';
 import 'icon_view.dart';
-import 'menu_item_view.dart';
+import 'shelf_menu_item_view.dart';
 
 class EbookView extends StatelessWidget {
   final Ebooks? ebook;

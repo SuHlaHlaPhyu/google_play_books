@@ -21,11 +21,11 @@ class _MenuItemViewState extends State<MenuItemView> {
       itemBuilder: (BuildContext context) {
         return const [
           PopupMenuItem(
-            child: Text("Share"),
+            child: Text("Rename Shelf"),
             value: 1,
           ),
           PopupMenuItem(
-            child: Text("Whishlist"),
+            child: Text("Delete Shelf"),
             value: 2,
           )
         ];
