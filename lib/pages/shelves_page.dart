@@ -16,7 +16,9 @@ class ShelvesPage extends StatefulWidget {
 }
 
 class _ShelvesPageState extends State<ShelvesPage> {
-  bool isGridView = false;
+  bool is3x3GridView = false;
+  bool is2x2GridView = false;
+  bool islistView = true;
   void _navigateToEbooksDetailpage(
     BuildContext context,
   ) {
@@ -86,15 +88,25 @@ class _ShelvesPageState extends State<ShelvesPage> {
                   onTap: () {
                     setState(
                       () {
-                        if (isGridView) {
-                          isGridView = false;
+                        if (islistView) {
+                          islistView = false;
+                          is2x2GridView = true;
+                          is3x3GridView = false;
+                        } else if (is3x3GridView) {
+                          is3x3GridView = false;
+                          islistView = true;
+                          is2x2GridView = false;
                         } else {
-                          isGridView = true;
+                          is2x2GridView = false;
+                          is3x3GridView = true;
+                          islistView = false;
                         }
                       },
                     );
                   },
-                  isGridView: isGridView,
+                  is3x3GridView: is3x3GridView,
+                  is2x2GridView: is2x2GridView,
+                  isListView: islistView,
                 ),
               ],
             ),
@@ -103,7 +115,8 @@ class _ShelvesPageState extends State<ShelvesPage> {
             ),
             CustomEbookListView(
               fromLibrary: true,
-              isGrid: isGridView,
+              is3x3Grid: is3x3GridView,
+              is2x2Grid: is2x2GridView,
               ebooksList: ebookList,
               onTapEbook: (index) {
                 ///

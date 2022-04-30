@@ -103,13 +103,8 @@ class _EbooksDetailPageState extends State<EbooksDetailPage> {
                 "Similar books",
                 ebookList: ebookList.toList(),
                 noMargin: true,
-                onTapEbook: (index) {
-                  /// ebook details
-                  // _navigateToEbooksDetailpage(context);
-                },
-                onTapViewAll: () {
-                  //_navigateToViewAllpage(context, "Best Sellers");
-                },
+                onTapEbook: (index) {},
+                onTapViewAll: () {},
               ),
             ],
           ),

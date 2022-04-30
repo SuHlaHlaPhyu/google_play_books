@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
 
 import '../../dummy/ebooks.dart';
 import 'shelf_menu_item_view.dart';
@@ -76,7 +77,7 @@ class EbookListitemView extends StatelessWidget {
               const SizedBox(
                 width: 35.0,
               ),
-              MenuItemView(
+              EbookMenuItemView(
                 iconColor: Colors.black54,
               ),
             ],

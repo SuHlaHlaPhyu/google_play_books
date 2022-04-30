@@ -14,9 +14,9 @@ class _MenuItemViewState extends State<MenuItemView> {
     return PopupMenuButton(
       padding: const EdgeInsets.all(0.0),
       icon: Icon(
-        Icons.more_horiz,
+        Icons.more_vert,
         color: widget.iconColor,
-        size: 32,
+        size: 30,
       ),
       itemBuilder: (BuildContext context) {
         return const [

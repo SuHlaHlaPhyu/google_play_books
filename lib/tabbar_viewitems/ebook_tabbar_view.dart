@@ -40,6 +40,26 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
             _navigateToViewAllpage(context, "Best Sellers");
           },
         ),
+        EbooksListSectionView(
+          "Recommend",
+          ebookList: ebookList.toList(),
+          onTapEbook: (index) {
+            _navigateToEbooksDetailpage(context);
+          },
+          onTapViewAll: () {
+            _navigateToViewAllpage(context, "Recommend");
+          },
+        ),
+        EbooksListSectionView(
+          "New release",
+          ebookList: ebookList.reversed.toList(),
+          onTapEbook: (index) {
+            _navigateToEbooksDetailpage(context);
+          },
+          onTapViewAll: () {
+            _navigateToViewAllpage(context, "New release");
+          },
+        ),
       ],
     );
   }

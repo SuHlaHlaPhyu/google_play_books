@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/tabbar_viewitems/ebook_tabbar_view.dart';
+import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
 import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/tabbar_section_view.dart';
 
@@ -128,7 +129,10 @@ class CarouselSectionView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(),
-              MenuItemView(),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: EbookMenuItemView(),
+              ),
             ],
           ),
           const Spacer(),

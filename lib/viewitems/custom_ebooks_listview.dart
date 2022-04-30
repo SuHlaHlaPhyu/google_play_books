@@ -7,18 +7,20 @@ import 'ebook_view.dart';
 class CustomEbookListView extends StatelessWidget {
   final List<Ebooks>? ebooksList;
   final Function(int?) onTapEbook;
-  final bool isGrid;
+  final bool is3x3Grid;
+  final bool is2x2Grid;
   final bool fromLibrary;
   CustomEbookListView(
       {required this.ebooksList,
       required this.onTapEbook,
-      this.isGrid = false,
+      this.is2x2Grid = false,
+      this.is3x3Grid = false,
       this.fromLibrary = false});
   @override
   Widget build(BuildContext context) {
-    return isGrid
+    return is3x3Grid
         ? GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -36,21 +38,41 @@ class CustomEbookListView extends StatelessWidget {
               );
             },
           )
-        : ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(
-              left: 8,
-            ),
-            itemCount: ebooksList?.length,
-            itemBuilder: (context, index) {
-              return EbookListitemView(
-                ebook: ebooksList?[index],
-                onTapEbook: () {
-                  onTapEbook(1);
+        : is2x2Grid
+            ? GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.66,
+                ),
+                itemCount: ebooksList?.length ?? 0,
+                itemBuilder: (BuildContext ctx, index) {
+                  return EbookView(
+                    fromLibrary: fromLibrary,
+                    ebook: ebooksList?[index],
+                    onTapEbook: () {
+                      // book details
+                      onTapEbook(1);
+                    },
+                  );
+                },
+              )
+            : ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(
+                  left: 8,
+                ),
+                itemCount: ebooksList?.length,
+                itemBuilder: (context, index) {
+                  return EbookListitemView(
+                    ebook: ebooksList?[index],
+                    onTapEbook: () {
+                      onTapEbook(1);
+                    },
+                  );
                 },
               );
-            },
-          );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../dummy/ebooks.dart';
+import 'ebook_menu_itemview.dart';
 import 'icon_view.dart';
 import 'shelf_menu_item_view.dart';
 
@@ -38,7 +39,9 @@ class EbookView extends StatelessWidget {
             ),
             child: fromLibrary
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.all(
+                      8.0,
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -62,7 +65,7 @@ class EbookView extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            MenuItemView(),
+                            EbookMenuItemView(),
                           ],
                         ),
                         const Spacer(),
@@ -71,17 +74,11 @@ class EbookView extends StatelessWidget {
                           children: [
                             const SizedBox(),
                             const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                right: 8.0,
-                                bottom: 8.0,
-                              ),
-                              child: IconView(
-                                iconData: Icons.download_done,
-                                onTap: () {
-                                  //
-                                },
-                              ),
+                            IconView(
+                              iconData: Icons.download_done,
+                              onTap: () {
+                                //
+                              },
                             ),
                           ],
                         ),
@@ -90,7 +87,10 @@ class EbookView extends StatelessWidget {
                   )
                 : Align(
                     alignment: Alignment.topRight,
-                    child: MenuItemView(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: EbookMenuItemView(),
+                    ),
                   ),
           ),
         ),

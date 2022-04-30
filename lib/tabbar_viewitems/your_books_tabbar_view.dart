@@ -15,7 +15,9 @@ class YourBookTabbarView extends StatefulWidget {
 }
 
 class _YourBookTabbarViewState extends State<YourBookTabbarView> {
-  bool isGridView = false;
+  bool is3x3GridView = false;
+  bool is2x2GridView = false;
+  bool islistView = true;
   var val;
   @override
   Widget build(BuildContext context) {
@@ -51,15 +53,25 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                   onTap: () {
                     setState(
                       () {
-                        if (isGridView) {
-                          isGridView = false;
+                        if (islistView) {
+                          islistView = false;
+                          is2x2GridView = true;
+                          is3x3GridView = false;
+                        } else if (is3x3GridView) {
+                          is3x3GridView = false;
+                          islistView = true;
+                          is2x2GridView = false;
                         } else {
-                          isGridView = true;
+                          is2x2GridView = false;
+                          is3x3GridView = true;
+                          islistView = false;
                         }
                       },
                     );
                   },
-                  isGridView: isGridView,
+                  is3x3GridView: is3x3GridView,
+                  is2x2GridView: is2x2GridView,
+                  isListView: islistView,
                 ),
               ],
             ),
@@ -68,7 +80,8 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
             ),
             CustomEbookListView(
               fromLibrary: true,
-              isGrid: isGridView,
+              is3x3Grid: is3x3GridView,
+              is2x2Grid: is2x2GridView,
               ebooksList: ebookList,
               onTapEbook: (index) {
                 /// ebook details
@@ -108,6 +121,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                   value: 1,
                   groupValue: val,
                   onChanged: (value) {
+                    Navigator.pop(context);
                     setState(() {
                       val = value;
                     });
@@ -124,6 +138,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                   value: 2,
                   groupValue: val,
                   onChanged: (value) {
+                    Navigator.pop(context);
                     setState(() {
                       val = value;
                     });
@@ -140,6 +155,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                   value: 3,
                   groupValue: val,
                   onChanged: (value) {
+                    Navigator.pop(context);
                     setState(() {
                       val = value;
                     });
