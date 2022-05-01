@@ -87,7 +87,10 @@ class CarouselSilderListSectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(),
+      options: CarouselOptions(
+          //viewportFraction: 0.9,
+          // enlargeCenterPage: true,
+          ),
       items: [
         CarouselSectionView(
           onTapDownload: () {

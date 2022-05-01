@@ -75,13 +75,13 @@ class _EbooksDetailPageState extends State<EbooksDetailPage> {
               ),
               ButtonSectionView(),
               const SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               const Divider(
                 color: Colors.black,
               ),
               const SizedBox(
-                height: 5.0,
+                height: 18.0,
               ),
               TitleAndSubtextSectionView(
                 title: "About this ebook",
@@ -89,7 +89,7 @@ class _EbooksDetailPageState extends State<EbooksDetailPage> {
                     "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
               ),
               const SizedBox(
-                height: 15.0,
+                height: 18.0,
               ),
               TitleAndSubtextSectionView(
                 title: "About the author",
@@ -97,7 +97,7 @@ class _EbooksDetailPageState extends State<EbooksDetailPage> {
                     "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
               ),
               const SizedBox(
-                height: 15.0,
+                height: 18.0,
               ),
               EbooksListSectionView(
                 "Similar books",
@@ -180,7 +180,10 @@ class ButtonSectionView extends StatelessWidget {
             child: const Center(
               child: Text(
                 "Free sample",
-                style: TextStyle(fontSize: 14.0),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ),
@@ -193,6 +196,7 @@ class ButtonSectionView extends StatelessWidget {
             height: 40,
             width: 150,
             decoration: BoxDecoration(
+              color: Colors.blue,
               border: Border.all(
                 color: Colors.grey,
               ),
@@ -200,7 +204,10 @@ class ButtonSectionView extends StatelessWidget {
             child: const Center(
               child: Text(
                 "Buy \$3.4",
-                style: TextStyle(fontSize: 14.0),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -235,13 +242,28 @@ class TotalReviewAndPageSectionView extends StatelessWidget {
           ],
         ),
         const Spacer(),
+        Container(
+          height: 30.0,
+          width: 1.0,
+          color: Colors.black54,
+          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+        ),
+        const Spacer(),
         Column(
           children: const [
             Icon(
               Icons.bookmark_outline,
+              color: Colors.black54,
             ),
             Text("Ebook"),
           ],
+        ),
+        const Spacer(),
+        Container(
+          height: 30.0,
+          width: 1.0,
+          color: Colors.black54,
+          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
         ),
         const Spacer(),
         Column(

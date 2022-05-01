@@ -17,7 +17,7 @@ class HorizontalEbookListView extends StatelessWidget {
         onTapEbook(1);
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.only(left: 8.0),
         height: 280,
         child: ListView.builder(
           padding: const EdgeInsets.only(

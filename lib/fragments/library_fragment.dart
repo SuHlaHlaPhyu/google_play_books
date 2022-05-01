@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/pages/create_new_shelf_page.dart';
 import 'package:google_play_books/tabbar_viewitems/your_books_tabbar_view.dart';
 import 'package:google_play_books/tabbar_viewitems/your_shelves_tabbar_view.dart';
 
@@ -49,13 +50,33 @@ class _LibraryFragmentState extends State<LibraryFragment>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: const [YourBookTabbarView(), YourShelvesTabbarView()],
+              children: const [
+                YourBookTabbarView(),
+                YourShelvesTabbarView(),
+              ],
             ),
           ),
         ],
       ),
-      floatingActionButton: _createShelf(),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          //
+          _navigateToCreateShelfpage(context);
+        },
+        child: _createShelf(),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  void _navigateToCreateShelfpage(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CreateNewShelf(),
+      ),
     );
   }
 

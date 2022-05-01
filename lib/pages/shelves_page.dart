@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
-import 'package:google_play_books/viewitems/layout_view.dart';
 import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/shelve_title_section_view.dart';
-import 'package:google_play_books/viewitems/sortby_view.dart';
 
 import '../dummy/dummy_data.dart';
+import '../viewitems/sortby_layout_section_view.dart';
 
 class ShelvesPage extends StatefulWidget {
   const ShelvesPage({Key? key}) : super(key: key);
@@ -74,41 +73,29 @@ class _ShelvesPageState extends State<ShelvesPage> {
             const SizedBox(
               height: 20.0,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SortByView(
-                  filterName: "Recent",
-                  onTap: () {
-                    // showModalBottomSheetView(context);
+            SortByAndLayoutSectionView(
+              onTapLayoutView: () {
+                setState(
+                  () {
+                    if (islistView) {
+                      islistView = false;
+                      is2x2GridView = true;
+                      is3x3GridView = false;
+                    } else if (is3x3GridView) {
+                      is3x3GridView = false;
+                      islistView = true;
+                      is2x2GridView = false;
+                    } else {
+                      is2x2GridView = false;
+                      is3x3GridView = true;
+                      islistView = false;
+                    }
                   },
-                ),
-                const Spacer(),
-                LayoutView(
-                  onTap: () {
-                    setState(
-                      () {
-                        if (islistView) {
-                          islistView = false;
-                          is2x2GridView = true;
-                          is3x3GridView = false;
-                        } else if (is3x3GridView) {
-                          is3x3GridView = false;
-                          islistView = true;
-                          is2x2GridView = false;
-                        } else {
-                          is2x2GridView = false;
-                          is3x3GridView = true;
-                          islistView = false;
-                        }
-                      },
-                    );
-                  },
-                  is3x3GridView: is3x3GridView,
-                  is2x2GridView: is2x2GridView,
-                  isListView: islistView,
-                ),
-              ],
+                );
+              },
+              is2x2GridView: is2x2GridView,
+              is3x3GridView: is3x3GridView,
+              islistView: islistView,
             ),
             const SizedBox(
               height: 20.0,

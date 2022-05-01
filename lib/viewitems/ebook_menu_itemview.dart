@@ -28,7 +28,7 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
       context: context,
       builder: (context) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -81,6 +81,9 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
               ),
               const Divider(),
               ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
                 leading: const Icon(Icons.remove),
                 title: const Text('Remove download'),
                 onTap: () {
@@ -88,6 +91,9 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
                 },
               ),
               ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
                 leading: const Icon(Icons.delete),
                 title: const Text('Delete from library'),
                 onTap: () {
@@ -95,6 +101,9 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
                 },
               ),
               ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
                 leading: const Icon(Icons.add),
                 title: const Text('Add to shelf'),
                 onTap: () {
@@ -102,6 +111,9 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
                 },
               ),
               ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
                 leading: const Icon(Icons.bookmark),
                 title: const Text('About this ebook'),
                 onTap: () {
