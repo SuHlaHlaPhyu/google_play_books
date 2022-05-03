@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       ),
       BottomNavigationBarItem(
         label: "Library",
-        icon: Icon(Icons.file_copy_outlined),
+        icon: Icon(Icons.library_books),
       ),
     ];
   }
@@ -46,12 +46,10 @@ class _HomePageState extends State<HomePage> {
               _navigateToSearchpage(context);
             },
             child: Container(
-              height: 45,
+              height: 50,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: Colors.grey,
-                ),
+                color: Color.fromRGBO(245, 245, 245, 1),
+                borderRadius: BorderRadius.circular(1),
               ),
               child: Row(
                 children: const [
@@ -71,6 +69,16 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black,
                       fontSize: 15.0,
                     ),
+                  ),
+                  Spacer(),
+                  CircleAvatar(
+                    radius: 15.0,
+                    backgroundImage: NetworkImage(
+                      'https://www.whatsappimages.in/wp-content/uploads/2021/02/Beautiful-Girls-Whatsapp-DP-Profile-Images-pics-for-download-300x300.gif',
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8.0,
                   ),
                 ],
               ),

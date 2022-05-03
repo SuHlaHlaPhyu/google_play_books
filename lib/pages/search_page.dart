@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/search_bar/gf_search_bar.dart';
+import 'package:flutter_textfield_autocomplete/flutter_textfield_autocomplete.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -9,36 +9,125 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List list = [
-    "Flutter",
-    "Angular",
-    "Node js",
-  ];
+  GlobalKey<TextFieldAutoCompleteState<String>> key = GlobalKey();
+
+  TextFieldAutoComplete? searchTextField;
+
+  final TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: GFSearchBar(
-            overlaySearchListHeight: MediaQuery.of(context).size.height,
-            searchList: list,
-            searchQueryBuilder: (query, list) => list.where((item) {
-                  return item!
-                      .toString()
-                      .toLowerCase()
-                      .contains(query.toLowerCase());
-                }).toList(),
-            overlaySearchListItemBuilder: (dynamic item) => Container(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    item,
-                    style: const TextStyle(fontSize: 18),
-                  ),
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        title: searchTextField = TextFieldAutoComplete<String>(
+          controller: controller,
+          style: const TextStyle(color: Colors.black, fontSize: 16.0),
+          decoration: InputDecoration(
+            prefixIcon: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(
+                Icons.keyboard_backspace,
+              ),
+            ),
+            suffixIcon: const Icon(Icons.keyboard_voice),
+            contentPadding: const EdgeInsets.fromLTRB(10.0, 22.0, 10.0, 20.0),
+            filled: true,
+            hintText: 'Search Play Books',
+            hintStyle: const TextStyle(
+              fontSize: 14.0,
+            ),
+          ),
+          itemSubmitted: (item) {
+            setState(() => searchTextField?.textField?.controller?.text = item);
+          },
+          clearOnSubmit: false,
+          key: key,
+          suggestions: ["a", "b", "c"],
+          itemBuilder: (context, item) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  item,
+                  style: TextStyle(fontSize: 16.0),
                 ),
-            onItemSelected: (dynamic item) {
-              setState(() {
-                print('$item');
-              });
-            }),
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                ),
+                Text(
+                  item,
+                )
+              ],
+            );
+          },
+          itemSorter: (a, b) {
+            return a.compareTo(b);
+          },
+          itemFilter: (item, query) {
+            return item.toLowerCase().startsWith(query.toLowerCase());
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 10.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.trending_up,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Text("Top Selling"),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.new_releases_outlined,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Text("New Release"),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.store_outlined,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 12.0,
+                  ),
+                  Text("Bookstore"),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

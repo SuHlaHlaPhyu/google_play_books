@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/tabbar_viewitems/ebook_tabbar_view.dart';
 import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
-import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/tabbar_section_view.dart';
 
 import '../tabbar_viewitems/audiobooks_tabbar_view.dart';
@@ -88,9 +87,9 @@ class CarouselSilderListSectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          //viewportFraction: 0.9,
-          // enlargeCenterPage: true,
-          ),
+        viewportFraction: 0.95,
+        enlargeCenterPage: false,
+      ),
       items: [
         CarouselSectionView(
           onTapDownload: () {
