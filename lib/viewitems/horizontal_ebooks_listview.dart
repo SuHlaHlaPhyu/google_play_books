@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 
 import 'ebook_view.dart';
 
 class HorizontalEbookListView extends StatelessWidget {
-  final List<Ebooks>? ebooksList;
+  final List<BooksVO>? ebooksList;
   final Function(int?) onTapEbook;
   HorizontalEbookListView({
     required this.ebooksList,

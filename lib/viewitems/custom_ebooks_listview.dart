@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 
 import 'ebook_listitem_view.dart';
 import 'ebook_view.dart';
 
 class CustomEbookListView extends StatelessWidget {
-  final List<Ebooks>? ebooksList;
+  final List<BooksVO>? ebooksList;
   final Function(int?) onTapEbook;
   final bool is3x3Grid;
   final bool is2x2Grid;

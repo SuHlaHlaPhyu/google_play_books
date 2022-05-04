@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 import 'package:google_play_books/viewitems/ebook_view.dart';
 
 import 'ebooks_detail_page.dart';
 
 class ViewAllEbooksPage extends StatefulWidget {
-  final List<Ebooks>? ebooksList;
+  final List<BooksVO>? ebooksList;
   final String title;
   ViewAllEbooksPage({required this.ebooksList, required this.title});
   @override

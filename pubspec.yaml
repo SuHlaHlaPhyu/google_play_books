@@ -36,10 +36,20 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.1.1
   flutter_textfield_autocomplete: ^1.0.2
+  json_serializable:
+  json_annotation:
+  dio:
+  retrofit:
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  retrofit_generator:
+  hive_generator: ^1.1.2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

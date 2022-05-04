@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 
-import '../../dummy/ebooks.dart';
 import 'ebook_menu_itemview.dart';
 import 'icon_view.dart';
-import 'shelf_menu_item_view.dart';
 
 class EbookView extends StatelessWidget {
-  final Ebooks? ebook;
+  final BooksVO? ebook;
   final Function onTapEbook;
   final bool fromLibrary;
   EbookView({
@@ -32,7 +31,7 @@ class EbookView extends StatelessWidget {
               ),
               image: DecorationImage(
                 image: NetworkImage(
-                  ebook?.image ?? "",
+                  ebook?.bookImage ?? "",
                 ),
                 fit: BoxFit.fill,
               ),
@@ -109,7 +108,7 @@ class EbookView extends StatelessWidget {
                 SizedBox(
                   width: 160,
                   child: Text(
-                    ebook?.bookName ?? "",
+                    ebook?.title ?? "",
                     overflow: TextOverflow.clip,
                     softWrap: true,
                     style: const TextStyle(
@@ -122,7 +121,7 @@ class EbookView extends StatelessWidget {
                   ebook?.author ?? "",
                   style: const TextStyle(
                     fontSize: 13.0,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ],

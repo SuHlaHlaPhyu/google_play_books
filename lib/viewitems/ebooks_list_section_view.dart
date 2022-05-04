@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/dummy/ebooks.dart';
 import 'package:google_play_books/viewitems/horizontal_ebooks_listview.dart';
 
 class EbooksListSectionView extends StatelessWidget {
   final String title;
-  final List<Ebooks>? ebookList;
+  final List<BooksVO>? ebookList;
   final Function(int?) onTapEbook;
   final Function onTapViewAll;
   final bool noMargin;

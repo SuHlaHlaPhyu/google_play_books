@@ -69,7 +69,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
               fromLibrary: true,
               is3x3Grid: is3x3GridView,
               is2x2Grid: is2x2GridView,
-              ebooksList: ebookList,
+              ebooksList: [],
               onTapEbook: (index) {
                 /// ebook details
                 _navigateToEbooksDetailpage(context);

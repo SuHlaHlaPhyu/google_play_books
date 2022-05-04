@@ -101,7 +101,7 @@ class _EbooksDetailPageState extends State<EbooksDetailPage> {
               ),
               EbooksListSectionView(
                 "Similar books",
-                ebookList: ebookList.toList(),
+                ebookList: [],
                 noMargin: true,
                 onTapEbook: (index) {},
                 onTapViewAll: () {},

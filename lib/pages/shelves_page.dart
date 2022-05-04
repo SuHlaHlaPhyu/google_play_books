@@ -104,7 +104,7 @@ class _ShelvesPageState extends State<ShelvesPage> {
               fromLibrary: true,
               is3x3Grid: is3x3GridView,
               is2x2Grid: is2x2GridView,
-              ebooksList: ebookList,
+              ebooksList: [],
               onTapEbook: (index) {
                 ///
                 _navigateToEbooksDetailpage(context);

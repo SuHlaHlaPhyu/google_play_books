@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-
+import 'package:hive_flutter/hive_flutter.dart';
+import 'data/vos/books_vo.dart';
+import 'data/vos/buy_links_vo.dart';
+import 'data/vos/list_vo.dart';
 import 'pages/home_page.dart';
+import 'persistance/hive_constant.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+
+  /// adapter
+  Hive.registerAdapter(BuyLinkVOAdapter());
+  Hive.registerAdapter(BookVOAdapter());
+  Hive.registerAdapter(OverviewLinkVOAdapter());
+
+  /// box
+  await Hive.openBox<ListVO>(BOX_NAME_OVERVIEW_LIST_VO);
   runApp(const MyApp());
 }
 
@@ -20,5 +33,5 @@ class MyApp extends StatelessWidget {
 }
 /// fvm flutter build appbundle --release
 /// play console ==> open testing
-// fvm flutter packages run build_runner build
-// fvm flutter packages run build_runner build --delete-conflicting-outputs
+/// fvm flutter packages run build_runner build
+/// fvm flutter packages run build_runner build --delete-conflicting-outputs

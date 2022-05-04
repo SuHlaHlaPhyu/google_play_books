@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/blocs/home_bloc.dart';
+import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:google_play_books/dummy/dummy_data.dart';
+import 'package:provider/provider.dart';
 
 import '../pages/ebooks_detail_page.dart';
 import '../pages/view_all_ebooks_page.dart';
@@ -15,52 +18,37 @@ class EbookTabbarView extends StatefulWidget {
 class _EbookTabbarViewState extends State<EbookTabbarView> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(
-          height: 20.0,
-        ),
-        EbooksListSectionView(
-          "Recent price drops",
-          ebookList: ebookList,
-          onTapEbook: (index) {
-            _navigateToEbooksDetailpage(context);
-          },
-          onTapViewAll: () {
-            _navigateToViewAllpage(context, "Recent price drops");
-          },
-        ),
-        EbooksListSectionView(
-          "Best Sellers",
-          ebookList: ebookList.reversed.toList(),
-          onTapEbook: (index) {
-            _navigateToEbooksDetailpage(context);
-          },
-          onTapViewAll: () {
-            _navigateToViewAllpage(context, "Best Sellers");
-          },
-        ),
-        EbooksListSectionView(
-          "Recommend",
-          ebookList: ebookList.toList(),
-          onTapEbook: (index) {
-            _navigateToEbooksDetailpage(context);
-          },
-          onTapViewAll: () {
-            _navigateToViewAllpage(context, "Recommend");
-          },
-        ),
-        EbooksListSectionView(
-          "New release",
-          ebookList: ebookList.reversed.toList(),
-          onTapEbook: (index) {
-            _navigateToEbooksDetailpage(context);
-          },
-          onTapViewAll: () {
-            _navigateToViewAllpage(context, "New release");
-          },
-        ),
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => HomeBloc(),
+      child: Selector<HomeBloc, List<ListVO>?>(
+          selector: (BuildContext context, bloc) => bloc.overviewBooksList,
+          builder: (BuildContext context, bookList, Widget? child) {
+            return ListView.builder(
+              itemCount: bookList?.length,
+              itemBuilder: ((context, index) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    EbooksListSectionView(
+                      bookList?[index].listName ?? " ",
+                      ebookList: bookList?[index].books,
+                      onTapEbook: (index) {
+                        _navigateToEbooksDetailpage(context);
+                      },
+                      onTapViewAll: () {
+                        _navigateToViewAllpage(context, "Recent price drops");
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                );
+              }),
+            );
+          }),
     );
   }
 
@@ -69,7 +57,7 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
       context,
       MaterialPageRoute(
         builder: (context) => ViewAllEbooksPage(
-          ebooksList: ebookList,
+          ebooksList: [],
           title: title,
         ),
       ),
