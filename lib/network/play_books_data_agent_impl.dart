@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
+import 'package:google_play_books/data/vos/overview_results_vo.dart';
 import 'package:google_play_books/network/api_constant.dart';
 import 'package:google_play_books/network/play_books_api.dart';
 
@@ -9,7 +10,7 @@ class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
   late PlayBooksApi api;
 
   static final PlayBooksDataAgentImpl _singleton =
-  PlayBooksDataAgentImpl._internal();
+      PlayBooksDataAgentImpl._internal();
 
   factory PlayBooksDataAgentImpl() {
     return _singleton;
@@ -22,8 +23,20 @@ class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
 
   @override
   Future<List<ListVO>?> getOverviewPlayBooks() {
-    return api.getOverviewBooks(API_KEY, PUBLISHED_DATE).asStream().map((response) => response.results?.lists).first;
+    return api
+        .getOverviewBooks(API_KEY, PUBLISHED_DATE)
+        .asStream()
+        .map((response) => response.results?.lists)
+        .first;
   }
 
-
+  @override
+  Future<OverviewResultsVO?> getBooksByListName(String listName) {
+    return api
+        .getBooksbyListname(
+            PUBLISHED_DATE, listName, 20, "BxCppf3ce8Q39cgPc082QKz4bWc2fngb")
+        .asStream()
+        .map((response) => response.results)
+        .first;
+  }
 }

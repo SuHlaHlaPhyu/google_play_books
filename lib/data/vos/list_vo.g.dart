@@ -23,8 +23,8 @@ class OverviewLinkVOAdapter extends TypeAdapter<ListVO> {
       fields[3] as String?,
       fields[4] as String?,
       fields[5] as String?,
-      fields[6] as String?,
-      fields[7] as String?,
+      fields[6] as int?,
+      fields[7] as int?,
       (fields[8] as List?)?.cast<BooksVO>(),
     );
   }
@@ -75,8 +75,8 @@ ListVO _$ListVOFromJson(Map<String, dynamic> json) => ListVO(
       json['display_name'] as String?,
       json['updated'] as String?,
       json['list_image'] as String?,
-      json['list_image_width'] as String?,
-      json['list_image_height'] as String?,
+      json['list_image_width'] as int?,
+      json['list_image_height'] as int?,
       (json['books'] as List<dynamic>?)
           ?.map((e) => BooksVO.fromJson(e as Map<String, dynamic>))
           .toList(),

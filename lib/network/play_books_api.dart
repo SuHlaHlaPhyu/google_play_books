@@ -12,18 +12,14 @@ abstract class PlayBooksApi {
   @GET(ENDPOINT_OVERVIEW)
   Future<OverviewResponse> getOverviewBooks(
     @Query(PARAM_API_KEY) String apiKey,
-    @Query(PARAM_PUBLISHED_DATE) String published_date,
+    @Query(PARAM_PUBLISHED_DATE) String publishedDate,
   );
 
-  // @GET(ENDPOINT_LIST_NAME)
-  // Future<MovieListResponse> getListName(
-  //   @Query(PARAM_API_KEY) String apiKey,
-  // );
-
-  // @GET("$ENDPOINT_BOOKS_BY_LISTNAME/{list_name}")
-  // Future<MovieVO?> getBooksbyListname(
-  //   @Path("list_name") String listLame,
-  //   @Query(PARAM_API_KEY) String apiKey,
-  //   @Query(PARAM_OFFSET) String offset,
-  // );
+  @GET("/v3/lists/{date}/{list_name}")
+  Future<OverviewResponse> getBooksbyListname(
+    @Path("date") String date,
+    @Path("list_name") String listName,
+    @Query("offset") int offset,
+    @Query("api-key") String apiKey,
+  );
 }

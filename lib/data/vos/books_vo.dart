@@ -109,6 +109,14 @@ class BooksVO {
   @HiveField(24)
   List<BuyLinksVO>? buyLinks;
 
+  @JsonKey(name: "asterisk")
+  @HiveField(25)
+  int? asterisk;
+
+  @JsonKey(name: "dagger")
+  @HiveField(26)
+  int? dagger;
+
 
   BooksVO(
       this.ageGroup,
@@ -135,12 +143,14 @@ class BooksVO {
       this.title,
       this.updatedDate,
       this.weeksOnList,
-      this.buyLinks);
+      this.buyLinks,
+      this.asterisk,
+      this.dagger);
 
 
   @override
   String toString() {
-    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks}';
+    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger}';
   }
 
   factory BooksVO.fromJson(Map<String, dynamic> json) =>

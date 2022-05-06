@@ -14,16 +14,17 @@ class OverviewResponse {
   @JsonKey(name: "num_results")
   int? numResults;
 
+  @JsonKey(name: "last_modified")
+  String? lastModified;
+
   @JsonKey(name: "results")
   OverviewResultsVO? results;
 
-
-  OverviewResponse(this.status, this.copyright, this.numResults, this.results);
-
+  OverviewResponse(this.status, this.copyright, this.numResults,this.lastModified, this.results);
 
   @override
   String toString() {
-    return 'OverviewResponse{status: $status, copyright: $copyright, numResults: $numResults, results: $results}';
+    return 'OverviewResponse{status: $status, copyright: $copyright, numResults: $numResults ,lastModified: $lastModified, results: $results}';
   }
 
   factory OverviewResponse.fromJson(Map<String, dynamic> json) =>

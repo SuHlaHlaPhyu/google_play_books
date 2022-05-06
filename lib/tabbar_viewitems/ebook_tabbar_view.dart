@@ -38,7 +38,7 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
                         _navigateToEbooksDetailpage(context);
                       },
                       onTapViewAll: () {
-                        _navigateToViewAllpage(context, "Recent price drops");
+                        _navigateToViewAllpage(context, bookList?[index].listName ?? "");
                       },
                     ),
                     const SizedBox(
@@ -57,7 +57,7 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
       context,
       MaterialPageRoute(
         builder: (context) => ViewAllEbooksPage(
-          ebooksList: [],
+        
           title: title,
         ),
       ),

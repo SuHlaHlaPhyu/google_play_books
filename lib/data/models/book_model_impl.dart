@@ -1,4 +1,5 @@
 import 'package:google_play_books/data/models/book_model.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:google_play_books/network/play_books_data_agent.dart';
 import 'package:google_play_books/network/play_books_data_agent_impl.dart';
@@ -31,5 +32,10 @@ class BookModelImpl extends BookModel {
         .getAllBookEventStream()
         .startWith(overviewDao.getAllBooksStream())
         .map((event) => overviewDao.getAllBooks());
+  }
+
+  @override
+  Future<List<BooksVO>> getBooksByListName(String listName) {
+   return dataAgent.getBooksByListName(listName).then((value) => Future.value(value?.books));
   }
 }

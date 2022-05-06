@@ -35,16 +35,15 @@ class ListVO {
 
   @JsonKey(name: "list_image_width")
   @HiveField(6)
-  String? listImageWidth;
+  int? listImageWidth;
 
   @JsonKey(name: "list_image_height")
   @HiveField(7)
-  String? listImageHeight;
+  int? listImageHeight;
 
   @JsonKey(name: "books")
   @HiveField(8)
   List<BooksVO>? books;
-
 
   ListVO(
       this.listId,

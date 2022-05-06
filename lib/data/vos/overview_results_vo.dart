@@ -1,3 +1,4 @@
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -23,6 +24,24 @@ class OverviewResultsVO {
   @JsonKey(name: "lists")
   List<ListVO>? lists;
 
+  @JsonKey(name: "list_name")
+  String? listName;
+
+  @JsonKey(name: "list_name_encoded")
+  String? listNameEncoded;
+
+  @JsonKey(name: "display_name")
+  String? displayName;
+
+  @JsonKey(name: "updated")
+  String? updated;
+
+  @JsonKey(name: "normal_list_ends_at")
+  int? normalListEndsAt;
+
+  @JsonKey(name: "books")
+  List<BooksVO>? books;
+
 
   OverviewResultsVO(
       this.bestsellersDate,
@@ -30,11 +49,18 @@ class OverviewResultsVO {
       this.publishedDateDescription,
       this.previousPublishedDate,
       this.nextPublishedDate,
-      this.lists);
+      this.lists,
+      this.listName,
+      this.listNameEncoded,
+      this.displayName,
+      this.updated,
+      this.normalListEndsAt,
+      this.books);
+
 
   @override
   String toString() {
-    return 'OverviewResultsVO{bestsellersDate: $bestsellersDate, publishedDate: $publishedDate, publishedDateDescription: $publishedDateDescription, previousPublishedDate: $previousPublishedDate, nextPublishedDate: $nextPublishedDate, lists: $lists}';
+    return 'OverviewResultsVO{bestsellersDate: $bestsellersDate, publishedDate: $publishedDate, publishedDateDescription: $publishedDateDescription, previousPublishedDate: $previousPublishedDate, nextPublishedDate: $nextPublishedDate, lists: $lists, listName: $listName, listNameEncoded: $listNameEncoded, displayName: $displayName, updated: $updated, normalListEndsAt: $normalListEndsAt, books: $books}';
   }
 
   factory OverviewResultsVO.fromJson(Map<String, dynamic> json) =>

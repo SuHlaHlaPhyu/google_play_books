@@ -18,11 +18,11 @@ class _PlayBooksApi implements PlayBooksApi {
   String? baseUrl;
 
   @override
-  Future<OverviewResponse> getOverviewBooks(apiKey, published_date) async {
+  Future<OverviewResponse> getOverviewBooks(apiKey, publishedDate) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'api-key': apiKey,
-      r'published_date': published_date
+      r'published_date': publishedDate
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -30,6 +30,26 @@ class _PlayBooksApi implements PlayBooksApi {
         _setStreamType<OverviewResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/v3/lists/overview.json',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = OverviewResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<OverviewResponse> getBooksbyListname(
+      date, listName, offset, apiKey) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'offset': offset,
+      r'api-key': apiKey
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<OverviewResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/v3/lists/${date}/${listName}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OverviewResponse.fromJson(_result.data!);

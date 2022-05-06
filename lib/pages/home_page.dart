@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               height: 50,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(245, 245, 245, 1),
+                color: const Color.fromRGBO(245, 245, 245, 1),
                 borderRadius: BorderRadius.circular(1),
               ),
               child: Row(
