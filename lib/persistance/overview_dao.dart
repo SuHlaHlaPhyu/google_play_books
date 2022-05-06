@@ -5,4 +5,6 @@ abstract class OverviewDao {
   Stream<void> getAllBookEventStream();
   List<ListVO> getAllBooks();
    Stream<List<ListVO>> getAllBooksStream();
+  ListVO? getMoveById(int movieId);
+  Stream<ListVO?> getMovieByIdStream(int movieId);
 }

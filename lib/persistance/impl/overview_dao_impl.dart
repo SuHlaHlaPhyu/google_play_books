@@ -38,4 +38,15 @@ class OverviewDaoImpl extends OverviewDao {
   Stream<List<ListVO>> getAllBooksStream() {
     return Stream.value(getAllBooks());
   }
+
+  @override
+  ListVO? getMoveById(int movieId) {
+    print("get===============> ${getBookBox().get(movieId)}");
+    return getBookBox().get(movieId);
+  }
+
+  @override
+  Stream<ListVO?> getMovieByIdStream(int movieId) {
+    return Stream.value(getMoveById(movieId));
+  }
 }

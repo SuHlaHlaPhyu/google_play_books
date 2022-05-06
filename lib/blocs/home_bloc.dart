@@ -7,15 +7,17 @@ import '../data/models/book_model.dart';
 class HomeBloc extends ChangeNotifier {
   /// States
   List<ListVO>? overviewBooksList;
+  bool isLoading = true;
 
   /// Model
   BookModel bookModel = BookModelImpl();
 
   HomeBloc() {
     /// overview books
-    bookModel.getOverviewBooksFromDatabase().listen((booklist) {
+    bookModel.getOverviewBooks().then((booklist) {
       overviewBooksList = booklist;
+      isLoading = false;
       notifyListeners();
-    }).onError((error) {});
+    }).catchError((error) {});
   }
 }

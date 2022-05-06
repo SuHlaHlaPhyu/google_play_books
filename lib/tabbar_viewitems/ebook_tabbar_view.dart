@@ -23,6 +23,14 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
       child: Selector<HomeBloc, List<ListVO>?>(
           selector: (BuildContext context, bloc) => bloc.overviewBooksList,
           builder: (BuildContext context, bookList, Widget? child) {
+            HomeBloc bloc = Provider.of(context, listen: false);
+            if (bloc.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              );
+            }
             return ListView.builder(
               itemCount: bookList?.length,
               itemBuilder: ((context, index) {

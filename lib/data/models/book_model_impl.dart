@@ -3,9 +3,8 @@ import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:google_play_books/network/play_books_data_agent.dart';
 import 'package:google_play_books/network/play_books_data_agent_impl.dart';
-import 'package:google_play_books/persistance/impl/overview_dao_impl.dart';
-import 'package:google_play_books/persistance/overview_dao.dart';
-import 'package:stream_transform/stream_transform.dart';
+import 'package:google_play_books/persistance/book_dao.dart';
+import 'package:google_play_books/persistance/impl/book_dao_impl.dart';
 
 class BookModelImpl extends BookModel {
   PlayBooksDataAgent dataAgent = PlayBooksDataAgentImpl();
@@ -16,26 +15,32 @@ class BookModelImpl extends BookModel {
   }
 
   BookModelImpl._internal();
-  OverviewDao overviewDao = OverviewDaoImpl();
+  BookDao bookDao = BookDaoImpl();
 
   @override
-  void getOverviewBooks() {
-    dataAgent.getOverviewPlayBooks().then((value) async {
-      overviewDao.saveAllBooks(value ?? []);
+  Future<List<ListVO>?> getOverviewBooks() {
+   return dataAgent.getOverviewPlayBooks().then((value) async {
+      value?.forEach((element) {
+        bookDao.saveAllBooks(element.books ?? []);
+      });
+     return Future.value(value);
     });
   }
 
   @override
-  Stream<List<ListVO>?> getOverviewBooksFromDatabase() {
-    getOverviewBooks();
-    return overviewDao
-        .getAllBookEventStream()
-        .startWith(overviewDao.getAllBooksStream())
-        .map((event) => overviewDao.getAllBooks());
+  Future<List<BooksVO>> getBooksByListName(String listName) async {
+   return dataAgent.getBooksByListName(listName).then((value) {
+     bookDao.saveAllBooks(value?.books ?? []);
+     return Future.value(value?.books);
+   });
   }
 
-  @override
-  Future<List<BooksVO>> getBooksByListName(String listName) {
-   return dataAgent.getBooksByListName(listName).then((value) => Future.value(value?.books));
-  }
+// @override
+// Stream<List<ListVO>?> getOverviewBooksFromDatabase() {
+//   getOverviewBooks();
+//   return overviewDao
+//       .getAllBookEventStream()
+//       .startWith(overviewDao.getAllBooksStream())
+//       .map((event) => overviewDao.getAllBooks());
+// }
 }
