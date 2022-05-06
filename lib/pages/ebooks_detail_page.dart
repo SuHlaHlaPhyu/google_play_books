@@ -1,113 +1,122 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/blocs/book_detail_bloc.dart';
+import 'package:provider/provider.dart';
 
-import '../dummy/dummy_data.dart';
+import '../data/vos/books_vo.dart';
 import '../viewitems/ebooks_list_section_view.dart';
 
-class EbooksDetailPage extends StatefulWidget {
-  @override
-  State<EbooksDetailPage> createState() => _EbooksDetailPageState();
-}
+class EbooksDetailPage extends StatelessWidget {
+  final String title;
+  EbooksDetailPage({required this.title});
 
-class _EbooksDetailPageState extends State<EbooksDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          const Icon(
-            Icons.search,
-            color: Colors.black,
-          ),
-          const SizedBox(
-            width: 15.0,
-          ),
-          const Icon(
-            Icons.bookmark_add_outlined,
-            color: Colors.black,
-          ),
-          const SizedBox(
-            width: 4.0,
-          ),
-          PopupMenuButton(
-            padding: const EdgeInsets.all(0.0),
-            icon: const Icon(
-              Icons.more_vert,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => BookDetailBloc(title),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back_ios,
               color: Colors.black,
             ),
-            itemBuilder: (BuildContext context) {
-              return const [
-                PopupMenuItem(
-                  height: 13.0,
-                  child: Text("Share"),
-                  value: 1,
-                ),
-              ];
-            },
           ),
-          const SizedBox(
-            width: 8.0,
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TitleSectionView(),
-              const SizedBox(
-                height: 15.0,
-              ),
-              TotalReviewAndPageSectionView(),
-              const SizedBox(
-                height: 15.0,
-              ),
-              ButtonSectionView(),
-              const SizedBox(
-                height: 10.0,
-              ),
-              const Divider(
+          actions: [
+            const Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            const SizedBox(
+              width: 15.0,
+            ),
+            const Icon(
+              Icons.bookmark_add_outlined,
+              color: Colors.black,
+            ),
+            const SizedBox(
+              width: 4.0,
+            ),
+            PopupMenuButton(
+              padding: const EdgeInsets.all(0.0),
+              icon: const Icon(
+                Icons.more_vert,
                 color: Colors.black,
               ),
-              const SizedBox(
-                height: 18.0,
+              itemBuilder: (BuildContext context) {
+                return const [
+                  PopupMenuItem(
+                    height: 13.0,
+                    child: Text("Share"),
+                    value: 1,
+                  ),
+                ];
+              },
+            ),
+            const SizedBox(
+              width: 8.0,
+            ),
+          ],
+        ),
+        body: Selector<BookDetailBloc, BooksVO?>(
+          selector: (BuildContext context, bloc) => bloc.bookDetail,
+          builder: (BuildContext context, detail, Widget? child){
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TitleSectionView(booksVO: detail,),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    TotalReviewAndPageSectionView(),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    ButtonSectionView(price: detail?.price ?? "",),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 18.0,
+                    ),
+                    TitleAndSubtextSectionView(
+                      title: "About this ebook",
+                      subtext:
+                      detail?.description ?? "",
+                    ),
+                    const SizedBox(
+                      height: 18.0,
+                    ),
+                    // TitleAndSubtextSectionView(
+                    //   title: "About the author",
+                    //   subtext:
+                    //   "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
+                    // ),
+                    // const SizedBox(
+                    //   height: 18.0,
+                    // ),
+                    // EbooksListSectionView(
+                    //   "Similar books",
+                    //   ebookList: [],
+                    //   noMargin: true,
+                    //   onTapEbook: (index) {},
+                    //   onTapViewAll: () {},
+                    // ),
+                  ],
+                ),
               ),
-              TitleAndSubtextSectionView(
-                title: "About this ebook",
-                subtext:
-                    "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
-              ),
-              const SizedBox(
-                height: 18.0,
-              ),
-              TitleAndSubtextSectionView(
-                title: "About the author",
-                subtext:
-                    "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
-              ),
-              const SizedBox(
-                height: 18.0,
-              ),
-              EbooksListSectionView(
-                "Similar books",
-                ebookList: [],
-                noMargin: true,
-                onTapEbook: (index) {},
-                onTapViewAll: () {},
-              ),
-            ],
-          ),
+            );
+          },
+
         ),
       ),
     );
@@ -164,6 +173,8 @@ class TitleAndSubtextSectionView extends StatelessWidget {
 }
 
 class ButtonSectionView extends StatelessWidget {
+  final String? price;
+  ButtonSectionView({required this.price});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -201,10 +212,10 @@ class ButtonSectionView extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                "Buy \$3.4",
-                style: TextStyle(
+                "Buy \$ $price",
+                style:const TextStyle(
                   fontSize: 14.0,
                   color: Colors.white,
                 ),
@@ -283,6 +294,8 @@ class TotalReviewAndPageSectionView extends StatelessWidget {
 }
 
 class TitleSectionView extends StatelessWidget {
+  final BooksVO? booksVO;
+  TitleSectionView({required this.booksVO});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -297,9 +310,9 @@ class TitleSectionView extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               5,
             ),
-            image: const DecorationImage(
+            image: DecorationImage(
               image: NetworkImage(
-                "https://cdn2.penguin.com.au/covers/original/9780718193911.jpg",
+                "${booksVO?.bookImage}",
               ),
               fit: BoxFit.fill,
             ),
@@ -319,11 +332,21 @@ class TitleSectionView extends StatelessWidget {
               5,
             ),
           ),
-          child: const Text(
-            "Good Vibes, Good Life : How Self-Love is the key to unlocking your greatness",
-            style: TextStyle(
-              fontSize: 18.0,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Text(
+                booksVO?.title ?? "",
+                style: const TextStyle(
+                  fontSize: 18.0,
+                ),
+              ), Text(
+                booksVO?.author ?? "",
+                style: const TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
+            ],
           ),
         ),
       ],

@@ -42,8 +42,8 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
                     EbooksListSectionView(
                       bookList?[index].listName ?? " ",
                       ebookList: bookList?[index].books,
-                      onTapEbook: (index) {
-                        _navigateToEbooksDetailpage(context);
+                      onTapEbook: (bookIndex) {
+                        _navigateToEbooksDetailpage(context,  bookList?[index].books?[bookIndex ?? 0].title ?? "");
                       },
                       onTapViewAll: () {
                         _navigateToViewAllpage(context, bookList?[index].listName ?? "");
@@ -73,12 +73,12 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
   }
 
   void _navigateToEbooksDetailpage(
-    BuildContext context,
+    BuildContext context, String bookName
   ) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(),
+        builder: (context) => EbooksDetailPage(title: bookName,),
       ),
     );
   }

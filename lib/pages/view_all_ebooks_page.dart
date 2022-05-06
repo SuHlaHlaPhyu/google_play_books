@@ -62,7 +62,7 @@ class ViewAllEbooksPage extends StatelessWidget {
                   ebook: bookList?[index],
                   onTapEbook: () {
                     // book details
-                    _navigateToEbooksDetailpage(context);
+                    _navigateToEbooksDetailpage(context, bookList?[index].title ?? "");
                   },
                 );
               },
@@ -74,12 +74,12 @@ class ViewAllEbooksPage extends StatelessWidget {
   }
 
   void _navigateToEbooksDetailpage(
-    BuildContext context,
+    BuildContext context, String name
   ) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(),
+        builder: (context) => EbooksDetailPage(title: name,),
       ),
     );
   }

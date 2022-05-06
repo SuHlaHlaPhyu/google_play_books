@@ -24,7 +24,7 @@ class _ShelvesPageState extends State<ShelvesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(),
+        builder: (context) => EbooksDetailPage(title: "test",),
       ),
     );
   }

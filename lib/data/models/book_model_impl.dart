@@ -35,12 +35,9 @@ class BookModelImpl extends BookModel {
    });
   }
 
-// @override
-// Stream<List<ListVO>?> getOverviewBooksFromDatabase() {
-//   getOverviewBooks();
-//   return overviewDao
-//       .getAllBookEventStream()
-//       .startWith(overviewDao.getAllBooksStream())
-//       .map((event) => overviewDao.getAllBooks());
-// }
+  @override
+  Future<BooksVO?> getBookDetails(String name) async{
+    return Future.value(bookDao.getBookByNameStream(name).first);
+  }
+
 }

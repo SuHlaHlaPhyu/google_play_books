@@ -87,7 +87,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(),
+        builder: (context) => EbooksDetailPage(title: "",),
       ),
     );
   }

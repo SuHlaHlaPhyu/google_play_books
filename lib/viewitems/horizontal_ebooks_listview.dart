@@ -15,7 +15,7 @@ class HorizontalEbookListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTapEbook(1);
+        //onTapEbook(ebooksList?[index].title);
       },
       child: Container(
         padding: const EdgeInsets.only(left: 8.0),
@@ -30,7 +30,7 @@ class HorizontalEbookListView extends StatelessWidget {
             return EbookView(
               ebook: ebooksList?[index],
               onTapEbook: () {
-                onTapEbook(1);
+                onTapEbook(index);
               },
             );
           },
