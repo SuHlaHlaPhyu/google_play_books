@@ -15,4 +15,4 @@ const String PARAM_DATE = "date";
 /// parameters value
 const String API_KEY = "BxCppf3ce8Q39cgPc082QKz4bWc2fngb";
 const String PUBLISHED_DATE = "2013-05-22";
-const int OFFSET = 10;
+const int OFFSET = 30;

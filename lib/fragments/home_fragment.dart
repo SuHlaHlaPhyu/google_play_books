@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_play_books/blocs/view_book_bloc.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/tabbar_viewitems/ebook_tabbar_view.dart';
 import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
 import 'package:google_play_books/viewitems/tabbar_section_view.dart';
+import 'package:provider/provider.dart';
 
 import '../tabbar_viewitems/audiobooks_tabbar_view.dart';
 import '../viewitems/icon_view.dart';
@@ -32,47 +35,56 @@ class _HomeFragmentState extends State<HomeFragment>
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (context, value) {
-        return [
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 50.0,
+    return ChangeNotifierProvider(
+      create: (context) => ViewBookBloc(),
+      child: NestedScrollView(
+        headerSliverBuilder: (context, value) {
+          return [
+            Selector<ViewBookBloc, List<BooksVO>?>(
+              selector: (BuildContext context, bloc) => bloc.viewBookList,
+              builder: (BuildContext context, bookList, Widget? child) {
+                return SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 50.0,
+                        ),
+                        child: CarouselSilderListSectionView(
+                          bookList: bookList ?? [],
+                          onTapDownload: () {
+                            // download
+                          },
+                          onTapListen: () {
+                            // listen
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      TabBarSectionView(
+                        tabController: _tabController,
+                        tabBarOneName: "Ebooks",
+                        tabBarTwoName: "Audio Books",
+                      ),
+                    ],
                   ),
-                  child: CarouselSilderListSectionView(
-                    onTapDownload: () {
-                      // download
-                    },
-                    onTapListen: () {
-                      // listen
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                TabBarSectionView(
-                  tabController: _tabController,
-                  tabBarOneName: "Ebooks",
-                  tabBarTwoName: "Audio Books",
-                ),
-              ],
+                );
+              },
             ),
-          )
-        ];
-      },
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          EbookTabbarView(),
-          AudioBookTabbarView(),
-        ],
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children: const [
+            EbookTabbarView(),
+            AudioBookTabbarView(),
+          ],
+        ),
       ),
     );
   }
@@ -81,25 +93,29 @@ class _HomeFragmentState extends State<HomeFragment>
 class CarouselSilderListSectionView extends StatelessWidget {
   final Function onTapDownload;
   final Function onTapListen;
+  final List<BooksVO> bookList;
   CarouselSilderListSectionView(
-      {required this.onTapListen, required this.onTapDownload});
+      {required this.onTapListen,
+      required this.onTapDownload,
+      required this.bookList});
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        viewportFraction: 0.95,
+        viewportFraction: 0.8,
         enlargeCenterPage: false,
       ),
-      items: [
-        CarouselSectionView(
-          onTapDownload: () {
-            onTapDownload();
-          },
-          onTapListen: () {
-            onTapListen();
-          },
-        ),
-      ],
+      items: bookList.reversed
+          .map((e) => CarouselSectionView(
+                book: e,
+                onTapDownload: () {
+                  onTapDownload();
+                },
+                onTapListen: () {
+                  onTapListen();
+                },
+              ))
+          .toList(),
     );
   }
 }
@@ -107,7 +123,11 @@ class CarouselSilderListSectionView extends StatelessWidget {
 class CarouselSectionView extends StatelessWidget {
   final Function onTapDownload;
   final Function onTapListen;
-  CarouselSectionView({required this.onTapListen, required this.onTapDownload});
+  final BooksVO book;
+  CarouselSectionView(
+      {required this.onTapListen,
+      required this.onTapDownload,
+      required this.book});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -118,9 +138,9 @@ class CarouselSectionView extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           8.0,
         ),
-        image: const DecorationImage(
+        image: DecorationImage(
           image: NetworkImage(
-            "https://images.template.net/wp-content/uploads/2018/04/Free-Non-fiction-Book-Cover.jpg",
+            "${book.bookImage}",
           ),
           fit: BoxFit.fill,
         ),

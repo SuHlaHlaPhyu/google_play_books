@@ -4,20 +4,26 @@ import 'package:google_play_books/data/models/book_model_impl.dart';
 import '../data/models/book_model.dart';
 import '../data/vos/books_vo.dart';
 
-class BookDetailBloc extends ChangeNotifier {
+class ViewBookBloc extends ChangeNotifier {
   /// States
-   BooksVO? bookDetail;
   bool isLoading = true;
+  List<BooksVO>? viewBookList;
 
   /// Model
   BookModel bookModel = BookModelImpl();
 
-   BookDetailBloc(String title) {
-    /// overview books
-    bookModel.getBookDetails(title).then((detail) {
-      bookDetail = detail;
+  ViewBookBloc() {
+
+    bookModel.getSaveBookList().then((value) {
+      print("===============> called");
+      print("=================> $value");
+      viewBookList = value;
       isLoading = false;
       notifyListeners();
-    }).catchError((error) {});
+    }).catchError((error){
+      //
+    });
   }
+
+
 }

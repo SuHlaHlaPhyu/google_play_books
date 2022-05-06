@@ -5,4 +5,5 @@ abstract class BookModel {
    Future<List<ListVO>?> getOverviewBooks();
    Future<List<BooksVO>> getBooksByListName(String listName);
    Future<BooksVO?> getBookDetails(String name);
+   Future<List<BooksVO>> getSaveBookList();
 }

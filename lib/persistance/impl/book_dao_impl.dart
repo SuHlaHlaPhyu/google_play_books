@@ -36,6 +36,7 @@ class BookDaoImpl extends BookDao{
     Map<String, BooksVO> bookMap = Map.fromIterable(bookList, key: (element) => element.title, value: (element)=> element);
     await getBookBox().putAll(bookMap);
   }
+
   @override
   BooksVO? getBookByName(String title) {
     return getBookBox().get(title);

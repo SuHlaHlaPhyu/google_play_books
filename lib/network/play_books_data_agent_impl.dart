@@ -34,7 +34,7 @@ class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
   Future<OverviewResultsVO?> getBooksByListName(String listName) {
     return api
         .getBooksbyListname(
-            PUBLISHED_DATE, listName, 20, "BxCppf3ce8Q39cgPc082QKz4bWc2fngb")
+            PUBLISHED_DATE, listName, OFFSET, "BxCppf3ce8Q39cgPc082QKz4bWc2fngb")
         .asStream()
         .map((response) => response.results)
         .first;

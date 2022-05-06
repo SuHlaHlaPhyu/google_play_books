@@ -5,6 +5,8 @@ import 'package:google_play_books/network/play_books_data_agent.dart';
 import 'package:google_play_books/network/play_books_data_agent_impl.dart';
 import 'package:google_play_books/persistance/book_dao.dart';
 import 'package:google_play_books/persistance/impl/book_dao_impl.dart';
+import 'package:google_play_books/persistance/impl/save_book_dao_impl.dart';
+import 'package:google_play_books/persistance/save_book_dao.dart';
 
 class BookModelImpl extends BookModel {
   PlayBooksDataAgent dataAgent = PlayBooksDataAgentImpl();
@@ -16,6 +18,7 @@ class BookModelImpl extends BookModel {
 
   BookModelImpl._internal();
   BookDao bookDao = BookDaoImpl();
+  SaveBookDao saveBookDao = SaveBookDaoImpl();
 
   @override
   Future<List<ListVO>?> getOverviewBooks() {
@@ -37,7 +40,15 @@ class BookModelImpl extends BookModel {
 
   @override
   Future<BooksVO?> getBookDetails(String name) async{
-    return Future.value(bookDao.getBookByNameStream(name).first);
+    return Future.value(bookDao.getBookByNameStream(name).first.then((value) {
+     saveBookDao.saveBook(value!);
+      return value;
+    }));
+  }
+
+  @override
+  Future<List<BooksVO>> getSaveBookList() {
+    return Future.value(saveBookDao.getAllBooks());
   }
 
 }
