@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_play_books/blocs/view_book_bloc.dart';
+import 'package:google_play_books/blocs/carousel_slider_bloc.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/tabbar_viewitems/ebook_tabbar_view.dart';
 import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
@@ -36,11 +36,11 @@ class _HomeFragmentState extends State<HomeFragment>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ViewBookBloc(),
+      create: (context) => CarouselSliderBloc(),
       child: NestedScrollView(
         headerSliverBuilder: (context, value) {
           return [
-            Selector<ViewBookBloc, List<BooksVO>?>(
+            Selector<CarouselSliderBloc, List<BooksVO>?>(
               shouldRebuild: (previous, next) => previous != next,
               selector: (BuildContext context, bloc) => bloc.viewBookList,
               builder: (BuildContext context, bookList, Widget? child) {
@@ -103,7 +103,7 @@ class CarouselSilderListSectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          autoPlayCurve: Curves.fastOutSlowIn,
+       //   autoPlayCurve: Curves.fastOutSlowIn,
           enlargeCenterPage: true,
           enableInfiniteScroll: false,
           viewportFraction: 0.6,

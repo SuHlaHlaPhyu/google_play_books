@@ -62,7 +62,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                     ebooksList: bookList,
                     onTapEbook: (index) {
                       /// ebook details
-                      _navigateToEbooksDetailpage(context);
+                      _navigateToEbooksDetailpage(context, bookList?[index ?? 0].title ?? "");
                     },
                   ),
                 ],
@@ -76,12 +76,13 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
 
   void _navigateToEbooksDetailpage(
     BuildContext context,
+      String name
   ) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => EbooksDetailPage(
-          title: "",
+          title: name ,
         ),
       ),
     );

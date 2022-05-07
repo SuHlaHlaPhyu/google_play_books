@@ -17,9 +17,9 @@ abstract class PlayBooksApi {
 
   @GET("/v3/lists/{date}/{list_name}")
   Future<OverviewResponse> getBooksbyListname(
-    @Path("date") String date,
-    @Path("list_name") String listName,
-    @Query("offset") int offset,
-    @Query("api-key") String apiKey,
-  );
+      @Path("date") String date,
+      @Path("list_name") String listName,
+      @Query("offset") int offset,
+      @Query("api-key") String apiKey,
+      );
 }

@@ -18,8 +18,6 @@ class YourBookBloc extends ChangeNotifier {
 
   YourBookBloc() {
     bookModel.getSaveBookList().then((value) {
-      print("===============> called");
-      print("=================> $value");
       viewBookList = value;
       isLoading = false;
       notifyListeners();

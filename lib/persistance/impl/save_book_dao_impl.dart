@@ -24,19 +24,16 @@ class SaveBookDaoImpl extends SaveBookDao {
 
   @override
   List<BooksVO> getAllBooks() {
-    print("=================> get save ${getBookBox().values.toList()}");
     return getBookBox().values.toList();
   }
 
   @override
   Stream<List<BooksVO>> getAllBooksStream() {
-    print("=================> get save steam ${Stream.value(getAllBooks())}");
     return Stream.value(getAllBooks());
   }
 
   @override
   void saveBook(BooksVO book) async{
-    print("=================> to save $book");
    return getBookBox().put(book.title, book);
   }
 

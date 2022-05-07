@@ -34,7 +34,7 @@ class CustomEbookListView extends StatelessWidget {
                 ebook: ebooksList?[index],
                 onTapEbook: () {
                   // book details
-                  onTapEbook(1);
+                  onTapEbook(index);
                 },
               );
             },
@@ -54,7 +54,7 @@ class CustomEbookListView extends StatelessWidget {
                     ebook: ebooksList?[index],
                     onTapEbook: () {
                       // book details
-                      onTapEbook(1);
+                      onTapEbook(index);
                     },
                   );
                 },
@@ -70,7 +70,7 @@ class CustomEbookListView extends StatelessWidget {
                   return EbookListitemView(
                     ebook: ebooksList?[index],
                     onTapEbook: () {
-                      onTapEbook(1);
+                      onTapEbook(index);
                     },
                   );
                 },

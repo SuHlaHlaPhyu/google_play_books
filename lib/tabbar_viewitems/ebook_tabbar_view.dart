@@ -64,12 +64,13 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
     );
   }
 
-  void _navigateToViewAllpage(BuildContext context, String title) {
+  void _navigateToViewAllpage(BuildContext context, String name) {
+    print("===========> $name");
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ViewAllEbooksPage(
-          title: title,
+          title: name,
         ),
       ),
     );

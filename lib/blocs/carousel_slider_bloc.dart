@@ -4,7 +4,7 @@ import 'package:google_play_books/data/models/book_model_impl.dart';
 import '../data/models/book_model.dart';
 import '../data/vos/books_vo.dart';
 
-class ViewBookBloc extends ChangeNotifier {
+class CarouselSliderBloc extends ChangeNotifier {
   /// States
   bool isLoading = true;
   List<BooksVO>? viewBookList;
@@ -12,11 +12,9 @@ class ViewBookBloc extends ChangeNotifier {
   /// Model
   BookModel bookModel = BookModelImpl();
 
-  ViewBookBloc() {
+  CarouselSliderBloc() {
 
     bookModel.getSaveBookList().then((value) {
-      print("===============> called");
-      print("=================> $value");
       viewBookList = value;
       isLoading = false;
       notifyListeners();

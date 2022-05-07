@@ -67,56 +67,62 @@ class _SortByAndLayoutSectionViewState
                 ),
               ),
               const Divider(),
-              ListTile(
-                title: const Text(
-                  "Recently opened",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                leading: Radio(
-                  value: 1,
-                  groupValue: val,
-                  onChanged: (value) {
-                    Navigator.pop(context);
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                  activeColor: Colors.blue,
-                ),
+              Row(
+                children: [
+                  Radio(
+                    value: 1,
+                    groupValue: val,
+                    onChanged: (value) {
+                      Navigator.pop(context);
+                      setState(() {
+                        val = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                  const Text(
+                    "Recently opened",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                ],
               ),
-              ListTile(
-                title: const Text(
-                  "Title",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                leading: Radio(
-                  value: 2,
-                  groupValue: val,
-                  onChanged: (value) {
-                    Navigator.pop(context);
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                  activeColor: Colors.blue,
-                ),
+              Row(
+                children: [
+                  Radio(
+                    value: 2,
+                    groupValue: val,
+                    onChanged: (value) {
+                      Navigator.pop(context);
+                      setState(() {
+                        val = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                  const Text(
+                    "Title",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                ],
               ),
-              ListTile(
-                title: const Text(
-                  "Author",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                leading: Radio(
-                  value: 3,
-                  groupValue: val,
-                  onChanged: (value) {
-                    Navigator.pop(context);
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                  activeColor: Colors.blue,
-                ),
+              Row(
+                children: [
+                  Radio(
+                    value: 3,
+                    groupValue: val,
+                    onChanged: (value) {
+                      Navigator.pop(context);
+                      setState(() {
+                        val = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                  const Text(
+                    "Author",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 50.0,
