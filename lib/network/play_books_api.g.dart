@@ -37,6 +37,25 @@ class _PlayBooksApi implements PlayBooksApi {
   }
 
   @override
+  Future<ListResponse> getBookList(apiKey, list) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'api-key': apiKey,
+      r'list': list
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/v3/lists/overview.json',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<OverviewResponse> getBooksbyListname(
       date, listName, offset, apiKey) async {
     const _extra = <String, dynamic>{};
@@ -49,7 +68,7 @@ class _PlayBooksApi implements PlayBooksApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OverviewResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/v3/lists/${date}/${listName}',
+                .compose(_dio.options, '/v3/lists/${date}/${listName}.json',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OverviewResponse.fromJson(_result.data!);

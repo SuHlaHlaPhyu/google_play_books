@@ -1,5 +1,6 @@
 import 'package:google_play_books/data/models/book_model.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
+import 'package:google_play_books/data/vos/list_result_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:google_play_books/network/play_books_data_agent.dart';
 import 'package:google_play_books/network/play_books_data_agent_impl.dart';
@@ -49,6 +50,14 @@ class BookModelImpl extends BookModel {
   @override
   Future<List<BooksVO>> getSaveBookList() {
     return Future.value(saveBookDao.getAllBooks());
+  }
+
+  @override
+  Future<List<ListResultVO>?> getBookByList(String name) {
+    return dataAgent.getBookByList(name).then((value) {
+      print("==================> $value");
+      return Future.value(value);
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_play_books/network/api_constant.dart';
+import 'package:google_play_books/network/response/list_response.dart';
 import 'package:google_play_books/network/response/overview_response.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -15,7 +16,13 @@ abstract class PlayBooksApi {
     @Query(PARAM_PUBLISHED_DATE) String publishedDate,
   );
 
-  @GET("/v3/lists/{date}/{list_name}")
+  @GET(ENDPOINT_OVERVIEW)
+  Future<ListResponse> getBookList(
+      @Query(PARAM_API_KEY) String apiKey,
+      @Query(PARAM_LSIT) String list,
+      );
+
+  @GET("/v3/lists/{date}/{list_name}.json")
   Future<OverviewResponse> getBooksbyListname(
       @Path("date") String date,
       @Path("list_name") String listName,

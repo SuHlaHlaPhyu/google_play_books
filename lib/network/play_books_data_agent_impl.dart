@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:google_play_books/data/vos/list_result_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:google_play_books/data/vos/overview_results_vo.dart';
 import 'package:google_play_books/network/api_constant.dart';
@@ -32,18 +33,16 @@ class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
 
   @override
   Future<OverviewResultsVO?> getBooksByListName(String listName) {
-    print("================> networks called");
     return api
         .getBooksbyListname(
         PUBLISHED_DATE, listName, 10, "BxCppf3ce8Q39cgPc082QKz4bWc2fngb")
         .asStream()
         .map((response) => response.results)
         .first;
-    // return api
-    //     .getBooksbyListname(
-    //         PUBLISHED_DATE, listName, OFFSET, "BxCppf3ce8Q39cgPc082QKz4bWc2fngb")
-    //     .asStream()
-    //     .map((response) => response.results)
-    //     .first;
+  }
+
+  @override
+  Future<List<ListResultVO>?> getBookByList(String name) {
+    return api.getBookList(API_KEY, name).asStream().map((event) => event.results).first;
   }
 }

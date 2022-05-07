@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_play_books/blocs/carousel_slider_bloc.dart';
+import 'package:google_play_books/data/models/book_model.dart';
+import 'package:google_play_books/data/models/book_model_impl.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/tabbar_viewitems/ebook_tabbar_view.dart';
 import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
@@ -20,9 +22,11 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
+  BookModel bookModel = BookModelImpl();
 
   @override
   void initState() {
+    bookModel.getBookByList("Combined Print and E-Book Fiction");
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }

@@ -2,6 +2,8 @@
 const int HIVE_TYPE_ID_OVERVIEW_LIST_VO = 1;
 const int HIVE_TYPE_ID_BOOK_VO = 2;
 const int HIVE_TYPE_ID_BUY_LINK_VO = 3;
+const int HIVE_TYPE_ID_ISBNS_VO = 4;
+const int HIVE_TYPE_ID_REVIEW_VO = 5;
 
 
 /// Box Names
