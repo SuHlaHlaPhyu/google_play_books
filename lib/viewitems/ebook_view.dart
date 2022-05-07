@@ -107,21 +107,28 @@ class EbookView extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 160,
-                  child: Text(
-                    ebook?.title ?? "",
-                    overflow: TextOverflow.clip,
-                    softWrap: true,
-                    style: const TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w300,
+                  child: Flexible(
+                    child: Text(
+                      ebook?.title ?? "",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ),
-                Text(
-                  ebook?.author ?? "",
-                  style: const TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w300,
+                SizedBox(
+                  width: 160,
+                  child: Flexible(
+                    child: Text(
+                      ebook?.author ?? "",
+                      style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
                 ),
               ],

@@ -41,6 +41,7 @@ class _HomeFragmentState extends State<HomeFragment>
         headerSliverBuilder: (context, value) {
           return [
             Selector<ViewBookBloc, List<BooksVO>?>(
+              shouldRebuild: (previous, next) => previous != next,
               selector: (BuildContext context, bloc) => bloc.viewBookList,
               builder: (BuildContext context, bookList, Widget? child) {
                 return SliverToBoxAdapter(
@@ -102,8 +103,11 @@ class CarouselSilderListSectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        viewportFraction: 0.8,
-        enlargeCenterPage: false,
+          autoPlayCurve: Curves.fastOutSlowIn,
+          enlargeCenterPage: true,
+          enableInfiniteScroll: false,
+          viewportFraction: 0.6,
+          initialPage: 0
       ),
       items: bookList.reversed
           .map((e) => CarouselSectionView(
@@ -131,8 +135,8 @@ class CarouselSectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
-      width: 220,
+      height: 200,
+      width: 180,
       decoration: BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.circular(

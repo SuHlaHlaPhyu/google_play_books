@@ -43,10 +43,14 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
                       bookList?[index].listName ?? " ",
                       ebookList: bookList?[index].books,
                       onTapEbook: (bookIndex) {
-                        _navigateToEbooksDetailpage(context,  bookList?[index].books?[bookIndex ?? 0].title ?? "");
+                        _navigateToEbooksDetailpage(
+                            context,
+                            bookList?[index].books?[bookIndex ?? 0].title ??
+                                "");
                       },
                       onTapViewAll: () {
-                        _navigateToViewAllpage(context, bookList?[index].listName ?? "");
+                        _navigateToViewAllpage(
+                            context, bookList?[index].listName ?? "");
                       },
                     ),
                     const SizedBox(
@@ -65,20 +69,19 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
       context,
       MaterialPageRoute(
         builder: (context) => ViewAllEbooksPage(
-        
           title: title,
         ),
       ),
     );
   }
 
-  void _navigateToEbooksDetailpage(
-    BuildContext context, String bookName
-  ) {
+  void _navigateToEbooksDetailpage(BuildContext context, String bookName) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(title: bookName,),
+        builder: (context) => EbooksDetailPage(
+          title: bookName,
+        ),
       ),
     );
   }

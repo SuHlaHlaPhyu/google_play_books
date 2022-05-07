@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/horizontal_chips_listview.dart';
+import 'package:provider/provider.dart';
 
-import '../dummy/dummy_data.dart';
+import '../blocs/your_book_bloc.dart';
+import '../data/vos/books_vo.dart';
 import '../viewitems/sortby_layout_section_view.dart';
 
 class YourBookTabbarView extends StatefulWidget {
@@ -14,69 +16,60 @@ class YourBookTabbarView extends StatefulWidget {
 }
 
 class _YourBookTabbarViewState extends State<YourBookTabbarView> {
-  bool is3x3GridView = false;
-  bool is2x2GridView = false;
-  bool islistView = true;
-  var val;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 15.0,
+    return ChangeNotifierProvider(
+      create: (context) => YourBookBloc(),
+      child: Selector<YourBookBloc, List<BooksVO>?>(
+        selector: (BuildContext context, bloc) => bloc.viewBookList,
+        builder: (BuildContext context, bookList, Widget? child) {
+          YourBookBloc bloc = Provider.of(context, listen: false);
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  HorizontalChipsListview(
+                    chipsList: const [],
+                    onTapEbook: (int? index) {
+                      //
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  SortByAndLayoutSectionView(
+                    onTapLayoutView: () {
+
+                      bloc.checkLayout();
+                    },
+                    is2x2GridView: false,
+                    is3x3GridView: false,
+                    islistView: true,
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  CustomEbookListView(
+                    fromLibrary: true,
+                    is3x3Grid: true,
+                    is2x2Grid: false,
+                    ebooksList: bookList,
+                    onTapEbook: (index) {
+                      /// ebook details
+                      _navigateToEbooksDetailpage(context);
+                    },
+                  ),
+                ],
+              ),
             ),
-            HorizontalChipsListview(
-              chipsList: const [],
-              onTapEbook: (int? index) {
-                //
-              },
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            SortByAndLayoutSectionView(
-              onTapLayoutView: () {
-                setState(
-                  () {
-                    if (islistView) {
-                      islistView = false;
-                      is2x2GridView = true;
-                      is3x3GridView = false;
-                    } else if (is3x3GridView) {
-                      is3x3GridView = false;
-                      islistView = true;
-                      is2x2GridView = false;
-                    } else {
-                      is2x2GridView = false;
-                      is3x3GridView = true;
-                      islistView = false;
-                    }
-                  },
-                );
-              },
-              is2x2GridView: is2x2GridView,
-              is3x3GridView: is3x3GridView,
-              islistView: islistView,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            CustomEbookListView(
-              fromLibrary: true,
-              is3x3Grid: is3x3GridView,
-              is2x2Grid: is2x2GridView,
-              ebooksList: [],
-              onTapEbook: (index) {
-                /// ebook details
-                _navigateToEbooksDetailpage(context);
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -87,7 +80,9 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(title: "",),
+        builder: (context) => EbooksDetailPage(
+          title: "",
+        ),
       ),
     );
   }

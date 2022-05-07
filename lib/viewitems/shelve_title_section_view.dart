@@ -12,22 +12,29 @@ class ShelveTitleSectionView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          width: 16 * 16,
-          child: Text(
-            title,
-            overflow: TextOverflow.clip,
-            softWrap: true,
-            style: const TextStyle(
-              fontSize: 17.0,
-              fontWeight: FontWeight.bold,
+          width: 200,
+          child: Flexible(
+            child: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
+              style: const TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
-        Text(
-          subTitle,
-          style: const TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.w300,
+        SizedBox(
+          width: 200,
+          child: Flexible(
+            child: Text(
+              subTitle,
+              style: const TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
           ),
         ),
       ],
