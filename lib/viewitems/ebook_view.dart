@@ -107,7 +107,7 @@ class EbookView extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 160,
-                  child: Flexible(
+                  child: Expanded(
                     child: Text(
                       ebook?.title ?? "",
                       overflow: TextOverflow.ellipsis,
@@ -120,14 +120,12 @@ class EbookView extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 160,
-                  child: Flexible(
-                    child: Text(
-                      ebook?.author ?? "",
-                      style: const TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w300,
-                      ),
+                  child: Text(
+                    ebook?.author ?? "",
+                    style: const TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                 ),

@@ -26,7 +26,6 @@ class _HomeFragmentState extends State<HomeFragment>
 
   @override
   void initState() {
-    bookModel.getBookByList("Combined Print and E-Book Fiction");
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }

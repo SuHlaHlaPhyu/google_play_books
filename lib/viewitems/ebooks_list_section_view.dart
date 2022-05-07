@@ -28,14 +28,12 @@ class EbooksListSectionView extends StatelessWidget {
               margin: EdgeInsets.only(
                 left: noMargin ? 0 : 15,
               ),
-              child: Flexible(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
