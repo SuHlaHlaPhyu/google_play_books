@@ -44,5 +44,4 @@ class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
         .map((response) => response.results)
         .first;
   }
-
 }

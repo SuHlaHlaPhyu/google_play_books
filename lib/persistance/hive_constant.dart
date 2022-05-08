@@ -9,3 +9,4 @@ const int HIVE_TYPE_ID_REVIEW_VO = 5;
 /// Box Names
 const String BOX_NAME_SAVE_BOOKS_VO = "BOX_NAME_SAVE_BOOKS_VO";
 const String BOX_NAME_BOOK_VO = "BOX_NAME_BOOK_VO";
+const String BOX_NAME_BOOK_LIST_VO = "BOX_NAME_BOOK_LIST_VO";

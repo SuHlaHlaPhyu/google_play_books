@@ -61,7 +61,7 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

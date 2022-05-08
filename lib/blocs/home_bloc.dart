@@ -16,19 +16,17 @@ class HomeBloc extends ChangeNotifier {
 
   HomeBloc() {
     /// overview books
-    bookModel.getOverviewBooks().then((booklist) {
+    bookModel.getOverviewBooksFromDatabase().listen((booklist) {
       overviewBooksList = booklist;
       isLoading = false;
       notifyListeners();
-    }).catchError((error) {});
+    }).onError((error) {});
 
     bookModel.getSaveBookList().then((value) {
       viewBookList = value;
       notifyListeners();
-    }).catchError((error){
+    }).catchError((error) {
       //
     });
   }
-
-
 }

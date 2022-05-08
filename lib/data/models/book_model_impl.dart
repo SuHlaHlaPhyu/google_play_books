@@ -4,7 +4,9 @@ import 'package:google_play_books/data/vos/list_vo.dart';
 import 'package:google_play_books/network/play_books_data_agent.dart';
 import 'package:google_play_books/network/play_books_data_agent_impl.dart';
 import 'package:google_play_books/persistance/book_dao.dart';
+import 'package:google_play_books/persistance/book_list_dao.dart';
 import 'package:google_play_books/persistance/impl/book_dao_impl.dart';
+import 'package:google_play_books/persistance/impl/book_list_dao_impl.dart';
 import 'package:google_play_books/persistance/impl/save_book_dao_impl.dart';
 import 'package:google_play_books/persistance/save_book_dao.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -20,14 +22,27 @@ class BookModelImpl extends BookModel {
   BookModelImpl._internal();
   BookDao bookDao = BookDaoImpl();
   SaveBookDao saveBookDao = SaveBookDaoImpl();
+  BookListDao bookListDao = BookListDaoImpl();
+
+  // @override
+  // Future<List<ListVO>?> getOverviewBooks() {
+  //   return dataAgent.getOverviewPlayBooks().then((value) async {
+  //     bookListDao.saveAllBooks(value ?? []);
+  //     value?.forEach((element) {
+  //       bookDao.saveAllBooks(element.books ?? []);
+  //     });
+  //     return Future.value(value);
+  //   });
+  // }
 
   @override
-  Future<List<ListVO>?> getOverviewBooks() {
-    return dataAgent.getOverviewPlayBooks().then((value) async {
+  void getOverviewBooks() {
+    dataAgent.getOverviewPlayBooks().then((value) async {
+      bookListDao.saveAllBooks(value ?? []);
       value?.forEach((element) {
         bookDao.saveAllBooks(element.books ?? []);
       });
-      return Future.value(value);
+
     });
   }
 
@@ -59,5 +74,14 @@ class BookModelImpl extends BookModel {
         .getAllBookEventStream()
         .startWith(saveBookDao.getAllBooksStream())
         .map((event) => saveBookDao.getAllBooks());
+  }
+
+  @override
+  Stream<List<ListVO>?> getOverviewBooksFromDatabase() {
+    getOverviewBooks();
+    return bookListDao
+        .getAllBookEventStream()
+        .startWith(bookListDao.getAllBooksStream())
+        .map((event) => bookListDao.getAllBooks());
   }
 }

@@ -41,7 +41,6 @@ class YourBookBloc extends ChangeNotifier {
       is3x3GridView = false;
       islistView = true;
       is2x2GridView = false;
-
       notifyListeners();
     } else {
       is2x2GridView = false;
@@ -49,10 +48,21 @@ class YourBookBloc extends ChangeNotifier {
       islistView = false;
       notifyListeners();
     }
-
     islistLayout = islistView;
     is2x2GridLayout = is2x2GridView;
     is3x3GridLayout = is3x3GridView;
     notifyListeners();
+  }
+
+  void sortBy(int index) {
+    if (index == 1) {
+      //
+    } else if (index == 2) {
+      viewBookList?.sort((a, b) => (a.title ?? "").compareTo(b.title ?? ""));
+      notifyListeners();
+    } else if (index == 3) {
+      viewBookList?.sort((a, b) => (a.author ?? "").compareTo(b.author ?? ""));
+      notifyListeners();
+    }
   }
 }

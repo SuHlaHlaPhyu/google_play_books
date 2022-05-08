@@ -9,7 +9,6 @@ import '../network/response/search_response.dart';
 class SearchBloc extends ChangeNotifier {
   final _debouncer = Debouncer(milliseconds: 500);
 
-  List<String> test = ["a", "ac", "av", "af"];
   SearchResponse? searchResponse;
 
   SearchModel bookModel = SearchModelImpl();

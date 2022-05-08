@@ -22,6 +22,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
     return ChangeNotifierProvider(
       create: (context) => YourBookBloc(),
       child: Selector<YourBookBloc, List<BooksVO>?>(
+        shouldRebuild: (previous, next) => previous != next,
         selector: (BuildContext context, bloc) => bloc.viewBookList,
         builder: (BuildContext context, bookList, Widget? child) {
           YourBookBloc bloc = Provider.of(context, listen: false);
@@ -55,6 +56,9 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                               return SortByAndLayoutSectionView(
                               onTapSortBy: (index){
                               ///
+                                YourBookBloc bloc = Provider.of(context, listen: false);
+                                bloc.sortBy(index);
+                                print("===============> $index");
                               },
                               onTapLayoutView: () {
                               bloc.checkLayout();

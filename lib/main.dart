@@ -19,6 +19,7 @@ void main() async {
   /// box
   await Hive.openBox<BooksVO>(BOX_NAME_SAVE_BOOKS_VO);
   await Hive.openBox<BooksVO>(BOX_NAME_BOOK_VO);
+  await Hive.openBox<ListVO>(BOX_NAME_BOOK_LIST_VO);
   runApp(const MyApp());
 }
 

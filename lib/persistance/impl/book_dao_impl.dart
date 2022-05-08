@@ -3,7 +3,7 @@ import 'package:google_play_books/persistance/book_dao.dart';
 import 'package:google_play_books/persistance/hive_constant.dart';
 import 'package:hive/hive.dart';
 
-class BookDaoImpl extends BookDao{
+class BookDaoImpl extends BookDao {
   static final BookDaoImpl _singleton = BookDaoImpl._internal();
 
   factory BookDaoImpl() {
@@ -32,8 +32,9 @@ class BookDaoImpl extends BookDao{
   }
 
   @override
-  void saveAllBooks(List<BooksVO> bookList) async{
-    Map<String, BooksVO> bookMap = Map.fromIterable(bookList, key: (element) => element.title, value: (element)=> element);
+  void saveAllBooks(List<BooksVO> bookList) async {
+    Map<String, BooksVO> bookMap = Map.fromIterable(bookList,
+        key: (element) => element.title, value: (element) => element);
     await getBookBox().putAll(bookMap);
   }
 
@@ -46,5 +47,4 @@ class BookDaoImpl extends BookDao{
   Stream<BooksVO?> getBookByNameStream(String title) {
     return Stream.value(getBookByName(title));
   }
-  
 }
