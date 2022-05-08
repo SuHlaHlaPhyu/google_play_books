@@ -43,28 +43,58 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                   const SizedBox(
                     height: 15.0,
                   ),
-                  SortByAndLayoutSectionView(
-                    onTapSortBy: (index){
-                      print("====================> sort $index");
+                  Selector<YourBookBloc, bool>(
+                    selector: (BuildContext context, bloc)=> bloc.islistView,
+                    builder: (BuildContext context, listView, Widget? child){
+                      return  Selector<YourBookBloc, bool>(
+                        selector: (BuildContext context, bloc)=> bloc.is2x2GridView,
+                        builder: (BuildContext context, twoGirdView, Widget? child){
+                          return  Selector<YourBookBloc, bool>(
+                            selector: (BuildContext context, bloc)=> bloc.is3x3GridView,
+                            builder: (BuildContext context, threeGirdView, Widget? child){
+                              return SortByAndLayoutSectionView(
+                              onTapSortBy: (index){
+                              ///
+                              },
+                              onTapLayoutView: () {
+                              bloc.checkLayout();
+                              },
+                              is2x2GridView: twoGirdView,
+                              is3x3GridView: threeGirdView,
+                              islistView: listView,
+                              );
+                            },
+                          );
+                        },
+                      );
                     },
-                    onTapLayoutView: () {
-                      bloc.checkLayout();
-                    },
-                    is2x2GridView: false,
-                    is3x3GridView: false,
-                    islistView: true,
                   ),
                   const SizedBox(
                     height: 20.0,
                   ),
-                  CustomEbookListView(
-                    fromLibrary: true,
-                    is3x3Grid: true,
-                    is2x2Grid: false,
-                    ebooksList: bookList,
-                    onTapEbook: (index) {
-                      /// ebook details
-                      _navigateToEbooksDetailpage(context, bookList?[index ?? 0].title ?? "");
+                  Selector<YourBookBloc, bool?>(
+                    selector: (BuildContext context, bloc)=> bloc.islistLayout,
+                    builder: (BuildContext context, listView, Widget? child){
+                      return  Selector<YourBookBloc, bool?>(
+                        selector: (BuildContext context, bloc)=> bloc.is2x2GridLayout,
+                        builder: (BuildContext context, twoGirdView, Widget? child){
+                          return  Selector<YourBookBloc, bool?>(
+                            selector: (BuildContext context, bloc)=> bloc.is3x3GridLayout,
+                            builder: (BuildContext context, threeGirdView, Widget? child){
+                              return  CustomEbookListView(
+                                fromLibrary: true,
+                                is3x3Grid: threeGirdView ?? true,
+                                is2x2Grid: twoGirdView ?? false,
+                                ebooksList: bookList,
+                                onTapEbook: (index) {
+                                  /// ebook details
+                                  _navigateToEbooksDetailpage(context, bookList?[index ?? 0].title ?? "");
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
                     },
                   ),
                 ],

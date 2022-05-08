@@ -112,7 +112,7 @@ class CarouselSilderListSectionView extends StatelessWidget {
           viewportFraction: 0.6,
           initialPage: 0
       ),
-      items: bookList.reversed
+      items: bookList
           .map((e) => CarouselSectionView(
                 book: e,
                 onTapDownload: () {

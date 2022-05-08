@@ -9,6 +9,11 @@ class YourBookBloc extends ChangeNotifier {
   bool is3x3GridView = false;
   bool is2x2GridView = false;
   bool islistView = true;
+
+  bool? is3x3GridLayout;
+  bool? is2x2GridLayout;
+  bool? islistLayout;
+
   var val;
   bool isLoading = true;
   List<BooksVO>? viewBookList;
@@ -25,6 +30,7 @@ class YourBookBloc extends ChangeNotifier {
       //
     });
   }
+
   void checkLayout() {
     if (islistView) {
       islistView = false;
@@ -35,6 +41,7 @@ class YourBookBloc extends ChangeNotifier {
       is3x3GridView = false;
       islistView = true;
       is2x2GridView = false;
+
       notifyListeners();
     } else {
       is2x2GridView = false;
@@ -42,5 +49,10 @@ class YourBookBloc extends ChangeNotifier {
       islistView = false;
       notifyListeners();
     }
+
+    islistLayout = islistView;
+    is2x2GridLayout = is2x2GridView;
+    is3x3GridLayout = is3x3GridView;
+    notifyListeners();
   }
 }
