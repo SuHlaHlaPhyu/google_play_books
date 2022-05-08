@@ -44,8 +44,10 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                     height: 15.0,
                   ),
                   SortByAndLayoutSectionView(
+                    onTapSortBy: (index){
+                      print("====================> sort $index");
+                    },
                     onTapLayoutView: () {
-
                       bloc.checkLayout();
                     },
                     is2x2GridView: false,

@@ -4,13 +4,13 @@ import 'package:google_play_books/viewitems/sortby_view.dart';
 import 'layout_view.dart';
 
 class SortByAndLayoutSectionView extends StatefulWidget {
-  //final Function onTapSortBy;
+  final Function(int) onTapSortBy;
   final Function onTapLayoutView;
   final bool is3x3GridView;
   final bool is2x2GridView;
   final bool islistView;
   SortByAndLayoutSectionView({
-    //  required this.onTapSortBy,
+     required this.onTapSortBy,
     required this.onTapLayoutView,
     required this.is2x2GridView,
     required this.is3x3GridView,
@@ -25,6 +25,7 @@ class SortByAndLayoutSectionView extends StatefulWidget {
 class _SortByAndLayoutSectionViewState
     extends State<SortByAndLayoutSectionView> {
   var val;
+  int index= 1;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,6 +34,7 @@ class _SortByAndLayoutSectionViewState
         SortByView(
           filterName: "Recent",
           onTap: () {
+            widget.onTapSortBy(index);
             showModalBottomSheetView(context);
           },
         ),
@@ -76,6 +78,7 @@ class _SortByAndLayoutSectionViewState
                       Navigator.pop(context);
                       setState(() {
                         val = value;
+                        index = 1;
                       });
                     },
                     activeColor: Colors.blue,
@@ -95,6 +98,7 @@ class _SortByAndLayoutSectionViewState
                       Navigator.pop(context);
                       setState(() {
                         val = value;
+                        index = 2;
                       });
                     },
                     activeColor: Colors.blue,
@@ -114,6 +118,7 @@ class _SortByAndLayoutSectionViewState
                       Navigator.pop(context);
                       setState(() {
                         val = value;
+                        index = 3;
                       });
                     },
                     activeColor: Colors.blue,

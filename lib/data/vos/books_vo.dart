@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:hive/hive.dart';
 
 import 'buy_links_vo.dart';
+import 'isbns_vo.dart';
 
 part 'books_vo.g.dart';
 
@@ -117,6 +118,10 @@ class BooksVO {
   @HiveField(26)
   int? dagger;
 
+  @JsonKey(name: "isbns")
+  @HiveField(27)
+  List<IsbnsVO>? isbns;
+
 
   BooksVO(
       this.ageGroup,
@@ -145,12 +150,13 @@ class BooksVO {
       this.weeksOnList,
       this.buyLinks,
       this.asterisk,
-      this.dagger);
+      this.dagger,
+      this.isbns);
 
 
   @override
   String toString() {
-    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger}';
+    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger, isbns: $isbns}';
   }
 
   factory BooksVO.fromJson(Map<String, dynamic> json) =>

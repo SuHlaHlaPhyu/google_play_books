@@ -3,7 +3,6 @@ import 'package:google_play_books/blocs/book_detail_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../data/vos/books_vo.dart';
-import '../viewitems/ebooks_list_section_view.dart';
 
 class EbooksDetailPage extends StatelessWidget {
   final String title;

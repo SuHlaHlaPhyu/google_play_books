@@ -20,6 +20,5 @@ class ViewAllEbooksBloc extends ChangeNotifier {
       notifyListeners();
     }).catchError((error) {
     });
-
   }
 }

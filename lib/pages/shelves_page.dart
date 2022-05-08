@@ -74,6 +74,9 @@ class _ShelvesPageState extends State<ShelvesPage> {
               height: 20.0,
             ),
             SortByAndLayoutSectionView(
+              onTapSortBy: (index){
+                ///
+              },
               onTapLayoutView: () {
                 setState(
                   () {

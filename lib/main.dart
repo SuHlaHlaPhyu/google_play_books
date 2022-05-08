@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'data/vos/books_vo.dart';
 import 'data/vos/buy_links_vo.dart';
+import 'data/vos/isbns_vo.dart';
 import 'data/vos/list_vo.dart';
 import 'pages/home_page.dart';
 import 'persistance/hive_constant.dart';
@@ -13,6 +14,7 @@ void main() async {
   Hive.registerAdapter(BuyLinkVOAdapter());
   Hive.registerAdapter(BookVOAdapter());
   Hive.registerAdapter(OverviewLinkVOAdapter());
+  Hive.registerAdapter(IsbnsVOAdapter());
 
   /// box
   await Hive.openBox<BooksVO>(BOX_NAME_SAVE_BOOKS_VO);

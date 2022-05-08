@@ -14,11 +14,11 @@ class CarouselSliderBloc extends ChangeNotifier {
 
   CarouselSliderBloc() {
 
-    bookModel.getSaveBookList().then((value) {
+    bookModel.getSaveBookListStream().listen((value) {
       viewBookList = value;
       isLoading = false;
       notifyListeners();
-    }).catchError((error){
+    }).onError((error){
       //
     });
   }

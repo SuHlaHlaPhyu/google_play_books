@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:google_play_books/data/vos/list_result_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
-import 'package:google_play_books/data/vos/overview_results_vo.dart';
 import 'package:google_play_books/network/api_constant.dart';
 import 'package:google_play_books/network/play_books_api.dart';
 
+import '../data/vos/list_name_result_vo.dart';
 import 'play_books_data_agent.dart';
 
 class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
@@ -32,17 +32,17 @@ class PlayBooksDataAgentImpl extends PlayBooksDataAgent {
   }
 
   @override
-  Future<OverviewResultsVO?> getBooksByListName(String listName) {
+  Future<ListNameResultVO?> getBooksByListName(String listName) {
     return api
         .getBooksbyListname(
-        PUBLISHED_DATE, listName, 10, "BxCppf3ce8Q39cgPc082QKz4bWc2fngb")
+          "2013-05-22",
+          listName,
+          20,
+          "BxCppf3ce8Q39cgPc082QKz4bWc2fngb",
+        )
         .asStream()
         .map((response) => response.results)
         .first;
   }
 
-  @override
-  Future<List<ListResultVO>?> getBookByList(String name) {
-    return api.getBookList(API_KEY, name).asStream().map((event) => event.results).first;
-  }
 }
