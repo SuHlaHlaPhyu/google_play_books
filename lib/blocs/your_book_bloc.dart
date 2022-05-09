@@ -24,6 +24,8 @@ class YourBookBloc extends ChangeNotifier {
   YourBookBloc() {
     bookModel.getSaveBookList().then((value) {
       viewBookList = value;
+
+      viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
       isLoading = false;
       notifyListeners();
     }).catchError((error) {

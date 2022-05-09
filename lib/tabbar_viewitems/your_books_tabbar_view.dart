@@ -17,6 +17,7 @@ class YourBookTabbarView extends StatefulWidget {
 
 class _YourBookTabbarViewState extends State<YourBookTabbarView> {
   var val;
+  String name = "Recent";
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -58,6 +59,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                             builder: (BuildContext context, threeGirdView,
                                 Widget? child) {
                               return SortByAndLayoutSectionView(
+                                sortName: name,
                                 onTapSortBy: () {
                                   YourBookBloc bloc =
                                       Provider.of(context, listen: false);
@@ -157,6 +159,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                       setState(() {
                         val = value;
                         bloc.sortBy(1);
+                        name = "Recent";
                       });
                     },
                     activeColor: Colors.blue,
@@ -179,6 +182,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                       setState(() {
                         val = value;
                         bloc.sortBy(2);
+                        name = "Title";
                       });
                     },
                     activeColor: Colors.blue,
@@ -199,6 +203,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                       setState(() {
                         val = value;
                         bloc.sortBy(3);
+                        name = "Author";
                       });
                     },
                     activeColor: Colors.blue,

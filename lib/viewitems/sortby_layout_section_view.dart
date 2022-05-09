@@ -9,12 +9,14 @@ class SortByAndLayoutSectionView extends StatefulWidget {
   final bool is3x3GridView;
   final bool is2x2GridView;
   final bool islistView;
+  final String sortName;
   SortByAndLayoutSectionView({
      required this.onTapSortBy,
     required this.onTapLayoutView,
     required this.is2x2GridView,
     required this.is3x3GridView,
     required this.islistView,
+    this.sortName = "Recent"
   });
 
   @override
@@ -32,7 +34,7 @@ class _SortByAndLayoutSectionViewState
       mainAxisSize: MainAxisSize.min,
       children: [
         SortByView(
-          filterName: "Recent",
+          filterName: widget.sortName,
           onTap: () {
             widget.onTapSortBy();
           },
