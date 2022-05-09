@@ -46,6 +46,7 @@ class BookModelImpl extends BookModel {
   @override
   Future<BooksVO?> getBookDetails(String name) async {
     return Future.value(bookDao.getBookByNameStream(name).first.then((value) {
+      value?.time = DateTime.now().microsecond;
       saveBookDao.saveBook(value!);
       return value;
     }));

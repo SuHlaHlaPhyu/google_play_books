@@ -122,41 +122,44 @@ class BooksVO {
   @HiveField(27)
   List<IsbnsVO>? isbns;
 
+  @HiveField(28)
+  int? time;
 
   BooksVO(
-      this.ageGroup,
-      this.amazonProductUrl,
-      this.articleChapterLink,
-      this.author,
-      this.bookImage,
-      this.bookImageWidth,
-      this.bookImageHeight,
-      this.bookReviewLink,
-      this.contributor,
-      this.contributorDote,
-      this.createdDate,
-      this.description,
-      this.firstChapterLink,
-      this.price,
-      this.primaryIsbn10,
-      this.primaryIsbn13,
-      this.bookUri,
-      this.publisher,
-      this.rank,
-      this.rankLastWeek,
-      this.sundayReviewLink,
-      this.title,
-      this.updatedDate,
-      this.weeksOnList,
-      this.buyLinks,
-      this.asterisk,
-      this.dagger,
-      this.isbns);
-
+    this.ageGroup,
+    this.amazonProductUrl,
+    this.articleChapterLink,
+    this.author,
+    this.bookImage,
+    this.bookImageWidth,
+    this.bookImageHeight,
+    this.bookReviewLink,
+    this.contributor,
+    this.contributorDote,
+    this.createdDate,
+    this.description,
+    this.firstChapterLink,
+    this.price,
+    this.primaryIsbn10,
+    this.primaryIsbn13,
+    this.bookUri,
+    this.publisher,
+    this.rank,
+    this.rankLastWeek,
+    this.sundayReviewLink,
+    this.title,
+    this.updatedDate,
+    this.weeksOnList,
+    this.buyLinks,
+    this.asterisk,
+    this.dagger,
+    this.isbns,
+    this.time,
+  );
 
   @override
   String toString() {
-    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger, isbns: $isbns}';
+    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger, isbns: $isbns,time: $time}';
   }
 
   factory BooksVO.fromJson(Map<String, dynamic> json) =>

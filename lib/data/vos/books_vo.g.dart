@@ -45,13 +45,14 @@ class BookVOAdapter extends TypeAdapter<BooksVO> {
       fields[25] as int?,
       fields[26] as int?,
       (fields[27] as List?)?.cast<IsbnsVO>(),
+      fields[28] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, BooksVO obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.ageGroup)
       ..writeByte(1)
@@ -107,7 +108,9 @@ class BookVOAdapter extends TypeAdapter<BooksVO> {
       ..writeByte(26)
       ..write(obj.dagger)
       ..writeByte(27)
-      ..write(obj.isbns);
+      ..write(obj.isbns)
+      ..writeByte(28)
+      ..write(obj.time);
   }
 
   @override
@@ -158,6 +161,7 @@ BooksVO _$BooksVOFromJson(Map<String, dynamic> json) => BooksVO(
       (json['isbns'] as List<dynamic>?)
           ?.map((e) => IsbnsVO.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['time'] as int?,
     );
 
 Map<String, dynamic> _$BooksVOToJson(BooksVO instance) => <String, dynamic>{
@@ -189,4 +193,5 @@ Map<String, dynamic> _$BooksVOToJson(BooksVO instance) => <String, dynamic>{
       'asterisk': instance.asterisk,
       'dagger': instance.dagger,
       'isbns': instance.isbns,
+      'time': instance.time,
     };

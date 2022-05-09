@@ -57,6 +57,8 @@ class YourBookBloc extends ChangeNotifier {
   void sortBy(int index) {
     if (index == 1) {
       //
+      viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
+      notifyListeners();
     } else if (index == 2) {
       viewBookList?.sort((a, b) => (a.title ?? "").compareTo(b.title ?? ""));
       notifyListeners();

@@ -16,7 +16,7 @@ class YourBookTabbarView extends StatefulWidget {
 }
 
 class _YourBookTabbarViewState extends State<YourBookTabbarView> {
-var val;
+  var val;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -49,18 +49,18 @@ var val;
                     builder: (BuildContext context, listView, Widget? child) {
                       return Selector<YourBookBloc, bool>(
                         selector: (BuildContext context, bloc) =>
-                        bloc.is2x2GridView,
-                        builder: (BuildContext context, twoGirdView,
-                            Widget? child) {
+                            bloc.is2x2GridView,
+                        builder:
+                            (BuildContext context, twoGirdView, Widget? child) {
                           return Selector<YourBookBloc, bool>(
                             selector: (BuildContext context, bloc) =>
-                            bloc.is3x3GridView,
+                                bloc.is3x3GridView,
                             builder: (BuildContext context, threeGirdView,
                                 Widget? child) {
                               return SortByAndLayoutSectionView(
                                 onTapSortBy: () {
-                                  YourBookBloc bloc = Provider.of(
-                                      context, listen: false);
+                                  YourBookBloc bloc =
+                                      Provider.of(context, listen: false);
                                   showModalBottomSheetView(context, bloc);
                                 },
                                 onTapLayoutView: () {
@@ -84,12 +84,12 @@ var val;
                     builder: (BuildContext context, listView, Widget? child) {
                       return Selector<YourBookBloc, bool?>(
                         selector: (BuildContext context, bloc) =>
-                        bloc.is2x2GridLayout,
-                        builder: (BuildContext context, twoGirdView,
-                            Widget? child) {
+                            bloc.is2x2GridLayout,
+                        builder:
+                            (BuildContext context, twoGirdView, Widget? child) {
                           return Selector<YourBookBloc, bool?>(
                             selector: (BuildContext context, bloc) =>
-                            bloc.is3x3GridLayout,
+                                bloc.is3x3GridLayout,
                             builder: (BuildContext context, threeGirdView,
                                 Widget? child) {
                               return CustomEbookListView(
@@ -118,15 +118,13 @@ var val;
     );
   }
 
-  void _navigateToEbooksDetailpage(BuildContext context,
-      String name) {
+  void _navigateToEbooksDetailpage(BuildContext context, String name) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            EbooksDetailPage(
-              title: name,
-            ),
+        builder: (context) => EbooksDetailPage(
+          title: name,
+        ),
       ),
     );
   }
@@ -164,9 +162,11 @@ var val;
                     activeColor: Colors.blue,
                   ),
                   const Text(
-                    "Recently opened",
-                    style: TextStyle(fontSize: 16.0),
-                  )
+                    "Recently",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
                 ],
               ),
               Row(
