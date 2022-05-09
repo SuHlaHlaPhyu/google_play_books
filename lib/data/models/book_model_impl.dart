@@ -24,17 +24,6 @@ class BookModelImpl extends BookModel {
   SaveBookDao saveBookDao = SaveBookDaoImpl();
   BookListDao bookListDao = BookListDaoImpl();
 
-  // @override
-  // Future<List<ListVO>?> getOverviewBooks() {
-  //   return dataAgent.getOverviewPlayBooks().then((value) async {
-  //     bookListDao.saveAllBooks(value ?? []);
-  //     value?.forEach((element) {
-  //       bookDao.saveAllBooks(element.books ?? []);
-  //     });
-  //     return Future.value(value);
-  //   });
-  // }
-
   @override
   void getOverviewBooks() {
     dataAgent.getOverviewPlayBooks().then((value) async {

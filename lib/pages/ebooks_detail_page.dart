@@ -10,6 +10,7 @@ class EbooksDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("==================> title $title");
     return ChangeNotifierProvider(
       create: (BuildContext context) => BookDetailBloc(title),
       child: Scaffold(
@@ -64,6 +65,7 @@ class EbooksDetailPage extends StatelessWidget {
         body: Selector<BookDetailBloc, BooksVO?>(
           selector: (BuildContext context, bloc) => bloc.bookDetail,
           builder: (BuildContext context, detail, Widget? child){
+            print("==============> $detail");
             return Padding(
               padding: const EdgeInsets.all(12.0),
               child: SingleChildScrollView(

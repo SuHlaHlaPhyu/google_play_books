@@ -1,7 +1,8 @@
 
 
-import '../../network/response/search_response.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
+
 
 abstract class SearchModel {
-  Future<SearchResponse> searchBook(String text);
+  Future<List<BooksVO>> searchBook(String text);
 }

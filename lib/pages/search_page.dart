@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/blocs/search_bloc.dart';
-import 'package:google_play_books/network/response/search_response.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
+import 'package:google_play_books/pages/search_result_page.dart';
+import 'package:google_play_books/viewitems/ebook_listitem_view.dart';
+import 'package:google_play_books/viewitems/ebook_view.dart';
 import 'package:provider/provider.dart';
+
+import 'ebooks_detail_page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -23,11 +28,13 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) => SearchBloc(),
-      child: Selector<SearchBloc, SearchResponse?>(
-        selector: (BuildContext context, bloc) => bloc.searchResponse,
-        builder: (BuildContext context, detail, Widget? child) {
+      child: Selector<SearchBloc, List<BooksVO>?>(
+        selector: (BuildContext context, bloc) => bloc.searchResult,
+        builder: (BuildContext context, searchList, Widget? child) {
+          SearchBloc bloc = Provider.of(context, listen: false);
           return Scaffold(
             appBar: AppBar(
+              titleSpacing: 0.0,
               automaticallyImplyLeading: false,
               elevation: 0.0,
               backgroundColor: Colors.white,
@@ -51,6 +58,12 @@ class _SearchPageState extends State<SearchPage> {
                 },
                 onSubmitted: (value) {
                   _searchBook(context, value);
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => SearchResultPage(
+                      searchList: searchList ?? [],
+                    ),
+                  ));
+
                 },
               ),
               actions: const [
@@ -60,65 +73,99 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ],
             ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.trending_up,
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 12.0,
-                        ),
-                        Text("Top Selling"),
-                      ],
+            body: bloc.isSearch
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: DefaultSuggestionView(),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
                     ),
+                    itemCount: searchList?.length,
+                    itemBuilder: (context, index) {
+                      return EbookListitemView(
+                        isSearch: true,
+                        ebook: searchList?[index],
+                        onTapEbook: () {
+                          _navigateToEbooksDetailpage(context,searchList?[index].title ?? "");
+                        },
+                      );
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.new_releases_outlined,
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 12.0,
-                        ),
-                        Text("New Release"),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.store_outlined,
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 12.0,
-                        ),
-                        Text("Bookstore"),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
           );
         },
       ),
+    );
+  }
+  void _navigateToEbooksDetailpage(BuildContext context, String bookName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EbooksDetailPage(
+          title: bookName,
+        ),
+      ),
+    );
+  }
+}
+
+class DefaultSuggestionView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(
+          height: 10.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: const [
+              Icon(
+                Icons.trending_up,
+                color: Colors.blue,
+              ),
+              SizedBox(
+                width: 12.0,
+              ),
+              Text("Top Selling"),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: const [
+              Icon(
+                Icons.new_releases_outlined,
+                color: Colors.blue,
+              ),
+              SizedBox(
+                width: 12.0,
+              ),
+              Text("New Release"),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: const [
+              Icon(
+                Icons.store_outlined,
+                color: Colors.blue,
+              ),
+              SizedBox(
+                width: 12.0,
+              ),
+              Text("Bookstore"),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:google_play_books/data/models/search_model.dart';
 import 'package:google_play_books/data/models/search_model_impl.dart';
-
-import '../network/response/search_response.dart';
+import 'package:google_play_books/data/vos/books_vo.dart';
 
 class SearchBloc extends ChangeNotifier {
   final _debouncer = Debouncer(milliseconds: 500);
 
-  SearchResponse? searchResponse;
-
+  List<BooksVO> searchResult = [];
+  bool isSearch = true;
   SearchModel bookModel = SearchModelImpl();
   SearchBloc();
 
@@ -19,12 +18,11 @@ class SearchBloc extends ChangeNotifier {
   }
 
   void searchBooks(String text) {
-    bookModel.searchBook("flutter").then((value) {
-      searchResponse = value;
-      print("==============> search result $value");
+    bookModel.searchBook(text).then((value) {
+      searchResult = value;
+      isSearch = false;
       notifyListeners();
     }).catchError((error){
-      print("==============> error search $error");
     });
   }
 }
