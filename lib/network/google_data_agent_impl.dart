@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/network/google_api.dart';
-import 'package:google_play_books/network/response/search_response.dart';
 
 import 'google_data_agent.dart';
 
@@ -23,7 +22,7 @@ class GoogleDataAgentImpl extends GoogleDataAgent {
   Future<List<BooksVO>> searchBook(String text) {
     return api.searchBooks(text).then((value) {
       List<BooksVO> result = value.items!.map((element) =>  BooksVO(
-        null,
+        element.volumeInfo?.categories?.first,
         null,
         null,
         element.volumeInfo?.authors?.first,

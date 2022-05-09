@@ -4,7 +4,7 @@ import 'package:google_play_books/viewitems/sortby_view.dart';
 import 'layout_view.dart';
 
 class SortByAndLayoutSectionView extends StatefulWidget {
-  final Function(int) onTapSortBy;
+  final Function onTapSortBy;
   final Function onTapLayoutView;
   final bool is3x3GridView;
   final bool is2x2GridView;
@@ -34,8 +34,7 @@ class _SortByAndLayoutSectionViewState
         SortByView(
           filterName: "Recent",
           onTap: () {
-            widget.onTapSortBy(index);
-            showModalBottomSheetView(context);
+            widget.onTapSortBy();
           },
         ),
         const Spacer(),
@@ -51,91 +50,5 @@ class _SortByAndLayoutSectionViewState
     );
   }
 
-  showModalBottomSheetView(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Sort by",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ),
-              const Divider(),
-              Row(
-                children: [
-                  Radio(
-                    value: 1,
-                    groupValue: val,
-                    onChanged: (value) {
-                      Navigator.pop(context);
-                      setState(() {
-                        val = value;
-                        index = 1;
-                      });
-                    },
-                    activeColor: Colors.blue,
-                  ),
-                  const Text(
-                    "Recently opened",
-                    style: TextStyle(fontSize: 16.0),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Radio(
-                    value: 2,
-                    groupValue: val,
-                    onChanged: (value) {
-                      Navigator.pop(context);
-                      setState(() {
-                        val = value;
-                        index = 2;
-                      });
-                    },
-                    activeColor: Colors.blue,
-                  ),
-                  const Text(
-                    "Title",
-                    style: TextStyle(fontSize: 16.0),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Radio(
-                    value: 3,
-                    groupValue: val,
-                    onChanged: (value) {
-                      Navigator.pop(context);
-                      setState(() {
-                        val = value;
-                        index = 3;
-                      });
-                    },
-                    activeColor: Colors.blue,
-                  ),
-                  const Text(
-                    "Author",
-                    style: TextStyle(fontSize: 16.0),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 50.0,
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+
 }

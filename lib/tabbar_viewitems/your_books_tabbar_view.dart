@@ -16,7 +16,7 @@ class YourBookTabbarView extends StatefulWidget {
 }
 
 class _YourBookTabbarViewState extends State<YourBookTabbarView> {
-
+var val;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -45,27 +45,30 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                     height: 15.0,
                   ),
                   Selector<YourBookBloc, bool>(
-                    selector: (BuildContext context, bloc)=> bloc.islistView,
-                    builder: (BuildContext context, listView, Widget? child){
-                      return  Selector<YourBookBloc, bool>(
-                        selector: (BuildContext context, bloc)=> bloc.is2x2GridView,
-                        builder: (BuildContext context, twoGirdView, Widget? child){
-                          return  Selector<YourBookBloc, bool>(
-                            selector: (BuildContext context, bloc)=> bloc.is3x3GridView,
-                            builder: (BuildContext context, threeGirdView, Widget? child){
+                    selector: (BuildContext context, bloc) => bloc.islistView,
+                    builder: (BuildContext context, listView, Widget? child) {
+                      return Selector<YourBookBloc, bool>(
+                        selector: (BuildContext context, bloc) =>
+                        bloc.is2x2GridView,
+                        builder: (BuildContext context, twoGirdView,
+                            Widget? child) {
+                          return Selector<YourBookBloc, bool>(
+                            selector: (BuildContext context, bloc) =>
+                            bloc.is3x3GridView,
+                            builder: (BuildContext context, threeGirdView,
+                                Widget? child) {
                               return SortByAndLayoutSectionView(
-                              onTapSortBy: (index){
-                              ///
-                                YourBookBloc bloc = Provider.of(context, listen: false);
-                                bloc.sortBy(index);
-                                print("===============> $index");
-                              },
-                              onTapLayoutView: () {
-                              bloc.checkLayout();
-                              },
-                              is2x2GridView: twoGirdView,
-                              is3x3GridView: threeGirdView,
-                              islistView: listView,
+                                onTapSortBy: () {
+                                  YourBookBloc bloc = Provider.of(
+                                      context, listen: false);
+                                  showModalBottomSheetView(context, bloc);
+                                },
+                                onTapLayoutView: () {
+                                  bloc.checkLayout();
+                                },
+                                is2x2GridView: twoGirdView,
+                                is3x3GridView: threeGirdView,
+                                islistView: listView,
                               );
                             },
                           );
@@ -77,22 +80,27 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                     height: 20.0,
                   ),
                   Selector<YourBookBloc, bool?>(
-                    selector: (BuildContext context, bloc)=> bloc.islistLayout,
-                    builder: (BuildContext context, listView, Widget? child){
-                      return  Selector<YourBookBloc, bool?>(
-                        selector: (BuildContext context, bloc)=> bloc.is2x2GridLayout,
-                        builder: (BuildContext context, twoGirdView, Widget? child){
-                          return  Selector<YourBookBloc, bool?>(
-                            selector: (BuildContext context, bloc)=> bloc.is3x3GridLayout,
-                            builder: (BuildContext context, threeGirdView, Widget? child){
-                              return  CustomEbookListView(
+                    selector: (BuildContext context, bloc) => bloc.islistLayout,
+                    builder: (BuildContext context, listView, Widget? child) {
+                      return Selector<YourBookBloc, bool?>(
+                        selector: (BuildContext context, bloc) =>
+                        bloc.is2x2GridLayout,
+                        builder: (BuildContext context, twoGirdView,
+                            Widget? child) {
+                          return Selector<YourBookBloc, bool?>(
+                            selector: (BuildContext context, bloc) =>
+                            bloc.is3x3GridLayout,
+                            builder: (BuildContext context, threeGirdView,
+                                Widget? child) {
+                              return CustomEbookListView(
                                 fromLibrary: true,
                                 is3x3Grid: threeGirdView ?? true,
                                 is2x2Grid: twoGirdView ?? false,
                                 ebooksList: bookList,
                                 onTapEbook: (index) {
                                   /// ebook details
-                                  _navigateToEbooksDetailpage(context, bookList?[index ?? 0].title ?? "");
+                                  _navigateToEbooksDetailpage(context,
+                                      bookList?[index ?? 0].title ?? "");
                                 },
                               );
                             },
@@ -110,17 +118,104 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
     );
   }
 
-  void _navigateToEbooksDetailpage(
-    BuildContext context,
-      String name
-  ) {
+  void _navigateToEbooksDetailpage(BuildContext context,
+      String name) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(
-          title: name ,
-        ),
+        builder: (context) =>
+            EbooksDetailPage(
+              title: name,
+            ),
       ),
+    );
+  }
+
+  showModalBottomSheetView(BuildContext context, YourBookBloc bloc) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text(
+                  "Sort by",
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+              const Divider(),
+              Row(
+                children: [
+                  Radio(
+                    value: 1,
+                    groupValue: val,
+                    onChanged: (value) {
+                      Navigator.pop(context);
+                      setState(() {
+                        val = value;
+                        bloc.sortBy(1);
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                  const Text(
+                    "Recently opened",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Radio(
+                    value: 2,
+                    groupValue: val,
+                    onChanged: (value) {
+                      Navigator.pop(context);
+                      setState(() {
+                        val = value;
+                        bloc.sortBy(2);
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                  const Text(
+                    "Title",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Radio(
+                    value: 3,
+                    groupValue: val,
+                    onChanged: (value) {
+                      Navigator.pop(context);
+                      setState(() {
+                        val = value;
+                        bloc.sortBy(3);
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                  const Text(
+                    "Author",
+                    style: TextStyle(fontSize: 16.0),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 50.0,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

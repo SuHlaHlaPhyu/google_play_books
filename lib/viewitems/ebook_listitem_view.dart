@@ -47,7 +47,7 @@ class EbookListitemView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 220,
+                  width: 180,
                   child: Text(
                     ebook?.title ?? "",
                     overflow: TextOverflow.ellipsis,
@@ -58,7 +58,7 @@ class EbookListitemView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 220,
+                  width: 180,
                   child: Text(
                     ebook?.author ?? "",
                     overflow: TextOverflow.ellipsis,

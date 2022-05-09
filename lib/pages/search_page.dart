@@ -63,7 +63,6 @@ class _SearchPageState extends State<SearchPage> {
                       searchList: searchList ?? [],
                     ),
                   ));
-
                 },
               ),
               actions: const [
@@ -88,7 +87,8 @@ class _SearchPageState extends State<SearchPage> {
                       return EbookListitemView(
                         isSearch: true,
                         ebook: searchList?[index],
-                        onTapEbook: () {
+                        onTapEbook: (){
+                          // bloc.getSimilarBooks(searchList?[index].ageGroup ?? "");
                           _navigateToEbooksDetailpage(context,searchList?[index].title ?? "");
                         },
                       );

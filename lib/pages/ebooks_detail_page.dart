@@ -3,14 +3,15 @@ import 'package:google_play_books/blocs/book_detail_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../data/vos/books_vo.dart';
+import '../viewitems/ebooks_list_section_view.dart';
 
 class EbooksDetailPage extends StatelessWidget {
   final String title;
-  EbooksDetailPage({required this.title});
+  final List<BooksVO>? similarBooks;
+  EbooksDetailPage({required this.title,this.similarBooks});
 
   @override
   Widget build(BuildContext context) {
-    print("==================> title $title");
     return ChangeNotifierProvider(
       create: (BuildContext context) => BookDetailBloc(title),
       child: Scaffold(
@@ -65,7 +66,6 @@ class EbooksDetailPage extends StatelessWidget {
         body: Selector<BookDetailBloc, BooksVO?>(
           selector: (BuildContext context, bloc) => bloc.bookDetail,
           builder: (BuildContext context, detail, Widget? child){
-            print("==============> $detail");
             return Padding(
               padding: const EdgeInsets.all(12.0),
               child: SingleChildScrollView(
@@ -92,22 +92,22 @@ class EbooksDetailPage extends StatelessWidget {
                     TitleAndSubtextSectionView(
                       title: "About this ebook",
                       subtext:
-                      detail?.description ?? "",
+                      detail?.description ?? "Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description,",
                     ),
                     const SizedBox(
                       height: 18.0,
                     ),
-                    // TitleAndSubtextSectionView(
-                    //   title: "About the author",
-                    //   subtext:
-                    //   "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
-                    // ),
+                    TitleAndSubtextSectionView(
+                      title: "About the author",
+                      subtext:
+                      "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
+                    ),
                     // const SizedBox(
                     //   height: 18.0,
                     // ),
                     // EbooksListSectionView(
                     //   "Similar books",
-                    //   ebookList: [],
+                    //   ebookList: similarBooks ?? [],
                     //   noMargin: true,
                     //   onTapEbook: (index) {},
                     //   onTapViewAll: () {},
