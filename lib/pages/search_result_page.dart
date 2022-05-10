@@ -39,7 +39,7 @@ class SearchResultPage extends StatelessWidget {
             isSearch: true,
             ebook: searchList[index],
             onTapEbook: () {
-              _navigateToEbooksDetailpage(context,searchList[index].title ?? "",searchList?[index].category ?? "");
+              _navigateToEbooksDetailpage(context,searchList[index].title ?? "",searchList[index].category ?? "");
             },
           );
         },

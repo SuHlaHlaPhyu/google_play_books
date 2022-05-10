@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:google_play_books/data/models/book_model.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
+import 'package:google_play_books/data/vos/shelf_vo.dart';
 import 'package:google_play_books/network/play_books_data_agent.dart';
 import 'package:google_play_books/network/play_books_data_agent_impl.dart';
 import 'package:google_play_books/persistance/book_dao.dart';
@@ -10,7 +11,9 @@ import 'package:google_play_books/persistance/book_list_dao.dart';
 import 'package:google_play_books/persistance/impl/book_dao_impl.dart';
 import 'package:google_play_books/persistance/impl/book_list_dao_impl.dart';
 import 'package:google_play_books/persistance/impl/save_book_dao_impl.dart';
+import 'package:google_play_books/persistance/impl/shelf_dao_impl.dart';
 import 'package:google_play_books/persistance/save_book_dao.dart';
+import 'package:google_play_books/persistance/shelf_dao.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 class BookModelImpl extends BookModel {
@@ -25,6 +28,7 @@ class BookModelImpl extends BookModel {
   BookDao bookDao = BookDaoImpl();
   SaveBookDao saveBookDao = SaveBookDaoImpl();
   BookListDao bookListDao = BookListDaoImpl();
+  ShelfDao shelfDao = ShelfDaoImpl();
 
   @override
   void getOverviewBooks() {
@@ -34,10 +38,11 @@ class BookModelImpl extends BookModel {
 
       /// save book obj only
       value?.forEach((element) {
-       List<BooksVO> bookList = element.books?.map((e) {
-         e.category = element.listName;
-         return e;
-       }).toList() ?? [];
+        List<BooksVO> bookList = element.books?.map((e) {
+              e.category = element.listName;
+              return e;
+            }).toList() ??
+            [];
         bookDao.saveAllBooks(bookList);
       });
     });
@@ -65,7 +70,6 @@ class BookModelImpl extends BookModel {
     return Future.value(saveBookDao.getAllBooks());
   }
 
-
   @override
   Stream<List<BooksVO>> getSaveBookListStream() {
     return saveBookDao
@@ -81,5 +85,23 @@ class BookModelImpl extends BookModel {
         .getAllBookEventStream()
         .startWith(bookListDao.getAllBooksStream())
         .map((event) => bookListDao.getAllBooks());
+  }
+
+  @override
+  void addBookToShelf(String shelfName, BooksVO book) {
+    shelfDao.addBookToShelf(shelfName, book);
+  }
+
+  @override
+  void createShelf(ShelfVO shelf) {
+    shelfDao.createShelf(shelf);
+  }
+
+  @override
+  Stream<List<ShelfVO>> getAllShelfStream() {
+    return shelfDao
+        .getAllShelfEventStream()
+        .startWith(shelfDao.getAllShelfStream())
+        .map((event) => shelfDao.getAllShelf());
   }
 }

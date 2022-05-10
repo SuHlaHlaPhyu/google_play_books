@@ -33,52 +33,6 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                        right: 8,
-                      ),
-                      height: 70,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          5,
-                        ),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                            "https://cdn2.penguin.com.au/covers/original/9780718193911.jpg",
-                          ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 4.0,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Good Vibes, Good Life",
-                          style: TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        Text(
-                          "Cammilo",
-                          style: TextStyle(
-                            fontSize: 13.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
               const Divider(),
               ListTile(
                 contentPadding: const EdgeInsets.all(0.0),

@@ -4,6 +4,7 @@ import 'data/vos/books_vo.dart';
 import 'data/vos/buy_links_vo.dart';
 import 'data/vos/isbns_vo.dart';
 import 'data/vos/list_vo.dart';
+import 'data/vos/shelf_vo.dart';
 import 'pages/home_page.dart';
 import 'persistance/hive_constant.dart';
 
@@ -15,11 +16,13 @@ void main() async {
   Hive.registerAdapter(BookVOAdapter());
   Hive.registerAdapter(OverviewLinkVOAdapter());
   Hive.registerAdapter(IsbnsVOAdapter());
+  Hive.registerAdapter(ShelfVOAdapter());
 
   /// box
   await Hive.openBox<BooksVO>(BOX_NAME_SAVE_BOOKS_VO);
   await Hive.openBox<BooksVO>(BOX_NAME_BOOK_VO);
   await Hive.openBox<ListVO>(BOX_NAME_BOOK_LIST_VO);
+  await Hive.openBox<ShelfVO>(BOX_NAME_SHELF_VO);
   runApp(const MyApp());
 }
 

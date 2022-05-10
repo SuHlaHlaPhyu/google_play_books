@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_play_books/data/vos/shelf_vo.dart';
 import 'package:google_play_books/pages/create_new_shelf_page.dart';
 import 'package:google_play_books/tabbar_viewitems/your_books_tabbar_view.dart';
 import 'package:google_play_books/tabbar_viewitems/your_shelves_tabbar_view.dart';
@@ -110,44 +111,5 @@ class _LibraryFragmentState extends State<LibraryFragment>
               ),
             ),
           );
-  }
-}
-
-class ShelvesEbookListView extends StatelessWidget {
-  final List<Ebooks>? ebooksList;
-  final Function(int?) onTapEbook;
-  final bool isShelves;
-  final bool fromLibrary;
-  final Function onTapViewAll;
-  ShelvesEbookListView(
-      {required this.ebooksList,
-      required this.onTapEbook,
-      required this.onTapViewAll,
-      this.isShelves = false,
-      this.fromLibrary = false});
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.only(
-        left: 8,
-      ),
-      itemCount: 2,
-      itemBuilder: (context, index) {
-        return ShelvesListitemView(
-          ebook: ebooksList?[index],
-          onTapEbook: () {
-            onTapEbook(1);
-          },
-          onTapViewAll: () {
-            onTapViewAll();
-          },
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
-          thickness: 1.0,
-        );
-      },
-    );
   }
 }

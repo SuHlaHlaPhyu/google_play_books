@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_play_books/fragments/library_fragment.dart';
+import 'package:google_play_books/blocs/shelf_bloc.dart';
+import 'package:google_play_books/data/vos/shelf_vo.dart';
+import 'package:provider/provider.dart';
 
-import '../dummy/dummy_data.dart';
 import '../pages/shelves_page.dart';
+import '../viewitems/shelf_list_view.dart';
 
 class YourShelvesTabbarView extends StatefulWidget {
   const YourShelvesTabbarView({Key? key}) : super(key: key);
@@ -14,15 +16,23 @@ class YourShelvesTabbarView extends StatefulWidget {
 class _YourShelvesTabbarViewState extends State<YourShelvesTabbarView> {
   @override
   Widget build(BuildContext context) {
-    return ShelvesEbookListView(
-      isShelves: true,
-      ebooksList: ebookList,
-      onTapEbook: (index) {
-        _navigateToShelvesPage(context);
-      },
-      onTapViewAll: () {
-        _navigateToShelvesPage(context);
-      },
+    return ChangeNotifierProvider(
+      create: (context) => ShelfBloc(),
+      child: Selector<ShelfBloc, List<ShelfVO>?>(
+        selector: (BuildContext context, bloc) => bloc.shelfList,
+        builder: (BuildContext context, shelfList, Widget? child) {
+          return ShelvesEbookListView(
+            isShelves: true,
+            shelfList: shelfList,
+            onTapEbook: (index) {
+              _navigateToShelvesPage(context);
+            },
+            onTapViewAll: () {
+              _navigateToShelvesPage(context);
+            },
+          );
+        },
+      ),
     );
   }
 

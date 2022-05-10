@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../dummy/ebooks.dart';
+import '../data/vos/shelf_vo.dart';
 import 'shelve_title_section_view.dart';
 
 class ShelvesListitemView extends StatelessWidget {
-  final Ebooks? ebook;
+  final ShelfVO? shelf;
   final Function onTapEbook;
   final Function onTapViewAll;
+  final int total;
   ShelvesListitemView({
-    required this.ebook,
+    required this.shelf,
     required this.onTapEbook,
     required this.onTapViewAll,
+    required this.total,
   });
   @override
   Widget build(BuildContext context) {
@@ -19,6 +22,7 @@ class ShelvesListitemView extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+       shelf!.books!.isEmpty || shelf?.books == [] ? Container() :
           GestureDetector(
             onTap: () => onTapEbook(),
             child: Container(
@@ -33,7 +37,7 @@ class ShelvesListitemView extends StatelessWidget {
                 ),
                 image: DecorationImage(
                   image: NetworkImage(
-                    ebook?.image ?? "",
+                    shelf?.books?.first.bookImage ?? "https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png",
                   ),
                   fit: BoxFit.fill,
                 ),
@@ -48,8 +52,8 @@ class ShelvesListitemView extends StatelessWidget {
               onTapViewAll();
             },
             child: ShelveTitleSectionView(
-              title: "10 Integration Design book to read",
-              subTitle: "3 Books",
+              title: shelf?.shelfName ?? "",
+              subTitle: total.toString() + " Books",
             ),
           ),
           const Spacer(),
