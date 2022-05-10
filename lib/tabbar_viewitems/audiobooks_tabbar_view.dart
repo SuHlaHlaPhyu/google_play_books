@@ -42,7 +42,7 @@ class _AudioBookTabbarViewState extends State<AudioBookTabbarView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(title: "",),
+        builder: (context) => EbooksDetailPage(title: "",category: "",),
       ),
     );
   }

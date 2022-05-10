@@ -7,6 +7,7 @@ import '../data/models/book_model.dart';
 class ViewAllEbooksBloc extends ChangeNotifier {
   /// States
   List<BooksVO>? booksList;
+  List<BooksVO>? similarBooks;
   bool isLoading = true;
 
   /// Model

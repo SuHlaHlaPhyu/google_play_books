@@ -39,19 +39,20 @@ class SearchResultPage extends StatelessWidget {
             isSearch: true,
             ebook: searchList[index],
             onTapEbook: () {
-              _navigateToEbooksDetailpage(context,searchList[index].title ?? "");
+              _navigateToEbooksDetailpage(context,searchList[index].title ?? "",searchList?[index].category ?? "");
             },
           );
         },
       ),
     );
   }
-  void _navigateToEbooksDetailpage(BuildContext context, String bookName) {
+  void _navigateToEbooksDetailpage(BuildContext context, String bookName, String category) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => EbooksDetailPage(
           title: bookName,
+          category: category,
         ),
       ),
     );

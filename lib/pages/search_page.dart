@@ -89,7 +89,7 @@ class _SearchPageState extends State<SearchPage> {
                         ebook: searchList?[index],
                         onTapEbook: (){
                           // bloc.getSimilarBooks(searchList?[index].ageGroup ?? "");
-                          _navigateToEbooksDetailpage(context,searchList?[index].title ?? "");
+                          _navigateToEbooksDetailpage(context,searchList?[index].title ?? "",searchList?[index].category ?? "");
                         },
                       );
                     },
@@ -99,12 +99,13 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-  void _navigateToEbooksDetailpage(BuildContext context, String bookName) {
+  void _navigateToEbooksDetailpage(BuildContext context, String bookName, String category) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => EbooksDetailPage(
           title: bookName,
+          category: category,
         ),
       ),
     );

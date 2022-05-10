@@ -8,16 +8,25 @@ class BookDetailBloc extends ChangeNotifier {
   /// States
    BooksVO? bookDetail;
   bool isLoading = true;
+  List<BooksVO>? similarBook ;
 
   /// Model
   BookModel bookModel = BookModelImpl();
 
-   BookDetailBloc(String title) {
+   BookDetailBloc(String title, String category) {
     /// overview books
     bookModel.getBookDetails(title).then((detail) {
       bookDetail = detail;
       isLoading = false;
       notifyListeners();
     }).catchError((error) {});
+
+    /// similar books
+    bookModel.getBooksByListName(category).then((result) {
+      similarBook = result;
+          isLoading = false;
+          notifyListeners();
+        }).catchError((error) {
+        });
   }
 }

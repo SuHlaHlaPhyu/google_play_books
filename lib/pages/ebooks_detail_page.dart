@@ -7,13 +7,14 @@ import '../viewitems/ebooks_list_section_view.dart';
 
 class EbooksDetailPage extends StatelessWidget {
   final String title;
+  final String category;
   final List<BooksVO>? similarBooks;
-  EbooksDetailPage({required this.title,this.similarBooks});
+  EbooksDetailPage({required this.title,this.similarBooks,required this.category});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => BookDetailBloc(title),
+      create: (BuildContext context) => BookDetailBloc(title,category),
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.0,
@@ -102,22 +103,39 @@ class EbooksDetailPage extends StatelessWidget {
                       subtext:
                       "Wondering how to write a book description that sells? This post details the process and provides book description examples from famous authors.Despite having a nice cover and receiving good reviews, it wasn’t selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.",
                     ),
-                    // const SizedBox(
-                    //   height: 18.0,
-                    // ),
-                    // EbooksListSectionView(
-                    //   "Similar books",
-                    //   ebookList: similarBooks ?? [],
-                    //   noMargin: true,
-                    //   onTapEbook: (index) {},
-                    //   onTapViewAll: () {},
-                    // ),
+                    const SizedBox(
+                      height: 18.0,
+                    ),
+                    Selector<BookDetailBloc, List<BooksVO>?>(
+                      selector: (BuildContext context, bloc) => bloc.similarBook,
+                      builder: (BuildContext context, similarBook, Widget? child){
+                        return EbooksListSectionView(
+                          "Similar books",
+                          ebookList: similarBook ?? [],
+                          noMargin: true,
+                          onTapEbook: (index) {
+                            _navigateToEbooksDetailpage(context, similarBook?[index ?? 0].title ?? "", similarBook?[index ?? 0].category ?? "");
+                          },
+                          onTapViewAll: () {},
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
             );
           },
-
+        ),
+      ),
+    );
+  }
+  void _navigateToEbooksDetailpage(BuildContext context, String bookName, String category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EbooksDetailPage(
+          title: bookName,
+          category: category,
         ),
       ),
     );
