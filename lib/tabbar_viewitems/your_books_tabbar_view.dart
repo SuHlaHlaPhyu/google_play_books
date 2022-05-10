@@ -36,10 +36,16 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                   const SizedBox(
                     height: 15.0,
                   ),
-                  HorizontalChipsListview(
-                    chipsList: const [],
-                    onTapEbook: (int? index) {
-                      //
+                  Selector<YourBookBloc, List<String?>?>(
+                    selector: (BuildContext context, bloc) => bloc.categoryList,
+                    builder:
+                        (BuildContext context, categoryList, Widget? child) {
+                      return HorizontalChipsListview(
+                        chipsList: categoryList ?? [],
+                        onTapEbook: (int? index) {
+                          //
+                        },
+                      );
                     },
                   ),
                   const SizedBox(

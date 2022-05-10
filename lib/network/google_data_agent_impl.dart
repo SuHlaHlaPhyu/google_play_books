@@ -22,7 +22,7 @@ class GoogleDataAgentImpl extends GoogleDataAgent {
   Future<List<BooksVO>> searchBook(String text) {
     return api.searchBooks(text).then((value) {
       List<BooksVO> result = value.items!.map((element) =>  BooksVO(
-        element.volumeInfo?.categories?.first,
+        null,
         null,
         null,
         element.volumeInfo?.authors?.first,
@@ -51,6 +51,7 @@ class GoogleDataAgentImpl extends GoogleDataAgent {
         null,
         null,
         null,
+        element.volumeInfo?.categories?.first,
       )).toList();
       return Future.value(result);
     });

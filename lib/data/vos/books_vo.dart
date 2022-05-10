@@ -125,6 +125,9 @@ class BooksVO {
   @HiveField(28)
   int? time;
 
+  @HiveField(29)
+  String? category;
+
   BooksVO(
     this.ageGroup,
     this.amazonProductUrl,
@@ -155,11 +158,12 @@ class BooksVO {
     this.dagger,
     this.isbns,
     this.time,
+      this.category,
   );
 
   @override
   String toString() {
-    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger, isbns: $isbns,time: $time}';
+    return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger, isbns: $isbns,time: $time, category: $category}';
   }
 
   factory BooksVO.fromJson(Map<String, dynamic> json) =>

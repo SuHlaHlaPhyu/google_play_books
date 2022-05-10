@@ -33,13 +33,13 @@ class SearchResultPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
         ),
-        itemCount: searchList?.length,
+        itemCount: searchList.length,
         itemBuilder: (context, index) {
           return EbookListitemView(
             isSearch: true,
-            ebook: searchList?[index],
+            ebook: searchList[index],
             onTapEbook: () {
-              _navigateToEbooksDetailpage(context,searchList?[index].title ?? "");
+              _navigateToEbooksDetailpage(context,searchList[index].title ?? "");
             },
           );
         },

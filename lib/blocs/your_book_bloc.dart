@@ -17,6 +17,7 @@ class YourBookBloc extends ChangeNotifier {
   var val;
   bool isLoading = true;
   List<BooksVO>? viewBookList;
+  List<String?>? categoryList;
 
   /// Model
   BookModel bookModel = BookModelImpl();
@@ -24,8 +25,8 @@ class YourBookBloc extends ChangeNotifier {
   YourBookBloc() {
     bookModel.getSaveBookList().then((value) {
       viewBookList = value;
-
       viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
+      categoryList = value.map((e) => e.category).toSet().toList();
       isLoading = false;
       notifyListeners();
     }).catchError((error) {

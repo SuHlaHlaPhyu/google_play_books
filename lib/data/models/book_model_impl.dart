@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:google_play_books/data/models/book_model.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/data/vos/list_vo.dart';
@@ -27,11 +29,17 @@ class BookModelImpl extends BookModel {
   @override
   void getOverviewBooks() {
     dataAgent.getOverviewPlayBooks().then((value) async {
+      /// save book by list name
       bookListDao.saveAllBooks(value ?? []);
-      value?.forEach((element) {
-        bookDao.saveAllBooks(element.books ?? []);
-      });
 
+      /// save book obj only
+      value?.forEach((element) {
+       List<BooksVO> bookList = element.books?.map((e) {
+         e.category = element.listName;
+         return e;
+       }).toList() ?? [];
+        bookDao.saveAllBooks(bookList);
+      });
     });
   }
 

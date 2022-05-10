@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HorizontalChipsListview extends StatelessWidget {
-  final List<String>? chipsList;
+  final List<String?>? chipsList;
   final Function(int?) onTapEbook;
   HorizontalChipsListview({
     required this.chipsList,
@@ -21,25 +21,25 @@ class HorizontalChipsListview extends StatelessWidget {
             left: 8,
           ),
           scrollDirection: Axis.horizontal,
-          itemCount: 8,
+          itemCount: chipsList?.length ?? 0,
           itemBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(
+            return Padding(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 5.0,
               ),
               child: Chip(
-                shape: StadiumBorder(
+                shape: const StadiumBorder(
                   side: BorderSide(
                     color: Colors.black12,
                   ),
                 ),
                 backgroundColor: Colors.white10,
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 12.0,
                   vertical: 10.0,
                 ),
                 label: Text(
-                  "download",
+                  chipsList?[index] ?? "",
                 ),
               ),
             );
