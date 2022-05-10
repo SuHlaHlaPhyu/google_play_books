@@ -34,6 +34,26 @@ class YourBookBloc extends ChangeNotifier {
     });
   }
 
+  void setToDefault(){
+    bookModel.getSaveBookList().then((value) {
+      viewBookList = value;
+      viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
+      categoryList = value.map((e) => e.category).toSet().toList();
+      isLoading = false;
+      notifyListeners();
+    }).catchError((error) {
+      //
+    });
+  }
+
+  void getBookByCategory(String name){
+    bookModel.getSaveBookList().then((value) {
+      List<BooksVO> temp = value.where((e) => e.category == name).toList();
+      viewBookList = temp;
+      notifyListeners();
+    });
+  }
+
   void checkLayout() {
     if (islistView) {
       islistView = false;
@@ -59,7 +79,6 @@ class YourBookBloc extends ChangeNotifier {
 
   void sortBy(int index) {
     if (index == 1) {
-      //
       viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
       notifyListeners();
     } else if (index == 2) {

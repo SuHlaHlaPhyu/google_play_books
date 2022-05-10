@@ -41,9 +41,12 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
                     builder:
                         (BuildContext context, categoryList, Widget? child) {
                       return HorizontalChipsListview(
+                        onTapClear: (){
+                          bloc.setToDefault();
+                        },
                         chipsList: categoryList ?? [],
-                        onTapEbook: (int? index) {
-                          //
+                        onTapEbook: (String? name) {
+                         bloc.getBookByCategory(name ?? "");
                         },
                       );
                     },
