@@ -41,15 +41,8 @@ class AddToShelfBloc extends ChangeNotifier {
 
 
 
-  void addBookToShelf(String shelfName, BooksVO? book) {
-    // List<ShelfVO>? selectList =
-    //     shelfList?.where((element) => element.selected == true).toList();
-    // List<ShelfVO>? temp = selectList?.map((e) {
-    //   e.books?.add(book);
-    //   return e;
-    // }).toList();
-    // shelfList = temp;
-    bookModel.addBookToShelf(shelfName, book);
+  void addBookToShelf(BooksVO? book) {
+    bookModel.addBookToShelf( book);
     notifyListeners();
   }
 }

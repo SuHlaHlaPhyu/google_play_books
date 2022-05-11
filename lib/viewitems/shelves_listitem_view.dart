@@ -7,7 +7,7 @@ import 'shelve_title_section_view.dart';
 class ShelvesListitemView extends StatelessWidget {
   final ShelfVO? shelf;
   final Function onTapEbook;
-  final Function onTapViewAll;
+  final Function(String?) onTapViewAll;
   final int total;
   final bool selectShelf;
   ShelvesListitemView({
@@ -40,7 +40,7 @@ class ShelvesListitemView extends StatelessWidget {
                       ),
                       image: DecorationImage(
                         image: NetworkImage(
-                          shelf?.books?.first.bookImage ??
+                          shelf?.books?.last.bookImage ??
                               "https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png",
                         ),
                         fit: BoxFit.fill,
@@ -53,7 +53,7 @@ class ShelvesListitemView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              onTapViewAll();
+              onTapViewAll(shelf?.shelfName ?? "");
             },
             child: ShelveTitleSectionView(
               title: shelf?.shelfName ?? "",
@@ -81,7 +81,7 @@ class ShelvesListitemView extends StatelessWidget {
                 )
               : GestureDetector(
                   onTap: () {
-                    onTapViewAll();
+                    onTapViewAll(shelf?.shelfName ?? "");
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(right: 8.0),

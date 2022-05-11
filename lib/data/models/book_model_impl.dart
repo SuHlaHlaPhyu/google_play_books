@@ -88,8 +88,8 @@ class BookModelImpl extends BookModel {
   }
 
   @override
-  void addBookToShelf(String shelfName, BooksVO? book) {
-    shelfDao.addBookToShelf(shelfName, book);
+  void addBookToShelf(BooksVO? book) {
+    shelfDao.addBookToShelf(book);
   }
 
   @override
@@ -103,5 +103,13 @@ class BookModelImpl extends BookModel {
         .getAllShelfEventStream()
         .startWith(shelfDao.getAllShelfStream())
         .map((event) => shelfDao.getAllShelf());
+  }
+
+  @override
+  Stream<ShelfVO> getBookByShelfStream(String name) {
+    return shelfDao
+        .getAllShelfEventStream()
+        .startWith(shelfDao.getBookByShelfStream(name))
+        .map((event) => shelfDao.getBookByShelf(name));
   }
 }

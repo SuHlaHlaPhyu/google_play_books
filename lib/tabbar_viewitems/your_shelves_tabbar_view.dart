@@ -25,10 +25,10 @@ class _YourShelvesTabbarViewState extends State<YourShelvesTabbarView> {
             isShelves: true,
             shelfList: shelfList,
             onTapEbook: (index) {
-              _navigateToShelvesPage(context);
+              _navigateToShelvesPage(context,index ?? "");
             },
-            onTapViewAll: () {
-              _navigateToShelvesPage(context);
+            onTapViewAll: (title) {
+              _navigateToShelvesPage(context, title ?? "");
             },
           );
         },
@@ -36,11 +36,11 @@ class _YourShelvesTabbarViewState extends State<YourShelvesTabbarView> {
     );
   }
 
-  void _navigateToShelvesPage(BuildContext context) {
+  void _navigateToShelvesPage(BuildContext context,String shelfName) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ShelvesPage(),
+        builder: (context) => ShelvesPage(shelfName: shelfName,),
       ),
     );
   }

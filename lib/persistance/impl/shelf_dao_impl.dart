@@ -20,6 +20,11 @@ class ShelfDaoImpl extends ShelfDao{
   }
 
   @override
+  Stream<void> getAllShelfEventStream() {
+    return getShelfBox().watch();
+  }
+
+  @override
   void createShelf(ShelfVO shelf) async{
     await getShelfBox().put(DateTime.now().millisecond, shelf);
   }
@@ -30,29 +35,27 @@ class ShelfDaoImpl extends ShelfDao{
   }
 
   @override
-  Stream<void> getAllShelfEventStream() {
-    return getShelfBox().watch();
-  }
-
-  @override
   Stream<List<ShelfVO>> getAllShelfStream() {
     return Stream.value(getAllShelf());
   }
 
   @override
-  void addBookToShelf(String shelfName, BooksVO? book) {
+  void addBookToShelf(BooksVO? book) {
     List<ShelfVO>? selectShelf =  getAllShelf().where((element) => element.selected == true).toList();
     List<ShelfVO>? temp = selectShelf.map((e) {
       e.books?.add(book!);
       return e;
     }).toList();
-    // getAllShelf().map((e) {
-    //   if(e.shelfName == shelfName){
-    //     e.books?.add(book);
-    //   }
-    // }).toList();
   }
 
+  @override
+  ShelfVO getBookByShelf(String name) {
+    return getAllShelf().where((e) => e.shelfName == name).toList().first;
+  }
 
+  @override
+  Stream<ShelfVO> getBookByShelfStream(String name) {
+    return Stream.value(getBookByShelf(name));
+  }
 
 }

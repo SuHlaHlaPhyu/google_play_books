@@ -12,7 +12,6 @@ class AddToShelfPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("================> add book ${book?.title}");
     return ChangeNotifierProvider(
       create: (context) => AddToShelfBloc(),
       child: Selector<AddToShelfBloc, List<ShelfVO>?>(
@@ -46,7 +45,7 @@ class AddToShelfPage extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     AddToShelfBloc bloc = Provider.of(context, listen: false);
-                    bloc.addBookToShelf("", book);
+                    bloc.addBookToShelf(book);
                     bloc.shelfList?.map((e) => e.selected = false).toList();
                     Navigator.pop(context);
                   },
@@ -73,8 +72,8 @@ class AddToShelfPage extends StatelessWidget {
                 AddToShelfBloc bloc = Provider.of(context, listen: false);
                 bloc.selectShelf(name ?? "");
               },
-              onTapViewAll: () {
-                //
+              onTapViewAll: (title) {
+                // no need to implement
               },
             ),
           );

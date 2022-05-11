@@ -9,7 +9,7 @@ class ShelvesEbookListView extends StatelessWidget {
   final Function(String?) onTapEbook;
   final bool isShelves;
   final bool fromLibrary;
-  final Function onTapViewAll;
+  final Function(String?) onTapViewAll;
   final bool selectShelf;
   ShelvesEbookListView(
       {required this.shelfList,
@@ -33,8 +33,8 @@ class ShelvesEbookListView extends StatelessWidget {
           onTapEbook: (name) {
             onTapEbook(name);
           },
-          onTapViewAll: () {
-            onTapViewAll();
+          onTapViewAll: (title) {
+            onTapViewAll(title);
           },
         );
       },
