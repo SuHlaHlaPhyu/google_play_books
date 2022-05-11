@@ -6,16 +6,18 @@ import '../data/vos/shelf_vo.dart';
 
 class ShelvesEbookListView extends StatelessWidget {
   final List<ShelfVO>? shelfList;
-  final Function(int?) onTapEbook;
+  final Function(String?) onTapEbook;
   final bool isShelves;
   final bool fromLibrary;
   final Function onTapViewAll;
+  final bool selectShelf;
   ShelvesEbookListView(
       {required this.shelfList,
         required this.onTapEbook,
         required this.onTapViewAll,
         this.isShelves = false,
-        this.fromLibrary = false});
+        this.fromLibrary = false,
+      this.selectShelf = false});
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -25,10 +27,11 @@ class ShelvesEbookListView extends StatelessWidget {
       itemCount: shelfList?.length ?? 0,
       itemBuilder: (context, index) {
         return ShelvesListitemView(
+          selectShelf: selectShelf,
           total: shelfList?[index].books?.length ?? 0,
           shelf: shelfList?[index],
-          onTapEbook: () {
-            onTapEbook(1);
+          onTapEbook: (name) {
+            onTapEbook(name);
           },
           onTapViewAll: () {
             onTapViewAll();

@@ -14,11 +14,13 @@ class ShelfVO {
   @HiveField(1)
   List<BooksVO>? books;
 
+  @HiveField(2)
+  bool? selected;
 
-  ShelfVO(this.shelfName, this.books);
+  ShelfVO(this.shelfName, this.books, this.selected);
 
   @override
   String toString() {
-    return 'BooksVO{shelfName: $shelfName, books: $books}';
+    return 'ShelfVO{shelfName: $shelfName, books: $books, selected: $selected}';
   }
 }

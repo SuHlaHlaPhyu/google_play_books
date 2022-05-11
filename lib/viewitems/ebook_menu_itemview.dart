@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/add_to_shelf_page.dart';
+
 class EbookMenuItemView extends StatefulWidget {
   Color iconColor;
   EbookMenuItemView({this.iconColor = Colors.white});
@@ -62,6 +64,12 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
                 title: const Text('Add to shelf'),
                 onTap: () {
                   Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddToShelfPage(),
+                    ),
+                  );
                 },
               ),
               ListTile(
