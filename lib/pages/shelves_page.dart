@@ -87,24 +87,24 @@ class _ShelvesPageState extends State<ShelvesPage> {
                     builder: (BuildContext context, listView, Widget? child) {
                       return Selector<ShelfDetailBloc, bool>(
                         selector: (BuildContext context, bloc) =>
-                        bloc.is2x2GridView,
+                            bloc.is2x2GridView,
                         builder:
                             (BuildContext context, twoGirdView, Widget? child) {
                           return Selector<ShelfDetailBloc, bool>(
                             selector: (BuildContext context, bloc) =>
-                            bloc.is3x3GridView,
+                                bloc.is3x3GridView,
                             builder: (BuildContext context, threeGirdView,
                                 Widget? child) {
                               return SortByAndLayoutSectionView(
                                 sortName: name,
                                 onTapSortBy: () {
                                   ShelfDetailBloc bloc =
-                                  Provider.of(context, listen: false);
+                                      Provider.of(context, listen: false);
                                   showModalBottomSheetView(context, bloc);
                                 },
                                 onTapLayoutView: () {
                                   ShelfDetailBloc bloc =
-                                  Provider.of(context, listen: false);
+                                      Provider.of(context, listen: false);
                                   bloc.checkLayout();
                                 },
                                 is2x2GridView: twoGirdView,
@@ -125,23 +125,25 @@ class _ShelvesPageState extends State<ShelvesPage> {
                     builder: (BuildContext context, listView, Widget? child) {
                       return Selector<ShelfDetailBloc, bool?>(
                         selector: (BuildContext context, bloc) =>
-                        bloc.is2x2GridLayout,
+                            bloc.is2x2GridLayout,
                         builder:
                             (BuildContext context, twoGirdView, Widget? child) {
                           return Selector<ShelfDetailBloc, bool?>(
                             selector: (BuildContext context, bloc) =>
-                            bloc.is3x3GridLayout,
+                                bloc.is3x3GridLayout,
                             builder: (BuildContext context, threeGirdView,
                                 Widget? child) {
-                              return CustomEbookListView(
-                                fromLibrary: true,
-                                is3x3Grid: threeGirdView ?? true,
-                                is2x2Grid: twoGirdView ?? false,
-                                ebooksList: shelfDetail?.books,
-                                onTapEbook: (index) {
-                                  /// ebook details
-
-                                },
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: CustomEbookListView(
+                                  fromLibrary: true,
+                                  is3x3Grid: threeGirdView ?? true,
+                                  is2x2Grid: twoGirdView ?? false,
+                                  ebooksList: shelfDetail?.books,
+                                  onTapEbook: (index) {
+                                    /// ebook details
+                                  },
+                                ),
                               );
                             },
                           );

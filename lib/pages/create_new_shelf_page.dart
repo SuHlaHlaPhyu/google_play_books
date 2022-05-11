@@ -28,7 +28,7 @@ class _CreateNewShelfState extends State<CreateNewShelf> {
               leading: GestureDetector(
                 onTap: () {
                   CreateShelfBloc bloc = Provider.of(context, listen: false);
-                  bloc.createShelf(ShelfVO(userInput.text.toString(), [], false));
+                  bloc.createShelf(ShelfVO(userInput.text.toString(), [], false, DateTime.now().millisecond));
                   Navigator.pop(context);
                 },
                 child: const Icon(

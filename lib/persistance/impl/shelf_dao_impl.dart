@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:google_play_books/data/vos/shelf_vo.dart';
 import 'package:google_play_books/persistance/hive_constant.dart';
 import 'package:google_play_books/persistance/shelf_dao.dart';
@@ -26,7 +27,7 @@ class ShelfDaoImpl extends ShelfDao{
 
   @override
   void createShelf(ShelfVO shelf) async{
-    await getShelfBox().put(DateTime.now().millisecond, shelf);
+    await getShelfBox().put(shelf.id, shelf);
   }
 
   @override
@@ -40,12 +41,15 @@ class ShelfDaoImpl extends ShelfDao{
   }
 
   @override
-  void addBookToShelf(BooksVO? book) {
+  void addBookToShelf(BooksVO? book){
     List<ShelfVO>? selectShelf =  getAllShelf().where((element) => element.selected == true).toList();
-    List<ShelfVO>? temp = selectShelf.map((e) {
+    List<int?> id = selectShelf.map((e) => e.id).toList();
+    selectShelf.mapIndexed((index,e) {
       e.books?.add(book!);
+      getShelfBox().put(id[index], e);
       return e;
     }).toList();
+
   }
 
   @override
