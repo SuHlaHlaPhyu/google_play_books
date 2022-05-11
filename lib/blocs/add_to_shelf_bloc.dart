@@ -4,32 +4,32 @@ import 'package:google_play_books/data/models/book_model_impl.dart';
 import 'package:google_play_books/data/vos/books_vo.dart';
 import 'package:google_play_books/data/vos/shelf_vo.dart';
 
-class AddToShelfBloc extends ChangeNotifier{
+class AddToShelfBloc extends ChangeNotifier {
   ///
   List<ShelfVO>? shelfList;
 
   BookModel bookModel = BookModelImpl();
 
-  AddToShelfBloc(){
+  AddToShelfBloc() {
     bookModel.getAllShelfStream().listen((event) {
       shelfList = event;
       notifyListeners();
-    }).onError((error){
+    }).onError((error) {
       //
     });
   }
 
-  void createShelf(ShelfVO name){
+  void createShelf(ShelfVO name) {
     bookModel.createShelf(name);
     notifyListeners();
   }
 
-  void selectShelf(String name){
+  void selectShelf(String name) {
     var temp = shelfList?.map((element) {
-      if(element.shelfName == name){
-        if(element.selected == true){
+      if (element.shelfName == name) {
+        if (element.selected == true) {
           element.selected = false;
-        }else{
+        } else {
           element.selected = true;
         }
       }
@@ -39,7 +39,16 @@ class AddToShelfBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-  void addBookToShelf(String shelfName, BooksVO book){
+
+
+  void addBookToShelf(String shelfName, BooksVO? book) {
+    // List<ShelfVO>? selectList =
+    //     shelfList?.where((element) => element.selected == true).toList();
+    // List<ShelfVO>? temp = selectList?.map((e) {
+    //   e.books?.add(book);
+    //   return e;
+    // }).toList();
+    // shelfList = temp;
     bookModel.addBookToShelf(shelfName, book);
     notifyListeners();
   }

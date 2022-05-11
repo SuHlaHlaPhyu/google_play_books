@@ -14,6 +14,6 @@ abstract class BookModel {
    /// shelf
 
    void createShelf(ShelfVO shelf);
-   void addBookToShelf(String shelfName,BooksVO book);
+   void addBookToShelf(String shelfName,BooksVO? book);
    Stream<List<ShelfVO>> getAllShelfStream();
 }

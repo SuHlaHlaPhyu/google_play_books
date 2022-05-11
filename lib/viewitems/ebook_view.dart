@@ -64,7 +64,7 @@ class EbookView extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            EbookMenuItemView(),
+                            EbookMenuItemView(book: ebook,),
                           ],
                         ),
                         const Spacer(),
@@ -88,7 +88,7 @@ class EbookView extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: EbookMenuItemView(),
+                      child: EbookMenuItemView(book: ebook,),
                     ),
                   ),
           ),

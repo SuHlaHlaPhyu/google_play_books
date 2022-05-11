@@ -88,7 +88,7 @@ class BookModelImpl extends BookModel {
   }
 
   @override
-  void addBookToShelf(String shelfName, BooksVO book) {
+  void addBookToShelf(String shelfName, BooksVO? book) {
     shelfDao.addBookToShelf(shelfName, book);
   }
 

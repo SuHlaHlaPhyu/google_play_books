@@ -160,7 +160,7 @@ class CarouselSectionView extends StatelessWidget {
               const SizedBox(),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: EbookMenuItemView(),
+                child: EbookMenuItemView(book: book,),
               ),
             ],
           ),

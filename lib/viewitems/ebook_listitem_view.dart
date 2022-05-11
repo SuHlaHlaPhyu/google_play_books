@@ -85,6 +85,7 @@ class EbookListitemView extends StatelessWidget {
                       width: 35.0,
                     ),
                     EbookMenuItemView(
+                      book: ebook,
                       iconColor: Colors.black54,
                     ),
                   ],

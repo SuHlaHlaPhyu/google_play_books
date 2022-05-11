@@ -40,12 +40,17 @@ class ShelfDaoImpl extends ShelfDao{
   }
 
   @override
-  void addBookToShelf(String shelfName, BooksVO book) {
-    getAllShelf().map((e) {
-      if(e.shelfName == shelfName){
-        e.books?.add(book);
-      }
+  void addBookToShelf(String shelfName, BooksVO? book) {
+    List<ShelfVO>? selectShelf =  getAllShelf().where((element) => element.selected == true).toList();
+    List<ShelfVO>? temp = selectShelf.map((e) {
+      e.books?.add(book!);
+      return e;
     }).toList();
+    // getAllShelf().map((e) {
+    //   if(e.shelfName == shelfName){
+    //     e.books?.add(book);
+    //   }
+    // }).toList();
   }
 
 

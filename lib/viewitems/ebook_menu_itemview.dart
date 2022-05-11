@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../data/vos/books_vo.dart';
 import '../pages/add_to_shelf_page.dart';
 
 class EbookMenuItemView extends StatefulWidget {
   Color iconColor;
-  EbookMenuItemView({this.iconColor = Colors.white});
+  BooksVO? book;
+  EbookMenuItemView({
+    this.iconColor = Colors.white,
+    required this.book,
+  });
 
   @override
   State<EbookMenuItemView> createState() => _EbookMenuItemViewState();
@@ -67,7 +72,7 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const AddToShelfPage(),
+                      builder: (context) => AddToShelfPage(book: widget.book,),
                     ),
                   );
                 },
