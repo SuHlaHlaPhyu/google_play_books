@@ -18,6 +18,8 @@ class YourBookBloc extends ChangeNotifier {
   bool isLoading = true;
   List<BooksVO>? viewBookList;
   List<String?>? categoryList;
+  List<BooksVO>? temp;
+  List<BooksVO> tempCombined = [];
 
   /// Model
   BookModel bookModel = BookModelImpl();
@@ -34,22 +36,26 @@ class YourBookBloc extends ChangeNotifier {
     });
   }
 
-  void setToDefault(){
+  void setToDefault() {
     bookModel.getSaveBookList().then((value) {
       viewBookList = value;
       viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
       categoryList = value.map((e) => e.category).toSet().toList();
       isLoading = false;
+      tempCombined.clear();
+      temp?.clear();
       notifyListeners();
     }).catchError((error) {
       //
     });
   }
 
-  void getBookByCategory(String name){
+  void getBookByCategory(String name) {
     bookModel.getSaveBookList().then((value) {
-      List<BooksVO> temp = value.where((e) => e.category == name).toList();
-      viewBookList = temp;
+      temp = value.where((e) => e.category == name).toList();
+      tempCombined += temp ?? [];
+      temp?.clear();
+      viewBookList = tempCombined.toSet().toList();
       notifyListeners();
     });
   }

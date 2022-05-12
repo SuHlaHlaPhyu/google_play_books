@@ -27,9 +27,11 @@ class _CreateNewShelfState extends State<CreateNewShelf> {
               automaticallyImplyLeading: false,
               leading: GestureDetector(
                 onTap: () {
-                  CreateShelfBloc bloc = Provider.of(context, listen: false);
-                  bloc.createShelf(ShelfVO(userInput.text.toString(), [], false, DateTime.now().millisecond));
-                  Navigator.pop(context);
+                  if(userInput.text.isNotEmpty){
+                    CreateShelfBloc bloc = Provider.of(context, listen: false);
+                    bloc.createShelf(ShelfVO(userInput.text.toString(), [], false, DateTime.now().millisecond));
+                    Navigator.pop(context);
+                  }
                 },
                 child: const Icon(
                   Icons.check,
@@ -43,7 +45,7 @@ class _CreateNewShelfState extends State<CreateNewShelf> {
                 controller: userInput,
                 focusNode: inputFocus,
                 autofocus: true,
-                decoration: const InputDecoration(hintText: "Shelf name"),
+                decoration: const InputDecoration(hintText: "Shelf name",),
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
               ),

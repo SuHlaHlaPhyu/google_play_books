@@ -84,30 +84,39 @@ class _LibraryFragmentState extends State<LibraryFragment>
   Widget _createShelf() {
     return _tabController?.index == 0
         ? const SizedBox()
-        : SizedBox(
-            width: 150.0,
-            child: FloatingActionButton(
-              isExtended: true,
-              onPressed: null,
-              backgroundColor: Colors.blue,
-              child: SizedBox(
-                width: 150.0,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Icon(
-                      Icons.edit,
-                      size: 20.0,
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Text("create new")
-                  ],
+        : Container(
+            height: kToolbarHeight,
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8,
                 ),
+              ),
+            ),
+            child: SizedBox(
+              width: 150.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  Icon(
+                    Icons.edit,
+                    size: 20.0,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5.0,
+                  ),
+                  Text(
+                    "create new",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )
+                ],
               ),
             ),
           );
