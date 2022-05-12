@@ -60,7 +60,12 @@ class _ShelvesPageState extends State<ShelvesPage> {
                               text: shelfDetail?.shelfName);
                         });
                       },
-                      onTapDelete: () {},
+                      onTapDelete: () {
+                        ShelfDetailBloc bloc =
+                        Provider.of(context, listen: false);
+                        bloc.deleteShelf(shelfDetail?.id  ?? 0);
+                        Navigator.pop(context);
+                      },
                     );
                   },
                 ),

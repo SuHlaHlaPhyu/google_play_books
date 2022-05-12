@@ -117,4 +117,9 @@ class BookModelImpl extends BookModel {
   Future<ShelfVO> renameShelf(int shelfId, String newName) {
     return Future.value(shelfDao.renameShelf(shelfId, newName));
   }
+
+  @override
+  void deleteShelf(int shelfId) {
+    shelfDao.deleteShelf(shelfId);
+  }
 }

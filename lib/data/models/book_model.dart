@@ -20,4 +20,5 @@ abstract class BookModel {
 
   /// rename shelf
   Future<ShelfVO> renameShelf(int shelfId, String newName);
+  void deleteShelf(int shelfId);
 }

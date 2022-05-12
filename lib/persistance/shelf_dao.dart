@@ -11,4 +11,5 @@ abstract class ShelfDao {
   Stream<ShelfVO> getBookByShelfStream(String name);
   Future<ShelfVO?> getShelfById(int shelfId);
   Future<ShelfVO> renameShelf(int shelfId, String newName);
+  void deleteShelf(int shelfId);
 }

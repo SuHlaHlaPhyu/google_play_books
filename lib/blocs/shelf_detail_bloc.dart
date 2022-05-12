@@ -43,6 +43,11 @@ class ShelfDetailBloc extends ChangeNotifier{
     notifyListeners();
   }
 
+  void deleteShelf(int shelfId){
+    bookModel.deleteShelf(shelfId);
+    notifyListeners();
+  }
+
   void checkLayout() {
     if (islistView) {
       islistView = false;

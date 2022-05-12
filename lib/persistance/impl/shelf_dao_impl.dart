@@ -42,6 +42,7 @@ class ShelfDaoImpl extends ShelfDao{
 
   @override
   void addBookToShelf(BooksVO? book){
+     book?.time = DateTime.now().millisecond;
     List<ShelfVO>? selectShelf =  getAllShelf().where((element) => element.selected == true).toList();
     List<int?> id = selectShelf.map((e) => e.id).toList();
     selectShelf.mapIndexed((index,e) {
@@ -75,5 +76,11 @@ class ShelfDaoImpl extends ShelfDao{
   Future<ShelfVO?> getShelfById(int shelfId) {
     return Future.value(getShelfBox().get(shelfId));
   }
+
+  @override
+  void deleteShelf(int shelfId) {
+    getShelfBox().delete(shelfId);
+  }
+
 
 }
