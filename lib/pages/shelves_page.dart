@@ -23,6 +23,7 @@ class _ShelvesPageState extends State<ShelvesPage> {
   TextEditingController userInput = TextEditingController();
   FocusNode inputFocus = FocusNode();
 
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -63,8 +64,9 @@ class _ShelvesPageState extends State<ShelvesPage> {
                       onTapDelete: () {
                         ShelfDetailBloc bloc =
                         Provider.of(context, listen: false);
-                        bloc.deleteShelf(shelfDetail?.id  ?? 0);
+                        bloc.deleteShelf(shelfDetail?.id ?? 0);
                         Navigator.pop(context);
+                       // showAlert(context, shelfDetail?.id ?? 0);
                       },
                     );
                   },
@@ -220,6 +222,30 @@ class _ShelvesPageState extends State<ShelvesPage> {
     );
   }
 
+  showAlert(BuildContext context,int? id){
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: const Text('Delete Shelf'),  // To display the title it is optional
+        content: const Text('Are you sure you want to delete'),   // Message which will be pop up on the screen
+        // Action widget which will provide the user to acknowledge the choice
+        actions: [
+          TextButton(           //
+            onPressed: () {},        // function used to perform after pressing the button
+            child:const Text('NO'),
+          ),
+          TextButton(
+            onPressed: () {
+              // ShelfDetailBloc bloc =
+              // Provider.of(context, listen: false);
+              // bloc.deleteShelf(id ?? 0);
+              Navigator.pop(context);
+            },
+            child:const Text('YES'),
+          ),
+        ],
+      );
+    });
+  }
   //
   void _navigateToShelvespage(
     BuildContext context,

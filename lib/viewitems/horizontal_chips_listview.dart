@@ -60,7 +60,8 @@ class HorizontalChipsListview extends StatelessWidget {
                                 HorizontalChipBloc bloc =
                                     Provider.of(context, listen: false);
                                 onTapEbook(category);
-                                bloc.isSelect(chipsList.indexOf(category));
+                                bloc.isSelect(chipsList,chipsList.indexOf(category));
+                                //bloc.isSelectt(chipsList.indexOf(category));
                                 //selectList?[index] = true;
                               },
                               child: Padding(
