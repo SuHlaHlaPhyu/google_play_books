@@ -62,4 +62,18 @@ class ShelfDaoImpl extends ShelfDao{
     return Stream.value(getBookByShelf(name));
   }
 
+  @override
+  Future<ShelfVO> renameShelf(int shelfId, String newName) async{
+    return getShelfById(shelfId).then((value) {
+      value?.shelfName = newName;
+      getShelfBox().put(shelfId, value!);
+      return Future.value(value);
+    });
+  }
+
+  @override
+  Future<ShelfVO?> getShelfById(int shelfId) {
+    return Future.value(getShelfBox().get(shelfId));
+  }
+
 }

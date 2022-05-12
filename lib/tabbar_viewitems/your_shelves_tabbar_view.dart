@@ -19,6 +19,7 @@ class _YourShelvesTabbarViewState extends State<YourShelvesTabbarView> {
     return ChangeNotifierProvider(
       create: (context) => ShelfBloc(),
       child: Selector<ShelfBloc, List<ShelfVO>?>(
+        shouldRebuild: (previous, next) => previous != next,
         selector: (BuildContext context, bloc) => bloc.shelfList,
         builder: (BuildContext context, shelfList, Widget? child) {
           return ShelvesEbookListView(

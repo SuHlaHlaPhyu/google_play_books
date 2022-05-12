@@ -17,6 +17,8 @@ class ShelfDetailBloc extends ChangeNotifier{
   bool? is2x2GridLayout;
   bool? islistLayout;
 
+  bool isEdit = false;
+
   List<BooksVO>? bookList;
 
   BookModel bookModel = BookModelImpl();
@@ -29,6 +31,16 @@ class ShelfDetailBloc extends ChangeNotifier{
     }).onError((error){
       //
     });
+  }
+
+  void editShelf(){
+    isEdit = true;
+    notifyListeners();
+  }
+
+  void renameShelf(int shelfId, String newName){
+    bookModel.renameShelf(shelfId, newName);
+    notifyListeners();
   }
 
   void checkLayout() {

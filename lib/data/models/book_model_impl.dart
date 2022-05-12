@@ -112,4 +112,9 @@ class BookModelImpl extends BookModel {
         .startWith(shelfDao.getBookByShelfStream(name))
         .map((event) => shelfDao.getBookByShelf(name));
   }
+
+  @override
+  Future<ShelfVO> renameShelf(int shelfId, String newName) {
+    return Future.value(shelfDao.renameShelf(shelfId, newName));
+  }
 }

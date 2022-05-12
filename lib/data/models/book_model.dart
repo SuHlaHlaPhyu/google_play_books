@@ -17,4 +17,7 @@ abstract class BookModel {
   void addBookToShelf(BooksVO? book);
   Stream<List<ShelfVO>> getAllShelfStream();
   Stream<ShelfVO> getBookByShelfStream(String name);
+
+  /// rename shelf
+  Future<ShelfVO> renameShelf(int shelfId, String newName);
 }

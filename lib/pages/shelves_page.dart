@@ -6,6 +6,7 @@ import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/shelve_title_section_view.dart';
 import 'package:provider/provider.dart';
+import '../tabbar_viewitems/your_shelves_tabbar_view.dart';
 import '../viewitems/sortby_layout_section_view.dart';
 
 class ShelvesPage extends StatefulWidget {
@@ -19,19 +20,8 @@ class ShelvesPage extends StatefulWidget {
 class _ShelvesPageState extends State<ShelvesPage> {
   var val;
   String name = "Recent";
-  void _navigateToEbooksDetailpage(
-    BuildContext context,
-  ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EbooksDetailPage(
-          title: "test",
-          category: "",
-        ),
-      ),
-    );
-  }
+  TextEditingController userInput = TextEditingController();
+  FocusNode inputFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -56,25 +46,90 @@ class _ShelvesPageState extends State<ShelvesPage> {
                 ),
               ),
               actions: [
-                MenuItemView(
-                  iconColor: Colors.black,
+                Selector<ShelfDetailBloc, bool>(
+                  selector: (BuildContext context, bloc) => bloc.isEdit,
+                  builder: (BuildContext context, isEdit, Widget? child) {
+                    return MenuItemView(
+                      iconColor: Colors.black,
+                      onTapRename: () {
+                        ShelfDetailBloc bloc =
+                            Provider.of(context, listen: false);
+                        bloc.editShelf();
+                        setState(() {
+                          userInput = TextEditingController(
+                              text: shelfDetail?.shelfName);
+                        });
+                      },
+                      onTapDelete: () {},
+                    );
+                  },
                 ),
               ],
             ),
             body: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 0.0,
-                      right: 0.0,
-                      top: 50,
-                      bottom: 20,
-                    ),
-                    child: ShelveTitleSectionView(
-                      title: shelfDetail?.shelfName ?? "",
-                      subTitle: "${shelfDetail?.books?.length} Books",
-                    ),
+                  Selector<ShelfDetailBloc, bool>(
+                    selector: (BuildContext context, bloc) => bloc.isEdit,
+                    builder: (BuildContext context, isEdit, Widget? child) {
+                      return Column(
+                        children: [
+                          Visibility(
+                            visible: isEdit,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                20.0,
+                                30.0,
+                                30.0,
+                                30,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      ShelfDetailBloc bloc =
+                                      Provider.of(context, listen: false);
+                                      bloc.renameShelf(shelfDetail?.id ?? 0, userInput.text.toString());
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Icon(
+                                      Icons.check,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  TextField(
+                                    controller: userInput,
+                                    focusNode: inputFocus,
+                                    autofocus: true,
+                                    decoration: const InputDecoration(
+                                        hintText: "Shelf name"),
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.done,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: !isEdit,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                20.0,
+                                30.0,
+                                30.0,
+                                30,
+                              ),
+                              child: ShelveTitleSectionView(
+                                title: shelfDetail?.shelfName ?? "",
+                                subTitle: "${shelfDetail?.books?.length} Books",
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   const Divider(
                     thickness: 1.0,
@@ -156,6 +211,20 @@ class _ShelvesPageState extends State<ShelvesPage> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  //
+  void _navigateToShelvespage(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => YourShelvesTabbarView(
+
+        ),
       ),
     );
   }
