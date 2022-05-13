@@ -15,11 +15,14 @@ class _HomePageState extends State<HomePage> {
     return const [
       BottomNavigationBarItem(
         label: "Home",
-        icon: Icon(Icons.home),
+        icon: Icon(Icons.home,key: ValueKey("home"),),
       ),
       BottomNavigationBarItem(
         label: "Library",
-        icon: Icon(Icons.library_books),
+        icon: Icon(
+          Icons.library_books,
+          key: ValueKey("library"),
+        ),
       ),
     ];
   }

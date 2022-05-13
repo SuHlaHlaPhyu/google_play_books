@@ -16,10 +16,21 @@ class EbookTabbarView extends StatefulWidget {
 }
 
 class _EbookTabbarViewState extends State<EbookTabbarView> {
+  HomeBloc? homeBloc;
+
+  @override
+  void initState() {
+    homeBloc = HomeBloc();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomeBloc(),
+      create: (context) => homeBloc,
       child: Selector<HomeBloc, List<ListVO>?>(
           selector: (BuildContext context, bloc) => bloc.overviewBooksList,
           builder: (BuildContext context, bookList, Widget? child) {
@@ -32,6 +43,7 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
               );
             }
             return ListView.builder(
+              key: const ValueKey("listview"),
               itemCount: bookList?.length,
               itemBuilder: ((context, index) {
                 return Column(

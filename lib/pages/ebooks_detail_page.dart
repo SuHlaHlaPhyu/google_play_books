@@ -26,6 +26,7 @@ class EbooksDetailPage extends StatelessWidget {
             child: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
+              key: ValueKey("back"),
             ),
           ),
           actions: [
@@ -198,22 +199,20 @@ class ButtonSectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          child: Container(
-            width: 150,
-            height: 40,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-              ),
+        Container(
+          width: 150,
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
             ),
-            child: const Center(
-              child: Text(
-                "Free sample",
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.blue,
-                ),
+          ),
+          child: const Center(
+            child: Text(
+              "Free sample",
+              style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.blue,
               ),
             ),
           ),
@@ -221,23 +220,21 @@ class ButtonSectionView extends StatelessWidget {
         const SizedBox(
           width: 15.0,
         ),
-        Expanded(
-          child: Container(
-            height: 40,
-            width: 150,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              border: Border.all(
-                color: Colors.grey,
-              ),
+        Container(
+          height: 40,
+          width: 150,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            border: Border.all(
+              color: Colors.grey,
             ),
-            child: Center(
-              child: Text(
-                "Buy \$ $price",
-                style:const TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white,
-                ),
+          ),
+          child: Center(
+            child: Text(
+              "Buy \$ $price",
+              style:const TextStyle(
+                fontSize: 14.0,
+                color: Colors.white,
               ),
             ),
           ),

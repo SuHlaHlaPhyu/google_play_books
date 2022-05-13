@@ -107,7 +107,10 @@ class EbookView extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 160,
-                  child: Expanded(
+                  child: GestureDetector(
+                    onTap: (){
+                      onTapEbook();
+                    },
                     child: Text(
                       ebook?.title ?? "",
                       overflow: TextOverflow.ellipsis,

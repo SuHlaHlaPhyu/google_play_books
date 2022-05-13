@@ -162,6 +162,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
               Row(
                 children: [
                   Radio(
+                    key:const ValueKey("1"),
                     value: 1,
                     groupValue: val,
                     onChanged: (value) {
@@ -185,6 +186,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
               Row(
                 children: [
                   Radio(
+                    key:const ValueKey("2"),
                     value: 2,
                     groupValue: val,
                     onChanged: (value) {
@@ -206,6 +208,7 @@ class _YourBookTabbarViewState extends State<YourBookTabbarView> {
               Row(
                 children: [
                   Radio(
+                    key:const ValueKey("3"),
                     value: 3,
                     groupValue: val,
                     onChanged: (value) {

@@ -90,11 +90,10 @@ class _LibraryFragmentState extends State<LibraryFragment>
       borderRadius: BorderRadius.circular(20.0),
     ),
           child: Container(
+            key: const ValueKey("create"),
               height: kToolbarHeight,
               decoration: const BoxDecoration(
                 color: Colors.blue,
-
-
               ),
               child: SizedBox(
                 width: 150.0,

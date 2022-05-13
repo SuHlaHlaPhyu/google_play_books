@@ -1,0 +1,9 @@
+const String HOME_E_BOOK = "CAMINO WINDS";
+const String BOOK_AUTHOR = "John Grisham";
+const String SECOND_AUTHOR = "Delia Owens";
+const String SECOND_BOOK = "WHERE THE CRAWDADS SING";
+const String CHIP_ONE = "Hardcover Fiction";
+const String CHIP_TWO = "Audio Fiction";
+const String SHELF_ONE = "Programming";
+const String SHELF_TWO = "Food";
+const String SHELF_THREE = "Travel";

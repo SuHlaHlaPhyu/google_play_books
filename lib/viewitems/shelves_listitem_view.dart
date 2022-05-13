@@ -76,6 +76,7 @@ class ShelvesListitemView extends StatelessWidget {
                       Icons.check_box_outline_blank,
                       color: Colors.black54,
                       size: 18,
+                      key: ValueKey("check"),
                     ),
                   ),
                 )

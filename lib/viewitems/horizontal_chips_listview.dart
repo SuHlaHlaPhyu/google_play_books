@@ -47,6 +47,7 @@ class HorizontalChipsListview extends StatelessWidget {
                               Icons.cancel_outlined,
                               size: 30,
                               color: Colors.black38,
+                              key: ValueKey("cancel"),
                             ),
                           ),
                         );
@@ -85,15 +86,23 @@ class HorizontalChipsListview extends StatelessWidget {
                                     horizontal: 12.0,
                                     vertical: 10.0,
                                   ),
-                                  label: Text(
-                                    category ?? "",
-                                    style: TextStyle(
-                                        color: selectList?[chipsList
-                                                    .indexOf(category)] ==
-                                                true
-                                            ? Colors.white
-                                            : Colors.black),
-                                  ),
+                                  label: GestureDetector(
+                                    onTap: (){
+                                      HorizontalChipBloc bloc =
+                                      Provider.of(context, listen: false);
+                                      onTapEbook(category);
+                                      bloc.isSelect(chipsList,chipsList.indexOf(category));
+                                    },
+                                    child: Text(
+                                      category ?? "",
+                                      style: TextStyle(
+                                          color: selectList?[chipsList
+                                              .indexOf(category)] ==
+                                              true
+                                              ? Colors.white
+                                              : Colors.black),
+                                    ),
+                                  )
                                 ),
                               ),
                             ),

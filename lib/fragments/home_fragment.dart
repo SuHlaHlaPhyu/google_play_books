@@ -54,6 +54,7 @@ class _HomeFragmentState extends State<HomeFragment>
                         height: 20.0,
                       ),
                       Padding(
+                        key:const ValueKey("Carousel"),
                         padding: const EdgeInsets.only(
                           left: 50.0,
                         ),

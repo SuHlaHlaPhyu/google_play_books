@@ -42,6 +42,7 @@ class TabBarSectionView extends StatelessWidget {
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
               ),
+              key: const ValueKey("shelves"),
             ),
           ),
         ],

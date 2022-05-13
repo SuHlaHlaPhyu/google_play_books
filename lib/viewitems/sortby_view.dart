@@ -16,7 +16,7 @@ class SortByView extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 10.0,
             ),
-            child: Icon(Icons.sort),
+            child: Icon(Icons.sort,key: ValueKey("sort"),),
           ),
         ),
         const SizedBox(

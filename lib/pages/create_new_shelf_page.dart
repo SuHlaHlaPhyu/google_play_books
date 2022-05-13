@@ -27,25 +27,32 @@ class _CreateNewShelfState extends State<CreateNewShelf> {
               automaticallyImplyLeading: false,
               leading: GestureDetector(
                 onTap: () {
-                  if(userInput.text.isNotEmpty){
+                  if (userInput.text.isNotEmpty) {
                     CreateShelfBloc bloc = Provider.of(context, listen: false);
-                    bloc.createShelf(ShelfVO(userInput.text.toString(), [], false, DateTime.now().millisecond));
+                    bloc.createShelf(
+                      ShelfVO(userInput.text.toString(), [], false,
+                          DateTime.now().millisecond),
+                    );
                     Navigator.pop(context);
                   }
                 },
                 child: const Icon(
                   Icons.check,
                   color: Colors.black,
+                  key: ValueKey("ok"),
                 ),
               ),
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
+                key: const ValueKey("input"),
                 controller: userInput,
                 focusNode: inputFocus,
                 autofocus: true,
-                decoration: const InputDecoration(hintText: "Shelf name",),
+                decoration: const InputDecoration(
+                  hintText: "Shelf name",
+                ),
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
               ),

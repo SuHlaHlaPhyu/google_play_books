@@ -26,6 +26,7 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
       child: Icon(
         Icons.more_horiz,
         color: widget.iconColor,
+        key: const ValueKey("menu"),
       ),
     );
   }
@@ -62,6 +63,7 @@ class _EbookMenuItemViewState extends State<EbookMenuItemView> {
                 },
               ),
               ListTile(
+                key: const ValueKey("add"),
                 contentPadding: const EdgeInsets.all(0.0),
                 minLeadingWidth: 5.0,
                 minVerticalPadding: 0.0,

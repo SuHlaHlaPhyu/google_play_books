@@ -29,4 +29,5 @@ class HomeBloc extends ChangeNotifier {
       //
     });
   }
+
 }

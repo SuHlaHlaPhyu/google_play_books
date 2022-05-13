@@ -25,15 +25,18 @@ class LayoutView extends StatelessWidget {
         child: is3x3GridView
             ? const Icon(
                 Icons.list,
+                key: ValueKey("list"),
               )
             : is2x2GridView
                 ? const Icon(
                     Icons.grid_on,
                     size: 16.0,
+                    key: ValueKey("two"),
                   )
                 : const Icon(
                     Icons.grid_view,
                     size: 16.0,
+                    key: ValueKey("three"),
                   ),
       ),
     );
