@@ -23,7 +23,6 @@ class _ShelvesPageState extends State<ShelvesPage> {
   TextEditingController userInput = TextEditingController();
   FocusNode inputFocus = FocusNode();
 
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -62,11 +61,13 @@ class _ShelvesPageState extends State<ShelvesPage> {
                         });
                       },
                       onTapDelete: () {
-                        ShelfDetailBloc bloc =
-                        Provider.of(context, listen: false);
-                        bloc.deleteShelf(shelfDetail?.id ?? 0);
                         Navigator.pop(context);
-                       // showAlert(context, shelfDetail?.id ?? 0);
+                        ShelfDetailBloc bloc =
+                            Provider.of(context, listen: false);
+                        Future.delayed(
+                          const Duration(seconds: 0),
+                          () => showDeleteConfirm(bloc, shelfDetail?.id),
+                        );
                       },
                     );
                   },
@@ -97,8 +98,9 @@ class _ShelvesPageState extends State<ShelvesPage> {
                                   GestureDetector(
                                     onTap: () {
                                       ShelfDetailBloc bloc =
-                                      Provider.of(context, listen: false);
-                                      bloc.renameShelf(shelfDetail?.id ?? 0, userInput.text.toString());
+                                          Provider.of(context, listen: false);
+                                      bloc.renameShelf(shelfDetail?.id ?? 0,
+                                          userInput.text.toString());
                                       Navigator.pop(context);
                                     },
                                     child: const Icon(
@@ -222,41 +224,43 @@ class _ShelvesPageState extends State<ShelvesPage> {
     );
   }
 
-  showAlert(BuildContext context,int? id){
-    showDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        title: const Text('Delete Shelf'),  // To display the title it is optional
-        content: const Text('Are you sure you want to delete'),   // Message which will be pop up on the screen
-        // Action widget which will provide the user to acknowledge the choice
-        actions: [
-          TextButton(           //
-            onPressed: () {},        // function used to perform after pressing the button
-            child:const Text('NO'),
-          ),
-          TextButton(
-            onPressed: () {
-              // ShelfDetailBloc bloc =
-              // Provider.of(context, listen: false);
-              // bloc.deleteShelf(id ?? 0);
-              Navigator.pop(context);
-            },
-            child:const Text('YES'),
-          ),
-        ],
-      );
-    });
-  }
-  //
-  void _navigateToShelvespage(
-    BuildContext context,
-  ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => YourShelvesTabbarView(
-
-        ),
-      ),
+  void showDeleteConfirm(ShelfDetailBloc bloc, int? id) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Alert"),
+          content: const Text("Are you sure to delete?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                "No",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: const Text(
+                "Yes",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                bloc.deleteShelf(id ?? 0);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
