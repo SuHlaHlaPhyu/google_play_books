@@ -14,10 +14,23 @@ class YourShelvesTabbarView extends StatefulWidget {
 }
 
 class _YourShelvesTabbarViewState extends State<YourShelvesTabbarView> {
+  ShelfBloc? shelfBloc;
+
+  @override
+  void initState() {
+    shelfBloc = ShelfBloc();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    shelfBloc?.clearDisposeNotify();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ShelfBloc(),
+      create: (context) => shelfBloc,
       child: Selector<ShelfBloc, List<ShelfVO>?>(
         shouldRebuild: (previous, next) => previous != next,
         selector: (BuildContext context, bloc) => bloc.shelfList,

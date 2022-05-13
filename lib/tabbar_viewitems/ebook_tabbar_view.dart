@@ -23,8 +23,10 @@ class _EbookTabbarViewState extends State<EbookTabbarView> {
     homeBloc = HomeBloc();
     super.initState();
   }
+
   @override
   void dispose() {
+    homeBloc?.clearDisposeNotify();
     super.dispose();
   }
   @override

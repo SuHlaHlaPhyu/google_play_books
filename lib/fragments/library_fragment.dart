@@ -40,24 +40,25 @@ class _LibraryFragmentState extends State<LibraryFragment>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TabBarSectionView(
-            tabController: _tabController,
-            tabBarOneName: "Your books",
-            tabBarTwoName: "Your shelves",
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                YourBookTabbarView(),
-                YourShelvesTabbarView(),
-              ],
-            ),
-          ),
-        ],
+      body: NestedScrollView(
+        headerSliverBuilder: (context, value) {
+          return [
+            SliverToBoxAdapter(
+              child: TabBarSectionView(
+                tabController: _tabController,
+                tabBarOneName: "Your books",
+                tabBarTwoName: "Your shelves",
+              ),
+            )
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children: const [
+            YourBookTabbarView(),
+            YourShelvesTabbarView(),
+          ],
+        ),
       ),
       floatingActionButton: GestureDetector(
         onTap: () {
@@ -85,12 +86,13 @@ class _LibraryFragmentState extends State<LibraryFragment>
     return _tabController?.index == 0
         ? const SizedBox()
         : Card(
-      elevation: 10.0,
-      clipBehavior: Clip.antiAlias,shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20.0),
-    ),
-          child: Container(
-            key: const ValueKey("create"),
+            elevation: 10.0,
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Container(
+              key: const ValueKey("create"),
               height: kToolbarHeight,
               decoration: const BoxDecoration(
                 color: Colors.blue,
@@ -121,6 +123,6 @@ class _LibraryFragmentState extends State<LibraryFragment>
                 ),
               ),
             ),
-        );
+          );
   }
 }

@@ -8,11 +8,11 @@ class ShelfBloc extends ChangeNotifier{
   List<ShelfVO>? shelfList;
 
   BookModel bookModel = BookModelImpl();
-
+  bool isDisposed = false;
   ShelfBloc(){
     bookModel.getAllShelfStream().listen((event) {
       shelfList = event;
-      notifyListeners();
+      checkNotifyListener();
     }).onError((error){
       //
     });
@@ -20,6 +20,18 @@ class ShelfBloc extends ChangeNotifier{
 
   void createShelf(ShelfVO name){
     bookModel.createShelf(name);
-    notifyListeners();
+    checkNotifyListener();
+  }
+
+  void checkNotifyListener() {
+    if (!isDisposed) {
+      notifyListeners();
+    }
+  }
+
+  void clearDisposeNotify() {
+    if (!isDisposed) {
+      isDisposed = true;
+    }
   }
 }

@@ -23,15 +23,18 @@ class _HomeFragmentState extends State<HomeFragment>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
   BookModel bookModel = BookModelImpl();
+  CarouselSliderBloc? carouselSliderBloc;
 
   @override
   void initState() {
+    carouselSliderBloc = CarouselSliderBloc();
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
+    carouselSliderBloc?.clearDisposeNotify();
     super.dispose();
     _tabController!.dispose();
   }
@@ -39,7 +42,7 @@ class _HomeFragmentState extends State<HomeFragment>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CarouselSliderBloc(),
+      create: (context) => carouselSliderBloc,
       child: NestedScrollView(
         headerSliverBuilder: (context, value) {
           return [

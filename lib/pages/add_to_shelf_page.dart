@@ -6,14 +6,32 @@ import '../blocs/add_to_shelf_bloc.dart';
 import '../data/vos/shelf_vo.dart';
 import '../viewitems/shelf_list_view.dart';
 
-class AddToShelfPage extends StatelessWidget {
+class AddToShelfPage extends StatefulWidget {
   BooksVO? book;
   AddToShelfPage({required this.book});
 
   @override
+  State<AddToShelfPage> createState() => _AddToShelfPageState();
+}
+
+class _AddToShelfPageState extends State<AddToShelfPage> {
+  AddToShelfBloc? addToShelfBloc;
+
+  @override
+  void initState() {
+    addToShelfBloc = AddToShelfBloc();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    addToShelfBloc?.clearDisposeNotify();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AddToShelfBloc(),
+      create: (context) => addToShelfBloc,
       child: Selector<AddToShelfBloc, List<ShelfVO>?>(
         shouldRebuild: (previous, next) => previous != next,
         selector: (BuildContext context, bloc) => bloc.shelfList,
@@ -45,7 +63,7 @@ class AddToShelfPage extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     AddToShelfBloc bloc = Provider.of(context, listen: false);
-                    bloc.addBookToShelf(book);
+                    bloc.addBookToShelf(widget.book);
                     bloc.shelfList?.map((e) => e.selected = false).toList();
                     Navigator.pop(context);
                   },

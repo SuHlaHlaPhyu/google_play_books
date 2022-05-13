@@ -9,6 +9,8 @@ class CarouselSliderBloc extends ChangeNotifier {
   bool isLoading = true;
   List<BooksVO>? viewBookList;
 
+  bool isDisposed = false;
+
   /// Model
   BookModel bookModel = BookModelImpl();
 
@@ -17,9 +19,21 @@ class CarouselSliderBloc extends ChangeNotifier {
       value.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
       viewBookList = value.reversed.toList();
       isLoading = false;
-      notifyListeners();
+      checkNotifyListener();
     }).onError((error){
       //
     });
+  }
+
+  void checkNotifyListener() {
+    if (!isDisposed) {
+      notifyListeners();
+    }
+  }
+
+  void clearDisposeNotify() {
+    if (!isDisposed) {
+      isDisposed = true;
+    }
   }
 }

@@ -11,6 +11,8 @@ class HomeBloc extends ChangeNotifier {
   bool isLoading = true;
   List<BooksVO>? viewBookList;
 
+  bool isDisposed = false;
+
   /// Model
   BookModel bookModel = BookModelImpl();
 
@@ -19,15 +21,27 @@ class HomeBloc extends ChangeNotifier {
     bookModel.getOverviewBooksFromDatabase().listen((booklist) {
       overviewBooksList = booklist;
       isLoading = false;
-      notifyListeners();
+      checkNotifyListener();
     }).onError((error) {});
 
     bookModel.getSaveBookList().then((value) {
       viewBookList = value;
-      notifyListeners();
+      checkNotifyListener();
     }).catchError((error) {
       //
     });
+  }
+
+  void checkNotifyListener() {
+    if (!isDisposed) {
+      notifyListeners();
+    }
+  }
+
+  void clearDisposeNotify() {
+    if (!isDisposed) {
+      isDisposed = true;
+    }
   }
 
 }
