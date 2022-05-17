@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_play_books/blocs/shelf_detail_bloc.dart';
 import 'package:google_play_books/data/vos/shelf_vo.dart';
-import 'package:google_play_books/pages/ebooks_detail_page.dart';
 import 'package:google_play_books/viewitems/custom_ebooks_listview.dart';
 import 'package:google_play_books/viewitems/shelf_menu_item_view.dart';
 import 'package:google_play_books/viewitems/shelve_title_section_view.dart';
 import 'package:provider/provider.dart';
-import '../tabbar_viewitems/your_shelves_tabbar_view.dart';
+import '../data/vos/books_vo.dart';
 import '../viewitems/sortby_layout_section_view.dart';
+import 'add_to_shelf_page.dart';
 
 class ShelvesPage extends StatefulWidget {
   final String shelfName;
@@ -23,10 +23,24 @@ class _ShelvesPageState extends State<ShelvesPage> {
   TextEditingController userInput = TextEditingController();
   FocusNode inputFocus = FocusNode();
 
+  ShelfDetailBloc? shelfDetailBloc;
+
+  @override
+  void initState() {
+    shelfDetailBloc = ShelfDetailBloc(widget.shelfName);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    shelfDetailBloc?.clearDisposeNotify();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ShelfDetailBloc(widget.shelfName),
+      create: (context) => shelfDetailBloc,
       child: Selector<ShelfDetailBloc, ShelfVO?>(
         selector: (BuildContext context, bloc) => bloc.shelf,
         builder: (BuildContext context, shelfDetail, Widget? chile) {
@@ -55,10 +69,12 @@ class _ShelvesPageState extends State<ShelvesPage> {
                         ShelfDetailBloc bloc =
                             Provider.of(context, listen: false);
                         bloc.editShelf();
-                        setState(() {
-                          userInput = TextEditingController(
-                              text: shelfDetail?.shelfName);
-                        });
+                        setState(
+                          () {
+                            userInput = TextEditingController(
+                                text: shelfDetail?.shelfName);
+                          },
+                        );
                       },
                       onTapDelete: () {
                         Navigator.pop(context);
@@ -106,9 +122,11 @@ class _ShelvesPageState extends State<ShelvesPage> {
                                     child: const Icon(
                                       Icons.check,
                                       color: Colors.blue,
+                                      key: ValueKey("renameDone"),
                                     ),
                                   ),
                                   TextField(
+                                    key: const ValueKey("renameInput"),
                                     controller: userInput,
                                     focusNode: inputFocus,
                                     autofocus: true,
@@ -144,7 +162,62 @@ class _ShelvesPageState extends State<ShelvesPage> {
                     thickness: 1.0,
                   ),
                   const SizedBox(
-                    height: 20.0,
+                    height: 15.0,
+                  ),
+                  Selector<ShelfDetailBloc, List<String?>?>(
+                    selector: (BuildContext context, bloc) => bloc.categoryList,
+                    builder:
+                        (BuildContext context, categoryList, Widget? child) {
+                      return SizedBox(
+                        height: 40,
+                        child: ListView.builder(
+                            padding: const EdgeInsets.only(
+                              left: 8,
+                            ),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 1,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                children: categoryList
+                                        ?.map(
+                                          (category) => GestureDetector(
+                                            onTap: () {},
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 5.0,
+                                              ),
+                                              child: Chip(
+                                                  shape: const StadiumBorder(
+                                                    side: BorderSide(
+                                                      color: Colors.black12,
+                                                    ),
+                                                  ),
+                                                  backgroundColor: Colors.white10,
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                    horizontal: 12.0,
+                                                    vertical: 10.0,
+                                                  ),
+                                                  label: GestureDetector(
+                                                    onTap: () {},
+                                                    child: Text(
+                                                      category ?? "",
+                                                      style: const TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        )
+                                        .toList() ??
+                                    [],
+                              );
+                            }),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15.0,
                   ),
                   Selector<ShelfDetailBloc, bool>(
                     selector: (BuildContext context, bloc) => bloc.islistView,
@@ -207,6 +280,10 @@ class _ShelvesPageState extends State<ShelvesPage> {
                                   onTapEbook: (index) {
                                     /// ebook details
                                   },
+                                  onTapMenu: (index) {
+                                    showModalBottomSheetMenuView(context,
+                                        shelfDetail?.books?[index ?? 0]);
+                                  },
                                 ),
                               );
                             },
@@ -221,6 +298,88 @@ class _ShelvesPageState extends State<ShelvesPage> {
           );
         },
       ),
+    );
+  }
+
+  showModalBottomSheetMenuView(BuildContext context, BooksVO? book) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Divider(),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.remove),
+                title: const Text('Remove download'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.delete),
+                title: const Text('Delete from library'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                key: const ValueKey("add"),
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.add),
+                title: const Text('Add to shelf'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddToShelfPage(
+                        book: book,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.bookmark),
+                title: const Text('About this ebook'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Container(
+                height: 35,
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: const Center(
+                  child: Text(
+                    "Buy \$4.9",
+                    style: TextStyle(fontSize: 14.0, color: Colors.white),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 50.0,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -245,6 +404,7 @@ class _ShelvesPageState extends State<ShelvesPage> {
               onPressed: () => Navigator.pop(context),
             ),
             TextButton(
+              key: const ValueKey("yes"),
               child: const Text(
                 "Yes",
                 style: TextStyle(

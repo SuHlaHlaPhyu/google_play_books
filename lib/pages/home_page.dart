@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ScrollController homeController = ScrollController();
   List<BottomNavigationBarItem> buildBottomNavigationBarItems() {
     return const [
       BottomNavigationBarItem(
@@ -29,10 +30,40 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  List<Widget> widgetOptions = [
-    const HomeFragment(),
-    const LibraryFragment(),
-  ];
+  Widget _buildOffstage(int index, Widget page) {
+    return Offstage(
+      offstage: index != _selectedIndex,
+      child: TickerMode(
+        enabled: index == _selectedIndex,
+        child: page,
+      ),
+    );
+  }
+
+  List<Widget> widgetOptions(){
+    return [
+      HomeFragment(homeController : homeController),
+      const LibraryFragment(),
+    ];
+  }
+
+  void _selectedTab(int index) {
+    if (_selectedIndex == index) {
+      if (index == 0) {
+        if (homeController.hasClients) {
+          homeController.animateTo(
+            0.0,
+            curve: Curves.easeOut,
+            duration: const Duration(seconds: 2),
+          );
+        }
+      }
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +80,7 @@ class _HomePageState extends State<HomePage> {
               _navigateToSearchpage(context);
             },
             child: Container(
+              key: const ValueKey("search"),
               height: 50,
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(245, 245, 245, 1),
@@ -89,7 +121,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: widgetOptions.elementAt(_selectedIndex),
+      body: widgetOptions()[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue,
         selectedFontSize: 12,
@@ -98,9 +130,7 @@ class _HomePageState extends State<HomePage> {
         showUnselectedLabels: true,
         currentIndex: _selectedIndex,
         onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          _selectedTab(index);
         },
         items: buildBottomNavigationBarItems(),
       ),

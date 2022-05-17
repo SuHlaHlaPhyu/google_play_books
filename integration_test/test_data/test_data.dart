@@ -7,3 +7,6 @@ const String CHIP_TWO = "Audio Fiction";
 const String SHELF_ONE = "Programming";
 const String SHELF_TWO = "Food";
 const String SHELF_THREE = "Travel";
+const String SEARCH_KEYWORD = "flutter";
+const String SEARCH_RESULT = "Beginning Flutter";
+const String SEARCH_RESULT_AUTHOR = "Marco L.Napoli";

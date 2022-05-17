@@ -19,6 +19,16 @@ class SearchModelImpl extends SearchModel {
 
 
   BookDao bookDao = BookDaoImpl();
+
+
+  /// for test
+  void setDaosAndDataAgents(
+      BookDao bookDaoTest,
+      GoogleDataAgent googleDataAgentTest,
+      ) {
+    bookDao = bookDaoTest;
+    dataAgent = googleDataAgentTest;
+  }
   @override
   Future<List<BooksVO>> searchBook(String text) {
     return dataAgent.searchBook(text).then((value) {

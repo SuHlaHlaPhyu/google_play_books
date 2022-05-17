@@ -18,16 +18,24 @@ class ShelfDetailBloc extends ChangeNotifier{
   bool? islistLayout;
 
   bool isEdit = false;
+  bool isDisposed = false;
 
   List<BooksVO>? bookList;
+  List<String?>? categoryList;
+
 
   BookModel bookModel = BookModelImpl();
 
-  ShelfDetailBloc(String name){
+  ShelfDetailBloc(String name,[BookModel? bookModelTest]){
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getBookByShelfStream(name).listen((event) {
       shelf = event;
       bookList = event.books;
-      notifyListeners();
+      categoryList = event.books?.map((e) => e.category).toList();
+      print("=======================> $categoryList");
+      checkNotifyListener();
     }).onError((error){
       //
     });
@@ -35,17 +43,17 @@ class ShelfDetailBloc extends ChangeNotifier{
 
   void editShelf(){
     isEdit = true;
-    notifyListeners();
+    checkNotifyListener();
   }
 
   void renameShelf(int shelfId, String newName){
     bookModel.renameShelf(shelfId, newName);
-    notifyListeners();
+    checkNotifyListener();
   }
 
   void deleteShelf(int shelfId){
     bookModel.deleteShelf(shelfId);
-    notifyListeners();
+    checkNotifyListener();
   }
 
   void checkLayout() {
@@ -53,34 +61,46 @@ class ShelfDetailBloc extends ChangeNotifier{
       islistView = false;
       is2x2GridView = true;
       is3x3GridView = false;
-      notifyListeners();
+      checkNotifyListener();
     } else if (is3x3GridView) {
       is3x3GridView = false;
       islistView = true;
       is2x2GridView = false;
-      notifyListeners();
+      checkNotifyListener();
     } else {
       is2x2GridView = false;
       is3x3GridView = true;
       islistView = false;
-      notifyListeners();
+      checkNotifyListener();
     }
     islistLayout = islistView;
     is2x2GridLayout = is2x2GridView;
     is3x3GridLayout = is3x3GridView;
-    notifyListeners();
+    checkNotifyListener();
   }
 
   void sortBy(int index) {
     if (index == 1) {
       bookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
-      notifyListeners();
+      checkNotifyListener();
     } else if (index == 2) {
       bookList?.sort((a, b) => (a.title ?? "").compareTo(b.title ?? ""));
-      notifyListeners();
+      checkNotifyListener();
     } else if (index == 3) {
       bookList?.sort((a, b) => (a.author ?? "").compareTo(b.author ?? ""));
+      checkNotifyListener();
+    }
+  }
+
+  void checkNotifyListener() {
+    if (!isDisposed) {
       notifyListeners();
+    }
+  }
+
+  void clearDisposeNotify() {
+    if (!isDisposed) {
+      isDisposed = true;
     }
   }
 

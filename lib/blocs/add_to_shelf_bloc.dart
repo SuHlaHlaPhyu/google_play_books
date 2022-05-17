@@ -11,7 +11,10 @@ class AddToShelfBloc extends ChangeNotifier {
 
   BookModel bookModel = BookModelImpl();
 
-  AddToShelfBloc() {
+  AddToShelfBloc([BookModel? bookModelTest]) {
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getAllShelfStream().listen((event) {
       shelfList = event;
       checkNotifyListener();

@@ -9,7 +9,10 @@ class ShelfBloc extends ChangeNotifier{
 
   BookModel bookModel = BookModelImpl();
   bool isDisposed = false;
-  ShelfBloc(){
+  ShelfBloc([BookModel? bookModelTest]){
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getAllShelfStream().listen((event) {
       shelfList = event;
       checkNotifyListener();

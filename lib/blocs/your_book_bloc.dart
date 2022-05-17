@@ -24,7 +24,10 @@ class YourBookBloc extends ChangeNotifier {
   /// Model
   BookModel bookModel = BookModelImpl();
 
-  YourBookBloc() {
+  YourBookBloc([BookModel? bookModelTest]) {
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getSaveBookList().then((value) {
       viewBookList = value;
       viewBookList?.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));

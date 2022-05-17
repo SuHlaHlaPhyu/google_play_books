@@ -72,11 +72,11 @@ class ShelvesListitemView extends StatelessWidget {
                       Icons.check_box_outlined,
                       color: Colors.blue,
                       size: 18,
-                    ) :const Icon(
+                    ) : Icon(
                       Icons.check_box_outline_blank,
                       color: Colors.black54,
                       size: 18,
-                      key: ValueKey("check"),
+                      key: ValueKey(shelf?.shelfName ?? ""),
                     ),
                   ),
                 )
@@ -90,6 +90,7 @@ class ShelvesListitemView extends StatelessWidget {
                       Icons.arrow_forward_ios_sharp,
                       color: Colors.black54,
                       size: 18,
+                      key: ValueKey("viewAll"),
                     ),
                   ),
                 ),

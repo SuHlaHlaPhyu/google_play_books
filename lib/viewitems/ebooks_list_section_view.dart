@@ -9,12 +9,14 @@ class EbooksListSectionView extends StatelessWidget {
   final Function(int?) onTapEbook;
   final Function onTapViewAll;
   final bool noMargin;
+  final Function(int?) onTapMenu;
   EbooksListSectionView(
     this.title, {
     this.noMargin = false,
     required this.ebookList,
     required this.onTapEbook,
     required this.onTapViewAll,
+        required this.onTapMenu,
   });
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,9 @@ class EbooksListSectionView extends StatelessWidget {
           height: 12,
         ),
         HorizontalEbookListView(
+          onTapMenu: (index){
+           onTapMenu(index);
+          },
           ebooksList: ebookList,
           onTapEbook: (movieId) => onTapEbook(movieId),
         ),

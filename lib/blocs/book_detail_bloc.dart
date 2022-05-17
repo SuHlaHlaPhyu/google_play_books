@@ -6,15 +6,17 @@ import '../data/vos/books_vo.dart';
 
 class BookDetailBloc extends ChangeNotifier {
   /// States
-   BooksVO? bookDetail;
+  BooksVO? bookDetail;
   bool isLoading = true;
   List<BooksVO>? similarBook ;
 
   /// Model
   BookModel bookModel = BookModelImpl();
 
-   BookDetailBloc(String title, String category) {
-    /// overview books
+   BookDetailBloc(String title, String category,[BookModel? bookModelTest]) {
+     if(bookModelTest != null){
+       bookModel = bookModelTest;
+     }
     bookModel.getBookDetails(title).then((detail) {
       bookDetail = detail;
       isLoading = false;

@@ -6,8 +6,9 @@ class EbookListitemView extends StatelessWidget {
   final BooksVO? ebook;
   final Function onTapEbook;
   final bool isSearch;
+  final Function onTapMenu;
   EbookListitemView(
-      {required this.ebook, required this.onTapEbook, this.isSearch = false});
+      {required this.ebook, required this.onTapEbook, this.isSearch = false, required this.onTapMenu});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -85,6 +86,9 @@ class EbookListitemView extends StatelessWidget {
                       width: 35.0,
                     ),
                     EbookMenuItemView(
+                      onTapMenu: (){
+                        onTapMenu();
+                      },
                       book: ebook,
                       iconColor: Colors.black54,
                     ),

@@ -68,6 +68,7 @@ class _AddToShelfPageState extends State<AddToShelfPage> {
                     Navigator.pop(context);
                   },
                   child: const Padding(
+                    key: ValueKey("done"),
                     padding: EdgeInsets.only(right: 8.0),
                     child: Center(
                       child: Text(

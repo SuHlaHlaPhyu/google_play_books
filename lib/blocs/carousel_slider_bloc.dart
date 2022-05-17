@@ -14,7 +14,10 @@ class CarouselSliderBloc extends ChangeNotifier {
   /// Model
   BookModel bookModel = BookModelImpl();
 
-  CarouselSliderBloc() {
+  CarouselSliderBloc([BookModel? bookModelTest]) {
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getSaveBookListStream().listen((value) {
       value.sort((a, b) => (a.time ?? 0).compareTo(b.time ?? 0));
       viewBookList = value.reversed.toList();

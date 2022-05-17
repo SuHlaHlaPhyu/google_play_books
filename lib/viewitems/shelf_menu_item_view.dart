@@ -17,6 +17,7 @@ class _MenuItemViewState extends State<MenuItemView> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      key: const ValueKey("shelfMenu"),
       padding: const EdgeInsets.all(0.0),
       icon: Icon(
         Icons.more_vert,
@@ -26,6 +27,7 @@ class _MenuItemViewState extends State<MenuItemView> {
       itemBuilder: (BuildContext context) {
         return [
           PopupMenuItem(
+            key: const ValueKey("rename"),
             child: const Text("Rename Shelf"),
             value: 1,
             onTap: () {
@@ -34,6 +36,7 @@ class _MenuItemViewState extends State<MenuItemView> {
             },
           ),
           PopupMenuItem(
+            key: const ValueKey("delete"),
             child: const Text("Delete Shelf"),
             value: 2,
             onTap: () {

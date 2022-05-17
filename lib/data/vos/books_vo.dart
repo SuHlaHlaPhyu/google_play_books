@@ -166,6 +166,17 @@ class BooksVO {
     return 'BooksVO{ageGroup: $ageGroup, amazonProductUrl: $amazonProductUrl, articleChapterLink: $articleChapterLink, author: $author, bookImage: $bookImage, bookImageWidth: $bookImageWidth, bookImageHeight: $bookImageHeight, bookReviewLink: $bookReviewLink, contributor: $contributor, contributorDote: $contributorDote, createdDate: $createdDate, description: $description, firstChapterLink: $firstChapterLink, price: $price, primaryIsbn10: $primaryIsbn10, primaryIsbn13: $primaryIsbn13, bookUri: $bookUri, publisher: $publisher, rank: $rank, rankLastWeek: $rankLastWeek, sundayReviewLink: $sundayReviewLink, title: $title, updatedDate: $updatedDate, weeksOnList: $weeksOnList, buyLinks: $buyLinks, asterisk: $asterisk, dagger: $dagger, isbns: $isbns,time: $time, category: $category}';
   }
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BooksVO &&
+          runtimeType == other.runtimeType &&
+          title == other.title;
+
+  @override
+  int get hashCode => title.hashCode;
+
   factory BooksVO.fromJson(Map<String, dynamic> json) =>
       _$BooksVOFromJson(json);
 

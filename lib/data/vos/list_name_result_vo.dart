@@ -63,5 +63,17 @@ class ListNameResultVO {
   factory ListNameResultVO.fromJson(Map<String, dynamic> json) =>
       _$ListNameResultVOFromJson(json);
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ListNameResultVO &&
+          runtimeType == other.runtimeType &&
+          listName == other.listName &&
+          books == other.books;
+
+  @override
+  int get hashCode => listName.hashCode ^ books.hashCode;
+
   Map<String, dynamic> toJson() => _$ListNameResultVOToJson(this);
 }

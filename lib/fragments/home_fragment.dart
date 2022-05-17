@@ -9,11 +9,13 @@ import 'package:google_play_books/viewitems/ebook_menu_itemview.dart';
 import 'package:google_play_books/viewitems/tabbar_section_view.dart';
 import 'package:provider/provider.dart';
 
+import '../pages/add_to_shelf_page.dart';
 import '../tabbar_viewitems/audiobooks_tabbar_view.dart';
 import '../viewitems/icon_view.dart';
 
 class HomeFragment extends StatefulWidget {
-  const HomeFragment({Key? key}) : super(key: key);
+  final ScrollController homeController;
+  const HomeFragment({Key? key,required this.homeController}) : super(key: key);
 
   @override
   State<HomeFragment> createState() => _HomeFragmentState();
@@ -44,6 +46,7 @@ class _HomeFragmentState extends State<HomeFragment>
     return ChangeNotifierProvider(
       create: (context) => carouselSliderBloc,
       child: NestedScrollView(
+        controller: widget.homeController,
         headerSliverBuilder: (context, value) {
           return [
             Selector<CarouselSliderBloc, List<BooksVO>?>(
@@ -57,7 +60,7 @@ class _HomeFragmentState extends State<HomeFragment>
                         height: 20.0,
                       ),
                       Padding(
-                        key:const ValueKey("Carousel"),
+                        key: const ValueKey("Carousel"),
                         padding: const EdgeInsets.only(
                           left: 50.0,
                         ),
@@ -110,23 +113,109 @@ class CarouselSilderListSectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-       //   autoPlayCurve: Curves.fastOutSlowIn,
+          //   autoPlayCurve: Curves.fastOutSlowIn,
           enlargeCenterPage: true,
           enableInfiniteScroll: false,
           viewportFraction: 0.6,
-          initialPage: 0
-      ),
+          initialPage: 0),
       items: bookList
-          .map((e) => CarouselSectionView(
-                book: e,
-                onTapDownload: () {
-                  onTapDownload();
-                },
-                onTapListen: () {
-                  onTapListen();
-                },
-              ))
+          .map(
+            (e) => CarouselSectionView(
+              book: e,
+              onTapDownload: () {
+                onTapDownload();
+              },
+              onTapListen: () {
+                onTapListen();
+              },
+              onTapMenu: () {
+                showModalBottomSheetMenuView(context, e);
+              },
+            ),
+          )
           .toList(),
+    );
+  }
+
+  showModalBottomSheetMenuView(BuildContext context, BooksVO? book) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Divider(),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.remove),
+                title: const Text('Remove download'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.delete),
+                title: const Text('Delete from library'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                key: const ValueKey("add"),
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.add),
+                title: const Text('Add to shelf'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddToShelfPage(
+                        book: book,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0.0),
+                minLeadingWidth: 5.0,
+                minVerticalPadding: 0.0,
+                leading: const Icon(Icons.bookmark),
+                title: const Text('About this ebook'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Container(
+                height: 35,
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: const Center(
+                  child: Text(
+                    "Buy \$4.9",
+                    style: TextStyle(fontSize: 14.0, color: Colors.white),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 50.0,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -135,9 +224,11 @@ class CarouselSectionView extends StatelessWidget {
   final Function onTapDownload;
   final Function onTapListen;
   final BooksVO book;
+  final Function onTapMenu;
   CarouselSectionView(
       {required this.onTapListen,
       required this.onTapDownload,
+      required this.onTapMenu,
       required this.book});
   @override
   Widget build(BuildContext context) {
@@ -164,7 +255,12 @@ class CarouselSectionView extends StatelessWidget {
               const SizedBox(),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: EbookMenuItemView(book: book,),
+                child: EbookMenuItemView(
+                  onTapMenu: () {
+                    onTapMenu();
+                  },
+                  book: book,
+                ),
               ),
             ],
           ),

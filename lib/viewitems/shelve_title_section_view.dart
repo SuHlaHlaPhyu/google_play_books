@@ -13,6 +13,7 @@ class ShelveTitleSectionView extends StatelessWidget {
           width: 200,
           child: Text(
             title,
+            key: const ValueKey("shelfProgramming"),
             overflow: TextOverflow.ellipsis,
             softWrap: true,
             style: const TextStyle(

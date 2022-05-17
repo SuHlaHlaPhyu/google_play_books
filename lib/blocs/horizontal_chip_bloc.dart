@@ -9,8 +9,10 @@ class HorizontalChipBloc extends ChangeNotifier {
   int count = 0;
 
   BookModel bookModel = BookModelImpl();
-  HorizontalChipBloc() {
-    /// overview books
+  HorizontalChipBloc([BookModel? bookModelTest]) {
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getSaveBookList().then((value) {
       selectedChip = value.map((e) => false).toList();
       notifyListeners();

@@ -50,3 +50,5 @@ class MyApp extends StatelessWidget {
 /// cd MZV2
 /// fvm flutter upgrade
 /// fvm list
+///
+/// Auth0

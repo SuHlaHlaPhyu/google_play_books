@@ -7,14 +7,15 @@ import '../data/models/book_model.dart';
 class ViewAllEbooksBloc extends ChangeNotifier {
   /// States
   List<BooksVO>? booksList;
-  List<BooksVO>? similarBooks;
   bool isLoading = true;
 
   /// Model
   BookModel bookModel = BookModelImpl();
 
-  ViewAllEbooksBloc(String listName) {
-    /// overview books
+  ViewAllEbooksBloc(String listName,[BookModel? bookModelTest]) {
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getBooksByListName(listName).then((result) {
       booksList = result;
       isLoading = false;

@@ -16,8 +16,10 @@ class HomeBloc extends ChangeNotifier {
   /// Model
   BookModel bookModel = BookModelImpl();
 
-  HomeBloc() {
-    /// overview books
+  HomeBloc([BookModel? bookModelTest]) {
+    if(bookModelTest != null){
+      bookModel = bookModelTest;
+    }
     bookModel.getOverviewBooksFromDatabase().listen((booklist) {
       overviewBooksList = booklist;
       isLoading = false;

@@ -11,12 +11,14 @@ class CustomEbookListView extends StatelessWidget {
   final bool is3x3Grid;
   final bool is2x2Grid;
   final bool fromLibrary;
+  final Function(int?) onTapMenu;
   CustomEbookListView(
       {required this.ebooksList,
       required this.onTapEbook,
       this.is2x2Grid = false,
       this.is3x3Grid = false,
-      this.fromLibrary = false});
+      this.fromLibrary = false,
+      required this.onTapMenu});
   @override
   Widget build(BuildContext context) {
     return is3x3Grid
@@ -30,6 +32,9 @@ class CustomEbookListView extends StatelessWidget {
             itemCount: ebooksList?.length ?? 0,
             itemBuilder: (BuildContext ctx, index) {
               return EbookView(
+                onTapMenu: (){
+                  onTapMenu(index);
+                },
                 fromLibrary: fromLibrary,
                 ebook: ebooksList?[index],
                 onTapEbook: () {
@@ -50,6 +55,9 @@ class CustomEbookListView extends StatelessWidget {
                 itemCount: ebooksList?.length ?? 0,
                 itemBuilder: (BuildContext ctx, index) {
                   return EbookView(
+                    onTapMenu: (){
+                      onTapMenu(index);
+                    },
                     fromLibrary: fromLibrary,
                     ebook: ebooksList?[index],
                     onTapEbook: () {
@@ -68,6 +76,9 @@ class CustomEbookListView extends StatelessWidget {
                 itemCount: ebooksList?.length,
                 itemBuilder: (context, index) {
                   return EbookListitemView(
+                    onTapMenu: (){
+                      onTapMenu(index);
+                    },
                     ebook: ebooksList?[index],
                     onTapEbook: () {
                       onTapEbook(index);

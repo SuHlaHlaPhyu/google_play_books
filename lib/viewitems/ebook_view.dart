@@ -8,10 +8,12 @@ class EbookView extends StatelessWidget {
   final BooksVO? ebook;
   final Function onTapEbook;
   final bool fromLibrary;
+  final Function onTapMenu;
   EbookView({
     required this.ebook,
     required this.onTapEbook,
     this.fromLibrary = false,
+    required this.onTapMenu,
   });
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,19 @@ class EbookView extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            EbookMenuItemView(book: ebook,),
+                            // IconButton(
+                            //   onPressed: (){
+                            //     onTapMenu();
+                            //   },
+                            //   icon : Icon( Icons.more_horiz,key: ValueKey(ebook?.title)),
+                            //   color: Colors.white,
+                            // ),
+                            EbookMenuItemView(
+                              book: ebook,
+                              onTapMenu: () {
+                                onTapMenu();
+                              },
+                            ),
                           ],
                         ),
                         const Spacer(),
@@ -88,7 +102,12 @@ class EbookView extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: EbookMenuItemView(book: ebook,),
+                      child: EbookMenuItemView(
+                        book: ebook,
+                        onTapMenu: () {
+                          onTapMenu();
+                        },
+                      ),
                     ),
                   ),
           ),
@@ -108,7 +127,7 @@ class EbookView extends StatelessWidget {
                 SizedBox(
                   width: 160,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       onTapEbook();
                     },
                     child: Text(
@@ -123,12 +142,18 @@ class EbookView extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 160,
-                  child: Text(
-                    ebook?.author ?? "",
-                    style: const TextStyle(
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w300,
+                  child: GestureDetector(
+                    onTap: () {
+                      onTapMenu();
+                    },
+                    child: Text(
+                      ebook?.author ?? "",
+                      style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      key: ValueKey(ebook?.title ?? ""),
                     ),
                   ),
                 ),

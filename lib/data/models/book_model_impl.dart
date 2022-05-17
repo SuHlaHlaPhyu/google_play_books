@@ -30,6 +30,21 @@ class BookModelImpl extends BookModel {
   BookListDao bookListDao = BookListDaoImpl();
   ShelfDao shelfDao = ShelfDaoImpl();
 
+  /// for test
+  void setDaosAndDataAgents(
+      BookDao bookDaoTest,
+      SaveBookDao saveBookDaoTest,
+  BookListDao bookListDaoTest,
+      ShelfDao shelfDaoTest,
+      PlayBooksDataAgent playBooksDataAgentTest,
+      ) {
+    bookDao = bookDaoTest;
+    saveBookDao = saveBookDaoTest;
+    bookListDao = bookListDaoTest;
+    shelfDao = shelfDaoTest;
+    dataAgent = playBooksDataAgentTest;
+  }
+
   @override
   void getOverviewBooks() {
     dataAgent.getOverviewPlayBooks().then((value) async {

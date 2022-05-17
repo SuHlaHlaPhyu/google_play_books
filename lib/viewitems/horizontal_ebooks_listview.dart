@@ -7,9 +7,11 @@ import 'ebook_view.dart';
 class HorizontalEbookListView extends StatelessWidget {
   final List<BooksVO>? ebooksList;
   final Function(int?) onTapEbook;
+  final Function(int?) onTapMenu;
   HorizontalEbookListView({
     required this.ebooksList,
     required this.onTapEbook,
+    required this.onTapMenu,
   });
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,9 @@ class HorizontalEbookListView extends StatelessWidget {
           itemCount: ebooksList?.length,
           itemBuilder: (context, index) {
             return EbookView(
+              onTapMenu: (){
+                onTapMenu(index);
+              },
               ebook: ebooksList?[index],
               onTapEbook: () {
                 onTapEbook(index);

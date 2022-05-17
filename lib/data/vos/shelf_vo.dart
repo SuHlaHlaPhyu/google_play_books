@@ -26,4 +26,14 @@ class ShelfVO {
   String toString() {
     return 'ShelfVO{shelfName: $shelfName, books: $books, selected: $selected, id: $id}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ShelfVO &&
+          runtimeType == other.runtimeType &&
+          shelfName == other.shelfName;
+
+  @override
+  int get hashCode => shelfName.hashCode;
 }
